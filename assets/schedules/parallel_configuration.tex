@@ -1,0 +1,21 @@
+\begin{RTGrid}[
+    width=10cm,
+    nosymbols=1,
+]{4}{26}
+    \RowLabel{1}{Configure $Z_1$}
+    \RowLabel{2}{Configure $Z_2$}
+    \RowLabel{3}{Process $Z_1$}
+    \RowLabel{4}{Process $Z_2$}
+
+    \TaskExecution[execlabel=$p_1$,color=lightgray]{1}{0}{4}
+    \TaskExecution[execlabel=$p_3$,color=lightgray]{1}{6}{10}
+
+    \TaskExecution[execlabel=$p_2$,color=lightgray]{2}{0}{4}
+    \TaskExecution[execlabel=$p_4$,color=lightgray]{2}{8}{12}
+
+    \TaskExecution[execlabel=$p_1$,color=lightgray]{3}{4}{6}
+    \TaskExecution[execlabel=$p_3$,color=lightgray]{3}{10}{12}
+
+    \TaskExecution[execlabel=$p_2$,color=lightgray]{4}{6}{8}
+    \TaskExecution[execlabel=$p_4$,color=lightgray]{4}{12}{14}
+\end{RTGrid}

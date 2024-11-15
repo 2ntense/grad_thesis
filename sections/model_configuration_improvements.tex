@@ -1,0 +1,24 @@
+The process of configuring a model on the GrAICore is the reading of the required data from the external memory, transferring it to the GrAICore's neuron cores and writing the data to the SRAMs.
+
+The data for a compiled model that has to be written to the GrAICore consists of the following components:
+\begin{description}
+    \item[Weights] 
+    The numerical values assigned to the connections between neurons in the neural network
+    \item[Masks] 
+    A mask is a single bit that is associated to one weight.
+    Masks are necessary to identify whether a weight is pruned or not.
+    Weights that are pruned (i.e., has an exact value of $0$) are not written to the GrAICore at all, saving memory and energy (since it isn't written to or read from the SRAM when processing)
+    \item[States] 
+    Acts as a buffer space for the accumulation of activation (output) data of layers, which also initially includes the bias values.
+    \item[Headers] 
+    Contains information about the operation types of the layers, various information about the parameters, and more.
+    \todo[inline]{Any more I can add here?}
+    \item[Axons] 
+    Axons contain information about the destinations for the new event(s) injected into the network
+    \item[Queues] 
+    Acts as an input buffer for storing incoming events from other neuron cores 
+\end{description}
+
+From \ref{}, we observed that, in the configuration process, reading from the external DDR memory consumes most of the energy.
+In this chapter, we look at a few potential means to improve the configuration energy.
+

@@ -1,0 +1,18 @@
+\pgfplotstableread[col sep=semicolon]{assets/resnet101_stats.csv}\datatable
+\begin{tikzpicture}
+    \begin{axis}[
+        width=\textwidth,    % set width
+        height=0.3\textwidth, % and height
+        ybar,
+        enlarge x limits={rel=0.05},
+        bar width=8pt,   % they were too wide
+        xlabel={Residual block},
+        ylabel={\# Parameters},
+        xlabel style={yshift=-1em},
+        xtick=data,
+        xticklabel style={rotate=45, font=\scriptsize, anchor=east},
+        xticklabels from table={\datatable}{index},
+    ]
+    \addplot table[x expr=\coordindex, y={params}]{\datatable};
+    \end{axis}
+\end{tikzpicture}

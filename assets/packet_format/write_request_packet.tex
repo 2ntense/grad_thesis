@@ -1,0 +1,24 @@
+\begin{bytefield}[
+    boxformatting={\centering\ttfamily},
+    bitformatting={\ttfamily\small},
+    endianness=big,
+    bitwidth=2em
+]{16}
+\bitheader{0, 2, 6, 10, 12, 15} \\
+
+\begin{rightwordgroup}{Header}
+    \bitbox{4}[bgcolor=lightcyan]{Address[3:0]} &
+    \bitbox{2}[bgcolor=lightgray]{Unused} &
+    \bitbox{4}[bgcolor=lightred]{Dest. Y} &
+    \bitbox{4}[bgcolor=lightorange]{Dest. X} &
+    \bitbox{2}[bgcolor=lightgreen]{\scriptsize Packet type} \\
+
+    \bitbox{16}[bgcolor=lightcyan]{Address[19:4]}
+\end{rightwordgroup} \\
+
+\begin{rightwordgroup}{Payload}
+    \bitbox{16}[bgcolor=lightpurple]{Write data[15:0]} \\
+    \bitbox{16}[bgcolor=lightpurple]{Write data[31:16]}
+\end{rightwordgroup}
+
+\end{bytefield}

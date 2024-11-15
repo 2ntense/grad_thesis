@@ -1,0 +1,663 @@
+@inproceedings{abtsAchievingPredictablePerformance2009a,
+  title = {Achieving Predictable Performance through Better Memory Controller Placement in Many-Core {{CMPs}}},
+  booktitle = {Proceedings of the 36th Annual International Symposium on {{Computer}} Architecture},
+  author = {Abts, Dennis and Enright Jerger, Natalie D. and Kim, John and Gibson, Dan and Lipasti, Mikko H.},
+  date = {2009-06-20},
+  pages = {451--461},
+  publisher = {ACM},
+  location = {Austin TX USA},
+  doi = {10.1145/1555754.1555810},
+  url = {https://dl.acm.org/doi/10.1145/1555754.1555810},
+  eventtitle = {{{ISCA}} '09: {{The}} 36th {{Annual International Symposium}} on {{Computer Architecture}}}
+}
+
+@article{bakhodaDesigningOnchipNetworks2013,
+  title = {Designing On-Chip Networks for Throughput Accelerators},
+  author = {Bakhoda, Ali and Kim, John and Aamodt, Tor M.},
+  date = {2013-09-16},
+  journaltitle = {ACM Transactions on Architecture and Code Optimization},
+  shortjournal = {ACM Trans. Archit. Code Optim.},
+  volume = {10},
+  number = {3},
+  pages = {1--35},
+  issn = {1544-3566, 1544-3973},
+  doi = {10.1145/2512429},
+  url = {https://dl.acm.org/doi/10.1145/2512429},
+  abstract = {As the number of cores and threads in throughput accelerators such as Graphics Processing Units (GPU) increases, so does the importance of on-chip interconnection network design. This article explores throughput-effective Network-on-Chips (NoC) for future compute accelerators that employ Bulk-Synchronous Parallel (BSP) programming models such as CUDA and OpenCL. A hardware optimization is “throughput effective” if it improves parallel application-level performance per unit chip area. We evaluate performance of future looking workloads using detailed closed-loop simulations modeling compute nodes, NoC, and the DRAM memory system. We start from a mesh design with bisection bandwidth balanced to off-chip demand. Accelerator workloads tend to demand high off-chip memory bandwidth which results in a many-to-few traffic pattern when coupled with expected technology constraints of slow growth in pins-per-chip. Leveraging these observations we reduce NoC area by proposing a “checkerboard” NoC which alternates between conventional               full               routers and               half               routers with limited connectivity. Next, we show that increasing network terminal bandwidth at the nodes connected to DRAM controllers alleviates a significant fraction of the remaining imbalance resulting from the many-to-few traffic pattern. Furthermore, we propose a “double checkerboard inverted” NoC organization which takes advantage of channel slicing to reduce area while maintaining the performance improvements of the aforementioned techniques. This organization also has a simpler routing mechanism and improves average application throughput per unit area by 24.3\%.}
+}
+
+@article{barchiFlexibleOnLineReconfiguration2021,
+  title = {Flexible {{On-Line Reconfiguration}} of {{Multi-Core Neuromorphic Platforms}}},
+  author = {Barchi, Francesco and Urgese, Gianvito and Siino, Alessandro and Cataldo, Santa Di and Macii, Enrico and Acquaviva, Andrea},
+  date = {2021-04-01},
+  journaltitle = {IEEE Transactions on Emerging Topics in Computing},
+  shortjournal = {IEEE Trans. Emerg. Topics Comput.},
+  volume = {9},
+  number = {2},
+  pages = {915--927},
+  issn = {2168-6750, 2376-4562},
+  doi = {10.1109/TETC.2019.2908079},
+  url = {https://ieeexplore.ieee.org/document/8676216/}
+}
+
+@article{benSurveyNetworkOnChipTools2013,
+  title = {A {{Survey}} of {{Network-On-Chip Tools}}},
+  author = {Ben, Ahmed and Ben, Slim},
+  date = {2013},
+  journaltitle = {International Journal of Advanced Computer Science and Applications},
+  shortjournal = {IJACSA},
+  volume = {4},
+  number = {9},
+  issn = {2158107X, 21565570},
+  doi = {10.14569/IJACSA.2013.040910},
+  url = {http://thesai.org/Publications/ViewPaper?Volume=4&Issue=9&Code=IJACSA&SerialNo=10}
+}
+
+@article{chenIncreasingOffchipBandwidth2014,
+  title = {Increasing Off-Chip Bandwidth in Multi-Core Processors with Switchable Pins},
+  author = {Chen, Shaoming and Hu, Yue and Zhang, Ying and Peng, Lu and Ardonne, Jesse and Irving, Samuel and Srivastava, Ashok},
+  date = {2014-10-16},
+  journaltitle = {ACM SIGARCH Computer Architecture News},
+  shortjournal = {SIGARCH Comput. Archit. News},
+  volume = {42},
+  number = {3},
+  pages = {385--396},
+  issn = {0163-5964},
+  doi = {10.1145/2678373.2665730},
+  url = {https://dl.acm.org/doi/10.1145/2678373.2665730},
+  abstract = {Off-chip memory bandwidth has been considered as one of the major limiting factors to processor performance, especially for multi-cores and many-cores. Conventional processor design allocates a large portion of off-chip pins to deliver power, leaving a small number of pins for processor signal communication. We observed that the processor requires much less power than that can be supplied during memory intensive stages. This is due to the fact that the frequencies of processor cores waiting for data to be fetched from off-chip memories can be scaled down in order to save power without degrading performance. In this work, motivated by this observation, we propose a dynamic pin switch technique to alleviate the bandwidth limitation issue. The technique is introduced to dynamically exploit the surplus pins for power delivery in the memory intensive phases and uses them to provide extra bandwidth for the program executions, thus significantly boosting the performance}
+}
+
+@inproceedings{chenPhysicalVsVirtual2010,
+  title = {Physical vs. {{Virtual Express Topologies}} with {{Low-Swing Links}} for {{Future Many-Core NoCs}}},
+  booktitle = {2010 {{Fourth ACM}}/{{IEEE International Symposium}} on {{Networks-on-Chip}}},
+  author = {Chen, Chia-Hsin Owen and Agarwal, Niket and Krishna, Tushar and Koo, Kyung-Hoae and Peh, Li-Shiuan and Saraswat, Krishna C.},
+  date = {2010},
+  pages = {173--180},
+  publisher = {IEEE},
+  location = {Grenoble, France},
+  doi = {10.1109/NOCS.2010.26},
+  url = {http://ieeexplore.ieee.org/document/5507548/},
+  eventtitle = {2010 {{Fourth ACM}}/{{IEEE International Symposium}} on {{Networks-on-Chip}}}
+}
+
+@inproceedings{droliaPrecogPrefetchingImage2017,
+  title = {Precog: Prefetching for Image Recognition Applications at the Edge},
+  shorttitle = {Precog},
+  booktitle = {Proceedings of the {{Second ACM}}/{{IEEE Symposium}} on {{Edge Computing}}},
+  author = {Drolia, Utsav and Guo, Katherine and Narasimhan, Priya},
+  date = {2017-10-12},
+  pages = {1--13},
+  publisher = {ACM},
+  location = {San Jose California},
+  doi = {10.1145/3132211.3134456},
+  url = {https://dl.acm.org/doi/10.1145/3132211.3134456},
+  eventtitle = {{{SEC}} '17: {{IEEE}}/{{ACM Symposium}} on {{Edge Computing}}}
+}
+
+@inproceedings{dulloorSystemSoftwarePersistent2014,
+  title = {System Software for Persistent Memory},
+  booktitle = {Proceedings of the {{Ninth European Conference}} on {{Computer Systems}}},
+  author = {Dulloor, Subramanya R. and Kumar, Sanjay and Keshavamurthy, Anil and Lantz, Philip and Reddy, Dheeraj and Sankaran, Rajesh and Jackson, Jeff},
+  date = {2014-04-14},
+  pages = {1--15},
+  publisher = {ACM},
+  location = {Amsterdam The Netherlands},
+  doi = {10.1145/2592798.2592814},
+  url = {https://dl.acm.org/doi/10.1145/2592798.2592814},
+  eventtitle = {{{EuroSys}} 2014: {{Ninth Eurosys Conference}} 2014}
+}
+
+@online{EpochDatabaseVisualization,
+  title = {Epoch {{Database Visualization}}},
+  url = {https://epochai.org/data/epochdb/visualization},
+  abstract = {Explore Epoch’s database of notable machine learning systems and dive into our interactive visualization to inform your research, work and education. Learn about the training compute, parameters, and training dataset sizes of frontier AI systems.},
+  organization = {Epoch}
+}
+
+@article{furberSpiNNakerProject2014,
+  title = {The {{SpiNNaker Project}}},
+  author = {Furber, Steve B. and Galluppi, Francesco and Temple, Steve and Plana, Luis A.},
+  date = {2014-05},
+  journaltitle = {Proceedings of the IEEE},
+  shortjournal = {Proc. IEEE},
+  volume = {102},
+  number = {5},
+  pages = {652--665},
+  issn = {0018-9219, 1558-2256},
+  doi = {10.1109/JPROC.2014.2304638},
+  url = {https://ieeexplore.ieee.org/document/6750072/}
+}
+
+@book{furberSpiNNakerSpikingNeural2020,
+  title = {{{SpiNNaker}}: {{A Spiking Neural Network Architecture}}},
+  shorttitle = {{{SpiNNaker}}},
+  editor = {Furber, Steve and Bogdan, Petrut},
+  date = {2020},
+  publisher = {Now Publishers},
+  doi = {10.1561/9781680836523},
+  url = {https://nowpublishers.com/article/BookDetails/9781680836523}
+}
+
+@article{furhadExtendedDiagonalMesh2015,
+  title = {An {{Extended Diagonal Mesh Topology}} for {{Network-on-Chip Architectures}}},
+  author = {Furhad, Md. Hasan and Kim, Jong-Myon},
+  date = {2015-10-31},
+  journaltitle = {International Journal of Multimedia and Ubiquitous Engineering},
+  shortjournal = {IJMUE},
+  volume = {10},
+  number = {10},
+  pages = {197--210},
+  issn = {19750080},
+  doi = {10.14257/ijmue.2015.10.10.21},
+  url = {http://gvpress.com/journals/IJMUE/vol10_no10/21.pdf}
+}
+
+@inproceedings{glassTurnModelAdaptive1992,
+  title = {The {{Turn Model}} for {{Adaptive Routing}}},
+  booktitle = {[1992] {{Proceedings}} the 19th {{Annual International Symposium}} on {{Computer Architecture}}},
+  author = {Glass, C.J. and Ni, L.M.},
+  date = {1992},
+  pages = {278--287},
+  publisher = {IEEE},
+  location = {Gold Coast, Australia},
+  doi = {10.1109/ISCA.1992.753324},
+  url = {http://ieeexplore.ieee.org/document/753324/},
+  eventtitle = {[1992] 19th {{Annual International Symposium}} on {{Computer Architecture}}}
+}
+
+@incollection{guReviewResearchNetworkonChip2011,
+  title = {A {{Review}} of {{Research}} on {{Network-on-Chip Simulator}}},
+  booktitle = {Communication {{Systems}} and {{Information Technology}}},
+  author = {Gu, Haiyun},
+  editor = {Ma, Ming},
+  date = {2011},
+  volume = {100},
+  pages = {103--110},
+  publisher = {Springer Berlin Heidelberg},
+  location = {Berlin, Heidelberg},
+  doi = {10.1007/978-3-642-21762-3_13},
+  url = {http://link.springer.com/10.1007/978-3-642-21762-3_13}
+}
+
+@article{heDeepResidualLearning2015,
+  title = {Deep {{Residual Learning}} for {{Image Recognition}}},
+  author = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  date = {2015},
+  journaltitle = {arXiv},
+  publisher = {[object Object]},
+  doi = {10.48550/ARXIV.1512.03385},
+  url = {https://arxiv.org/abs/1512.03385},
+  abstract = {Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers---8x deeper than VGG nets but still having lower complexity. An ensemble of these residual nets achieves 3.57\% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28\% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC \&amp; COCO 2015 competitions, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation.},
+  version = {1},
+  keywords = {Computer Vision and Pattern Recognition (cs.CV),FOS: Computer and information sciences}
+}
+
+@inproceedings{huangSwapAdvisorPushingDeep2020,
+  title = {{{SwapAdvisor}}: {{Pushing Deep Learning Beyond}} the {{GPU Memory Limit}} via {{Smart Swapping}}},
+  shorttitle = {{{SwapAdvisor}}},
+  booktitle = {Proceedings of the {{Twenty-Fifth International Conference}} on {{Architectural Support}} for {{Programming Languages}} and {{Operating Systems}}},
+  author = {Huang, Chien-Chin and Jin, Gu and Li, Jinyang},
+  date = {2020-03-09},
+  pages = {1341--1355},
+  publisher = {ACM},
+  location = {Lausanne Switzerland},
+  doi = {10.1145/3373376.3378530},
+  url = {https://dl.acm.org/doi/10.1145/3373376.3378530},
+  eventtitle = {{{ASPLOS}} '20: {{Architectural Support}} for {{Programming Languages}} and {{Operating Systems}}}
+}
+
+@article{indiveriMemoryInformationProcessing2015,
+  title = {Memory and {{Information Processing}} in {{Neuromorphic Systems}}},
+  author = {Indiveri, Giacomo and Liu, Shih-Chii},
+  date = {2015-08},
+  journaltitle = {Proceedings of the IEEE},
+  shortjournal = {Proc. IEEE},
+  volume = {103},
+  number = {8},
+  pages = {1379--1397},
+  issn = {0018-9219, 1558-2256},
+  doi = {10.1109/JPROC.2015.2444094},
+  url = {http://ieeexplore.ieee.org/document/7159144/}
+}
+
+@inproceedings{jiDemandLayeringRealTime2022,
+  title = {Demand {{Layering}} for {{Real-Time DNN Inference}} with {{Minimized Memory Usage}}},
+  booktitle = {2022 {{IEEE Real-Time Systems Symposium}} ({{RTSS}})},
+  author = {Ji, Mingoo and Yi, Saehanseul and Koo, Changjin and Ahn, Sol and Seo, Dongjoo and Dutt, Nikil and Kim, Jong-Chan},
+  date = {2022-12},
+  pages = {291--304},
+  publisher = {IEEE},
+  location = {Houston, TX, USA},
+  doi = {10.1109/RTSS55097.2022.00033},
+  url = {https://ieeexplore.ieee.org/document/9984745/},
+  eventtitle = {2022 {{IEEE Real-Time Systems Symposium}} ({{RTSS}})}
+}
+
+@incollection{kaboubiHybridPartitioningEmbedded2023,
+  title = {Hybrid {{Partitioning}} for {{Embedded}} and {{Distributed CNNs Inference}} on {{Edge Devices}}},
+  booktitle = {Advanced {{Network Technologies}} and {{Intelligent Computing}}},
+  author = {Kaboubi, Nihel and Letondeur, Loïc and Coupaye, Thierry and Desprez, Fréderic and Trystram, Denis},
+  editor = {Woungang, Isaac and Dhurandher, Sanjay Kumar and Pattanaik, Kiran Kumar and Verma, Anshul and Verma, Pradeepika},
+  date = {2023},
+  volume = {1797},
+  pages = {164--187},
+  publisher = {Springer Nature Switzerland},
+  location = {Cham},
+  doi = {10.1007/978-3-031-28180-8_12},
+  url = {https://link.springer.com/10.1007/978-3-031-28180-8_12}
+}
+
+@inproceedings{kangLaLaRANDFlexibleLayerbyLayer2021,
+  title = {{{LaLaRAND}}: {{Flexible Layer-by-Layer CPU}}/{{GPU Scheduling}} for {{Real-Time DNN Tasks}}},
+  shorttitle = {{{LaLaRAND}}},
+  booktitle = {2021 {{IEEE Real-Time Systems Symposium}} ({{RTSS}})},
+  author = {Kang, Woosung and Lee, Kilho and Lee, Jinkyu and Shin, Insik and Chwa, Hoon Sung},
+  date = {2021-12},
+  pages = {329--341},
+  publisher = {IEEE},
+  location = {Dortmund, DE},
+  doi = {10.1109/RTSS52674.2021.00038},
+  url = {https://ieeexplore.ieee.org/document/9622325/},
+  eventtitle = {2021 {{IEEE Real-Time Systems Symposium}} ({{RTSS}})}
+}
+
+@article{khanComparativeAnalysisNetwork2018,
+  title = {Comparative Analysis of Network‐on‐chip Simulation Tools},
+  author = {Khan, Sarzamin and Anjum, Sheraz and Gulzari, Usman Ali and Torres, Frank Sill},
+  date = {2018-01},
+  journaltitle = {IET Computers \& Digital Techniques},
+  shortjournal = {IET Computers \&amp; Digital Techniques},
+  volume = {12},
+  number = {1},
+  pages = {30--38},
+  issn = {1751-8601, 1751-861X},
+  doi = {10.1049/iet-cdt.2017.0068},
+  url = {https://onlinelibrary.wiley.com/doi/10.1049/iet-cdt.2017.0068}
+}
+
+@thesis{killebrewL2CacheOffchip2008,
+  title = {L2 {{Cache}} to {{Oﬀ-chip Memory Networks}} for {{Chip Multiprocessors}}},
+  author = {Killebrew, Carrell D},
+  date = {2008-05-23},
+  institution = {University of California at Berkeley},
+  url = {http://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-71.html}
+}
+
+@article{leEfficientNeuralNetworks2023,
+  title = {Efficient {{Neural Networks}} for {{Tiny Machine Learning}}: {{A Comprehensive Review}}},
+  shorttitle = {Efficient {{Neural Networks}} for {{Tiny Machine Learning}}},
+  author = {Lê, Minh Tri and Wolinski, Pierre and Arbel, Julyan},
+  date = {2023},
+  journaltitle = {arXiv},
+  publisher = {[object Object]},
+  doi = {10.48550/ARXIV.2311.11883},
+  url = {https://arxiv.org/abs/2311.11883},
+  abstract = {The field of Tiny Machine Learning (TinyML) has gained significant attention due to its potential to enable intelligent applications on resource-constrained devices. This review provides an in-depth analysis of the advancements in efficient neural networks and the deployment of deep learning models on ultra-low power microcontrollers (MCUs) for TinyML applications. It begins by introducing neural networks and discussing their architectures and resource requirements. It then explores MEMS-based applications on ultra-low power MCUs, highlighting their potential for enabling TinyML on resource-constrained devices. The core of the review centres on efficient neural networks for TinyML. It covers techniques such as model compression, quantization, and low-rank factorization, which optimize neural network architectures for minimal resource utilization on MCUs. The paper then delves into the deployment of deep learning models on ultra-low power MCUs, addressing challenges such as limited computational capabilities and memory resources. Techniques like model pruning, hardware acceleration, and algorithm-architecture co-design are discussed as strategies to enable efficient deployment. Lastly, the review provides an overview of current limitations in the field, including the trade-off between model complexity and resource constraints. Overall, this review paper presents a comprehensive analysis of efficient neural networks and deployment strategies for TinyML on ultra-low-power MCUs. It identifies future research directions for unlocking the full potential of TinyML applications on resource-constrained devices.},
+  version = {1},
+  keywords = {Computation (stat.CO),FOS: Computer and information sciences,Machine Learning (cs.LG),Machine Learning (stat.ML)}
+}
+
+@inproceedings{liuEdgeAssistedRealtime2019,
+  title = {Edge {{Assisted Real-time Object Detection}} for {{Mobile Augmented Reality}}},
+  booktitle = {The 25th {{Annual International Conference}} on {{Mobile Computing}} and {{Networking}}},
+  author = {Liu, Luyang and Li, Hongyu and Gruteser, Marco},
+  date = {2019-08-05},
+  pages = {1--16},
+  publisher = {ACM},
+  location = {Los Cabos Mexico},
+  doi = {10.1145/3300061.3300116},
+  url = {https://dl.acm.org/doi/10.1145/3300061.3300116},
+  eventtitle = {{{MobiCom}} '19: {{The}} 25th {{Annual International Conference}} on {{Mobile Computing}} and {{Networking}}}
+}
+
+@inproceedings{liuEdgeEyeEdgeService2018,
+  title = {{{EdgeEye}}: {{An Edge Service Framework}} for {{Real-time Intelligent Video Analytics}}},
+  shorttitle = {{{EdgeEye}}},
+  booktitle = {Proceedings of the 1st {{International Workshop}} on {{Edge Systems}}, {{Analytics}} and {{Networking}}},
+  author = {Liu, Peng and Qi, Bozhao and Banerjee, Suman},
+  date = {2018-06-10},
+  pages = {1--6},
+  publisher = {ACM},
+  location = {Munich Germany},
+  doi = {10.1145/3213344.3213345},
+  url = {https://dl.acm.org/doi/10.1145/3213344.3213345},
+  eventtitle = {{{MobiSys}} '18: {{The}} 16th {{Annual International Conference}} on {{Mobile Systems}}, {{Applications}}, and {{Services}}}
+}
+
+@inproceedings{manhokimNetworkonchipLinkAnalysis2006,
+  title = {Network-on-Chip Link Analysis under Power and Performance Constraints},
+  booktitle = {2006 {{IEEE International Symposium}} on {{Circuits}} and {{Systems}}},
+  author = {{Manho Kim} and {Daewook Kim} and Sobelman, G.E.},
+  date = {2006},
+  pages = {4},
+  publisher = {IEEE},
+  location = {Island of Kos, Greece},
+  doi = {10.1109/ISCAS.2006.1693546},
+  url = {http://ieeexplore.ieee.org/document/1693546/},
+  eventtitle = {2006 {{IEEE International Symposium}} on {{Circuits}} and {{Systems}}}
+}
+
+@article{meenaOverviewEmergingNonvolatile2014,
+  title = {Overview of Emerging Nonvolatile Memory Technologies},
+  author = {Meena, Jagan Singh and Sze, Simon Min and Chand, Umesh and Tseng, Tseung-Yuen},
+  date = {2014-12},
+  journaltitle = {Nanoscale Research Letters},
+  shortjournal = {Nanoscale Res Lett},
+  volume = {9},
+  number = {1},
+  pages = {526},
+  issn = {1556-276X},
+  doi = {10.1186/1556-276X-9-526},
+  url = {https://link.springer.com/10.1186/1556-276X-9-526},
+  abstract = {Abstract             Nonvolatile memory technologies in Si-based electronics date back to the 1990s. Ferroelectric field-effect transistor (FeFET) was one of the most promising devices replacing the conventional Flash memory facing physical scaling limitations at those times. A variant of charge storage memory referred to as Flash memory is widely used in consumer electronic products such as cell phones and music players while NAND Flash-based solid-state disks (SSDs) are increasingly displacing hard disk drives as the primary storage device in laptops, desktops, and even data centers. The integration limit of Flash memories is approaching, and many new types of memory to replace conventional Flash memories have been proposed. Emerging memory technologies promise new memories to store more data at less cost than the expensive-to-build silicon chips used by popular consumer gadgets including digital cameras, cell phones and portable music players. They are being investigated and lead to the future as potential alternatives to existing memories in future computing systems. Emerging nonvolatile memory technologies such as magnetic random-access memory (MRAM), spin-transfer torque random-access memory (STT-RAM), ferroelectric random-access memory (FeRAM), phase-change memory (PCM), and resistive random-access memory (RRAM) combine the speed of static random-access memory (SRAM), the density of dynamic random-access memory (DRAM), and the nonvolatility of Flash memory and so become very attractive as another possibility for future memory hierarchies. Many other new classes of emerging memory technologies such as transparent and plastic, three-dimensional (3-D), and quantum dot memory technologies have also gained tremendous popularity in recent years. Subsequently, not an exaggeration to say that computer memory could soon earn the ultimate commercial validation for commercial scale-up and production the cheap plastic knockoff. Therefore, this review is devoted to the rapidly developing new class of memory technologies and scaling of scientific procedures based on an investigation of recent progress in advanced Flash memory devices.}
+}
+
+@article{miaoEnablingLargeNeural2021,
+  title = {Enabling {{Large Neural Networks}} on {{Tiny Microcontrollers}} with {{Swapping}}},
+  author = {Miao, Hongyu and Lin, Felix Xiaozhu},
+  date = {2021},
+  journaltitle = {arXiv},
+  publisher = {[object Object]},
+  doi = {10.48550/ARXIV.2101.08744},
+  url = {https://arxiv.org/abs/2101.08744},
+  abstract = {Running neural networks (NNs) on microcontroller units (MCUs) is becoming increasingly important, but is very difficult due to the tiny SRAM size of MCU. Prior work proposes many algorithm-level techniques to reduce NN memory footprints, but all at the cost of sacrificing accuracy and generality, which disqualifies MCUs for many important use cases. We investigate a system solution for MCUs to execute NNs out of core: dynamically swapping NN data chunks between an MCU's tiny SRAM and its large, low-cost external flash. Out-of-core NNs on MCUs raise multiple concerns: execution slowdown, storage wear out, energy consumption, and data security. We present a study showing that none is a showstopper; the key benefit -- MCUs being able to run large NNs with full accuracy and generality -- triumphs the overheads. Our findings suggest that MCUs can play a much greater role in edge intelligence.},
+  version = {3},
+  keywords = {FOS: Computer and information sciences,Hardware Architecture (cs.AR),Operating Systems (cs.OS)}
+}
+
+@inproceedings{moreiraNeuronFlowNeuromorphicProcessor2020,
+  title = {{{NeuronFlow}}: A Neuromorphic Processor Architecture for {{Live AI}} Applications},
+  shorttitle = {{{NeuronFlow}}},
+  booktitle = {2020 {{Design}}, {{Automation}} \& {{Test}} in {{Europe Conference}} \& {{Exhibition}} ({{DATE}})},
+  author = {Moreira, Orlando and Yousefzadeh, Amirreza and Chersi, Fabian and Cinserin, Gokturk and Zwartenkot, Rik-Jan and Kapoor, Ajay and Qiao, Peng and Kievits, Peter and Khoei, Mina and Rouillard, Louis and Ferouge, Aimee and Tapson, Jonathan and Visweswara, Ashoka},
+  date = {2020-03},
+  pages = {840--845},
+  publisher = {IEEE},
+  location = {Grenoble, France},
+  doi = {10.23919/DATE48585.2020.9116352},
+  url = {https://ieeexplore.ieee.org/document/9116352/},
+  eventtitle = {2020 {{Design}}, {{Automation}} \& {{Test}} in {{Europe Conference}} \& {{Exhibition}} ({{DATE}})}
+}
+
+@online{neillOverviewNeuralNetwork2020,
+  title = {An {{Overview}} of {{Neural Network Compression}}},
+  author = {Neill, James O'},
+  date = {2020-08-01},
+  eprint = {2006.03669},
+  eprinttype = {arxiv},
+  eprintclass = {cs, stat},
+  url = {http://arxiv.org/abs/2006.03669},
+  abstract = {Overparameterized networks trained to convergence have shown impressive performance in domains such as computer vision and natural language processing. Pushing state of the art on salient tasks within these domains corresponds to these models becoming larger and more difficult for machine learning practitioners to use given the increasing memory and storage requirements, not to mention the larger carbon footprint. Thus, in recent years there has been a resurgence in model compression techniques, particularly for deep convolutional neural networks and self-attention based networks such as the Transformer. Hence, this paper provides a timely overview of both old and current compression techniques for deep neural networks, including pruning, quantization, tensor decomposition, knowledge distillation and combinations thereof. We assume a basic familiarity with deep learning architectures\textbackslash footnote\{For an introduction to deep learning, see \textasciitilde\textbackslash citet\{goodfellow2016deep\}\}, namely, Recurrent Neural Networks\textasciitilde\textbackslash citep[(RNNs)][]\{rumelhart1985learning,hochreiter1997long\}, Convolutional Neural Networks\textasciitilde\textbackslash citep\{fukushima1980neocognitron\}\textasciitilde\textbackslash footnote\{For an up to date overview see\textasciitilde\textbackslash citet\{khan2019survey\}\} and Self-Attention based networks\textasciitilde\textbackslash citep\{vaswani2017attention\}\textbackslash footnote\{For a general overview of self-attention networks, see \textasciitilde\textbackslash citet\{chaudhari2019attentive\}.\},\textbackslash footnote\{For more detail and their use in natural language processing, see\textasciitilde\textbackslash citet\{hu2019introductory\}\}. Most of the papers discussed are proposed in the context of at least one of these DNN architectures.},
+  pubstate = {preprint},
+  keywords = {Computer Science - Machine Learning,Statistics - Machine Learning}
+}
+
+@inproceedings{oExploringEnergyefficientDRAM2011,
+  title = {Exploring Energy-Efficient {{DRAM}} Array Organizations},
+  booktitle = {2011 {{IEEE}} 54th {{International Midwest Symposium}} on {{Circuits}} and {{Systems}} ({{MWSCAS}})},
+  author = {O, Seongil and Choo, Sungwoo and Ahn, Jung Ho},
+  date = {2011-08},
+  pages = {1--4},
+  publisher = {IEEE},
+  location = {Seoul, Korea (South)},
+  doi = {10.1109/MWSCAS.2011.6026486},
+  url = {http://ieeexplore.ieee.org/document/6026486/},
+  eventtitle = {2011 {{IEEE}} 54th {{International Midwest Symposium}} on {{Circuits}} and {{Systems}} ({{MWSCAS}})}
+}
+
+@article{painkrasSpiNNaker1W18Core2013,
+  title = {{{SpiNNaker}}: {{A}} 1-{{W}} 18-{{Core System-on-Chip}} for {{Massively-Parallel Neural Network Simulation}}},
+  shorttitle = {{{SpiNNaker}}},
+  author = {Painkras, Eustace and Plana, Luis A. and Garside, Jim and Temple, Steve and Galluppi, Francesco and Patterson, Cameron and Lester, David R. and Brown, Andrew D. and Furber, Steve B.},
+  date = {2013-08},
+  journaltitle = {IEEE Journal of Solid-State Circuits},
+  shortjournal = {IEEE J. Solid-State Circuits},
+  volume = {48},
+  number = {8},
+  pages = {1943--1953},
+  issn = {0018-9200, 1558-173X},
+  doi = {10.1109/JSSC.2013.2259038},
+  url = {http://ieeexplore.ieee.org/document/6515159/}
+}
+
+@article{paramasivamNETWORKONCHIPITS2015,
+  title = {{{NETWORK ON-CHIP AND ITS RESEARCH CHALLENGES}}},
+  author = {Paramasivam, K.},
+  date = {2015-07-01},
+  journaltitle = {ICTACT Journal on Microelectronics},
+  shortjournal = {IJME},
+  volume = {01},
+  number = {02},
+  pages = {83--87},
+  issn = {23951672, 23951680},
+  doi = {10.21917/ijme.2015.0015},
+  url = {http://ictactjournals.in/ArticleDetails.aspx?id=1946}
+}
+
+@inproceedings{parikhPowerAwareNoCsRouting2014,
+  title = {Power-{{Aware NoCs}} through {{Routing}} and {{Topology Reconfiguration}}},
+  booktitle = {Proceedings of the 51st {{Annual Design Automation Conference}}},
+  author = {Parikh, Ritesh and Das, Reetuparna and Bertacco, Valeria},
+  date = {2014-06},
+  pages = {1--6},
+  publisher = {ACM},
+  location = {San Francisco CA USA},
+  doi = {10.1145/2593069.2593187},
+  url = {https://dl.acm.org/doi/10.1145/2593069.2593187},
+  eventtitle = {{{DAC}} '14: {{The}} 51st {{Annual Design Automation Conference}} 2014}
+}
+
+@inproceedings{ranDeepDecisionMobileDeep2018,
+  title = {{{DeepDecision}}: {{A Mobile Deep Learning Framework}} for {{Edge Video Analytics}}},
+  shorttitle = {{{DeepDecision}}},
+  booktitle = {{{IEEE INFOCOM}} 2018 - {{IEEE Conference}} on {{Computer Communications}}},
+  author = {Ran, Xukan and Chen, Haolianz and Zhu, Xiaodan and Liu, Zhenming and Chen, Jiasi},
+  date = {2018-04},
+  pages = {1421--1429},
+  publisher = {IEEE},
+  location = {Honolulu, HI},
+  doi = {10.1109/INFOCOM.2018.8485905},
+  url = {https://ieeexplore.ieee.org/document/8485905/},
+  eventtitle = {{{IEEE INFOCOM}} 2018 - {{IEEE Conference}} on {{Computer Communications}}}
+}
+
+@inproceedings{requenaEfficientSwitchingTechnique2008,
+  title = {An {{Efficient Switching Technique}} for {{NoCs}} with {{Reduced Buffer Requirements}}},
+  booktitle = {2008 14th {{IEEE International Conference}} on {{Parallel}} and {{Distributed Systems}}},
+  author = {Requena, Crispín Gómez and Requena, María Engracia Gómez and Rodríguez, Pedro Juan López and Marín, Jose Duato},
+  date = {2008-12},
+  pages = {713--720},
+  publisher = {IEEE},
+  location = {Melbourne, VIC},
+  doi = {10.1109/ICPADS.2008.43},
+  url = {https://ieeexplore.ieee.org/document/4724384/},
+  eventtitle = {2008 14th {{IEEE International Conference}} on {{Parallel}} and {{Distributed Systems}}}
+}
+
+@article{seemaNetworkonChipStateoftheartReview2017,
+  title = {Network-on-{{Chip}}: {{A State-of-the-art Review}}},
+  shorttitle = {Network-on-{{Chip}}},
+  author = {Seema, Seema and Dahiya, Pawan Kumar},
+  date = {2017-07},
+  journaltitle = {IOSR Journal of VLSI and Signal Processing},
+  shortjournal = {IOSR JVSP},
+  volume = {07},
+  number = {04},
+  pages = {29--35},
+  issn = {23194197, 23194200},
+  doi = {10.9790/4200-0704012935},
+  url = {http://www.iosrjournals.org/iosr-jvlsi/papers/vol7-issue4/Version-1/E0704012935.pdf}
+}
+
+@inproceedings{thanh-vule-vanSimulationPerformanceEvaluation2012,
+  title = {Simulation and Performance Evaluation of a {{Network-on-Chip}} Architecture Based on {{SystemC}}},
+  booktitle = {The 2012 {{International Conference}} on {{Advanced Technologies}} for {{Communications}}},
+  author = {{Thanh-Vu Le-Van} and {Xuan-Tu Tran} and {Dien-Tap Ngo}},
+  date = {2012-10},
+  pages = {170--175},
+  publisher = {IEEE},
+  location = {Ha Noi, Vietnam},
+  doi = {10.1109/ATC.2012.6404252},
+  url = {http://ieeexplore.ieee.org/document/6404252/},
+  eventtitle = {2012 {{International Conference}} on {{Advanced Technologies}} for {{Communications}} ({{ATC}} 2012)}
+}
+
+@article{udipiRethinkingDRAMDesign2010,
+  title = {Rethinking {{DRAM}} Design and Organization for Energy-Constrained Multi-Cores},
+  author = {Udipi, Aniruddha N. and Muralimanohar, Naveen and Chatterjee, Niladrish and Balasubramonian, Rajeev and Davis, Al and Jouppi, Norman P.},
+  date = {2010-06-19},
+  journaltitle = {ACM SIGARCH Computer Architecture News},
+  shortjournal = {SIGARCH Comput. Archit. News},
+  volume = {38},
+  number = {3},
+  pages = {175--186},
+  issn = {0163-5964},
+  doi = {10.1145/1816038.1815983},
+  url = {https://dl.acm.org/doi/10.1145/1816038.1815983},
+  abstract = {DRAM vendors have traditionally optimized the cost-per-bit metric, often making design decisions that incur energy penalties. A prime example is the overfetch feature in DRAM, where a single request activates thousands of bit-lines in many DRAM chips, only to return a single cache line to the CPU. The focus on cost-per-bit is questionable in modern-day servers where operating costs can easily exceed the purchase cost. Modern technology trends are also placing very different demands on the memory system: (i)queuing delays are a significant component of memory access time, (ii) there is a high energy premium for the level of reliability expected for business-critical computing, and (iii) the memory access stream emerging from multi-core systems exhibits limited locality. All of these trends necessitate an overhaul of DRAM architecture, even if it means a slight compromise in the cost-per-bit metric.             This paper examines three primary innovations. The first is a modification to DRAM chip microarchitecture that re tains the traditional DDRx SDRAMinterface. Selective Bit-line Activation (SBA) waits for both RAS (row address) and CAS (column address) signals to arrive before activating exactly those bitlines that provide the requested cache line. SBA reduces energy consumption while incurring slight area and performance penalties. The second innovation, Single Subarray Access (SSA), fundamentally re-organizes the layout of DRAM arrays and the mapping of data to these arrays so that an entire cache line is fetched from a single subarray. It requires a different interface to the memory controller, reduces dynamic and background energy (by about 6X), incurs a slight area penalty (4\%), and can even lead to performance improvements (54\% on average) by reducing queuing delays. The third innovation further penalizes the cost-per-bit metric by adding a checksum feature to each cache line. This checksum error-detection feature can then be used to build stronger RAID-like fault tolerance, including chipkill-level reliability. Such a technique is especially crucial for the SSA architecture where the entire cache line is localized to a single chip. This DRAM chip microarchitectural change leads to a dramatic reduction in the energy and storage overheads for reliability. The proposed architectures will also apply to other emerging memory technologies (such as resistive memories) and will be less disruptive to standards, interfaces, and the design flow if they can be incorporated into first-generation designs.}
+}
+
+@inproceedings{wangExploringHybridMemory2013,
+  title = {Exploring Hybrid Memory for {{GPU}} Energy Efficiency through Software-Hardware Co-Design},
+  booktitle = {Proceedings of the 22nd {{International Conference}} on {{Parallel Architectures}} and {{Compilation Techniques}}},
+  author = {Wang, Bin and Wu, Bo and Li, Dong and Shen, Xipeng and Yu, Weikuan and Jiao, Yizheng and Vetter, Jeffrey S.},
+  date = {2013-09},
+  pages = {93--102},
+  publisher = {IEEE},
+  location = {Edinburgh},
+  doi = {10.1109/PACT.2013.6618807},
+  url = {https://ieeexplore.ieee.org/document/6618807/},
+  eventtitle = {22nd {{International Conference}} on {{Parallel Architectures}} and {{Compilation Techniques}} ({{PACT}})}
+}
+
+@article{wangSwapNetEfficientSwapping2024,
+  title = {{{SwapNet}}: {{Efficient Swapping}} for {{DNN Inference}} on {{Edge AI Devices Beyond}} the {{Memory Budget}}},
+  shorttitle = {{{SwapNet}}},
+  author = {Wang, Kun and Cao, Jiani and Zhou, Zimu and Li, Zhenjiang},
+  date = {2024},
+  journaltitle = {IEEE Transactions on Mobile Computing},
+  shortjournal = {IEEE Trans. on Mobile Comput.},
+  pages = {1--14},
+  issn = {1536-1233, 1558-0660, 2161-9875},
+  doi = {10.1109/TMC.2024.3355764},
+  url = {https://ieeexplore.ieee.org/document/10403957/}
+}
+
+@article{wangYOLOv7TrainableBagoffreebies2022,
+  title = {{{YOLOv7}}: {{Trainable}} Bag-of-Freebies Sets New State-of-the-Art for Real-Time Object Detectors},
+  shorttitle = {{{YOLOv7}}},
+  author = {Wang, Chien-Yao and Bochkovskiy, Alexey and Liao, Hong-Yuan Mark},
+  date = {2022},
+  journaltitle = {arXiv},
+  publisher = {[object Object]},
+  doi = {10.48550/ARXIV.2207.02696},
+  url = {https://arxiv.org/abs/2207.02696},
+  abstract = {YOLOv7 surpasses all known object detectors in both speed and accuracy in the range from 5 FPS to 160 FPS and has the highest accuracy 56.8\% AP among all known real-time object detectors with 30 FPS or higher on GPU V100. YOLOv7-E6 object detector (56 FPS V100, 55.9\% AP) outperforms both transformer-based detector SWIN-L Cascade-Mask R-CNN (9.2 FPS A100, 53.9\% AP) by 509\% in speed and 2\% in accuracy, and convolutional-based detector ConvNeXt-XL Cascade-Mask R-CNN (8.6 FPS A100, 55.2\% AP) by 551\% in speed and 0.7\% AP in accuracy, as well as YOLOv7 outperforms: YOLOR, YOLOX, Scaled-YOLOv4, YOLOv5, DETR, Deformable DETR, DINO-5scale-R50, ViT-Adapter-B and many other object detectors in speed and accuracy. Moreover, we train YOLOv7 only on MS COCO dataset from scratch without using any other datasets or pre-trained weights. Source code is released in https://github.com/WongKinYiu/yolov7.},
+  version = {1},
+  keywords = {Computer Vision and Pattern Recognition (cs.CV),FOS: Computer and information sciences}
+}
+
+@article{wentzlaffOnChipInterconnectionArchitecture2007,
+  title = {On-{{Chip Interconnection Architecture}} of the {{Tile Processor}}},
+  author = {Wentzlaff, D. and Griffin, P. and Hoffmann, H. and {Liewei Bao} and Edwards, B. and Ramey, C. and Mattina, M. and {Chyi-Chang Miao} and Brown, J.F. and Agarwal, A.},
+  date = {2007-09},
+  journaltitle = {IEEE Micro},
+  shortjournal = {IEEE Micro},
+  volume = {27},
+  number = {5},
+  pages = {15--31},
+  issn = {0272-1732},
+  doi = {10.1109/MM.2007.4378780},
+  url = {http://ieeexplore.ieee.org/document/4378780/}
+}
+
+@inproceedings{wolkotteEnergyEfficientReconfigurableCircuitSwitched2005,
+  title = {An {{Energy-Efficient Reconfigurable Circuit-Switched Network-on-Chip}}},
+  booktitle = {19th {{IEEE International Parallel}} and {{Distributed Processing Symposium}}},
+  author = {Wolkotte, P.T. and Smit, G.J.M. and Rauwerda, G.K. and Smit, L.T.},
+  date = {2005},
+  pages = {155a-155a},
+  publisher = {IEEE},
+  location = {Denver, CO, USA},
+  doi = {10.1109/IPDPS.2005.95},
+  url = {http://ieeexplore.ieee.org/document/1420011/},
+  eventtitle = {19th {{IEEE International Parallel}} and {{Distributed Processing Symposium}}}
+}
+
+@article{xuDeepWearAdaptiveLocal2020,
+  title = {{{DeepWear}}: {{Adaptive Local Offloading}} for {{On-Wearable Deep Learning}}},
+  shorttitle = {{{DeepWear}}},
+  author = {Xu, Mengwei and Qian, Feng and Zhu, Mengze and Huang, Feifan and Pushp, Saumay and Liu, Xuanzhe},
+  date = {2020-02-01},
+  journaltitle = {IEEE Transactions on Mobile Computing},
+  shortjournal = {IEEE Trans. on Mobile Comput.},
+  volume = {19},
+  number = {2},
+  pages = {314--330},
+  issn = {1536-1233, 1558-0660, 2161-9875},
+  doi = {10.1109/TMC.2019.2893250},
+  url = {https://ieeexplore.ieee.org/document/8618364/}
+}
+
+@inproceedings{xuOptimalMemoryController2011,
+  title = {Optimal Memory Controller Placement for Chip Multiprocessor},
+  booktitle = {Proceedings of the Seventh {{IEEE}}/{{ACM}}/{{IFIP}} International Conference on {{Hardware}}/Software Codesign and System Synthesis},
+  author = {Xu, Thomas Canhao and Liljeberg, Pasi and Tenhunen, Hannu},
+  date = {2011-10-09},
+  pages = {217--226},
+  publisher = {ACM},
+  location = {Taipei Taiwan},
+  doi = {10.1145/2039370.2039405},
+  url = {https://dl.acm.org/doi/10.1145/2039370.2039405},
+  eventtitle = {{{ESWeek}} '11: {{Seventh Embedded Systems Week}}}
+}
+
+@inproceedings{yangExploitingPathDiversity2012,
+  title = {Exploiting Path Diversity for Low-Latency and High-Bandwidth with the Dual-Path {{NoC}} Router},
+  booktitle = {2012 {{IEEE International Symposium}} on {{Circuits}} and {{Systems}}},
+  author = {Yang, Yoon Seok and Deshpande, Hrishikesh and Choi, Gwan and Gratz, Paul},
+  date = {2012-05},
+  pages = {2433--2436},
+  publisher = {IEEE},
+  location = {Seoul, Korea (South)},
+  doi = {10.1109/ISCAS.2012.6271790},
+  url = {http://ieeexplore.ieee.org/document/6271790/},
+  eventtitle = {2012 {{IEEE International Symposium}} on {{Circuits}} and {{Systems}} - {{ISCAS}} 2012}
+}
+
+@article{yuIntelligentEdgeLeveraging2020,
+  title = {Intelligent {{Edge}}: {{Leveraging Deep Imitation Learning}} for {{Mobile Edge Computation Offloading}}},
+  shorttitle = {Intelligent {{Edge}}},
+  author = {Yu, Shuai and Chen, Xu and Yang, Lei and Wu, Di and Bennis, Mehdi and Zhang, Junshan},
+  date = {2020-02},
+  journaltitle = {IEEE Wireless Communications},
+  shortjournal = {IEEE Wireless Commun.},
+  volume = {27},
+  number = {1},
+  pages = {92--99},
+  issn = {1536-1284, 1558-0687},
+  doi = {10.1109/MWC.001.1900232},
+  url = {https://ieeexplore.ieee.org/document/9023929/}
+}
+
+@thesis{zhouPerformanceEvaluationNetworkonchip2009,
+  title = {Performance Evaluation of Network-on-Chip Interconnect Architectures},
+  author = {Zhou, Xinan},
+  date = {2009-08},
+  institution = {University of Nevada Las Vegas},
+  url = {https://digitalscholarship.unlv.edu/thesesdissertations/63/}
+}
+
+@inproceedings{ziaHighlyscalable3DCLOS2010,
+  title = {Highly-Scalable {{3D CLOS NOC}} for Many-Core {{CMPs}}},
+  booktitle = {Proceedings of the 8th {{IEEE International NEWCAS Conference}} 2010},
+  author = {Zia, Aamir and Kannan, Sachhidh and Rose, Garrett and Chao, H. Jonathan},
+  date = {2010-06},
+  pages = {229--232},
+  publisher = {IEEE},
+  location = {Montreal, QC, Canada},
+  doi = {10.1109/NEWCAS.2010.5603776},
+  url = {http://ieeexplore.ieee.org/document/5603776/},
+  eventtitle = {2010 8th {{IEEE International NEWCAS Conference}} ({{NEWCAS}})}
+}

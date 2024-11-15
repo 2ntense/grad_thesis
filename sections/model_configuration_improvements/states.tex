@@ -1,0 +1,41 @@
+\section{States}
+One of the components of a compiled models is \textit{states}.
+States is a section that is reserved on the SRAM that is used as a buffer for the accumulation of the activation data.
+
+\todo[inline]{Insert more explanation about states}
+
+We can improve the energy consumption when performing a model configuration by avoiding the reading of the states.
+This allows us to read less data from the external memory, reducing the energy for configuration.
+Furthermore, this also improves the configuration latency.
+
+We perform an analysis on various models to get an idea of how much we can benefit with avoiding the read of states.
+The compiler provides us with the amount of bytes used for the states and other components of each model.
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Model}          & \textbf{States ratio} & \textbf{Prune ratio} \\ \midrule
+efficientnet            & 23\%                  & 20\%                 \\
+hand\_detector          & 51\%                  & 0\%                  \\
+mobnetv2                & 31\%                  & 0\%                  \\
+hand\_tracker\_star\_v2 & 28\%                  & 20\%                 \\
+resnet50                & 28\%                  & 80\%                 \\
+resnet101\_p0           & 24\%                  & 0\%                  \\
+resnet101\_p1           & 14\%                  & 0\%                  \\
+resnet101\_p2           & 15\%                  & 0\%                  \\
+resnet101\_p3           & 8\%                   & 0\%                  \\
+resnet101\_p4           & 6\%                   & 0\%                  \\
+resnet101\_pruned\_p0   & 44\%                  & 80\%                 \\
+resnet101\_pruned\_p1   & 27\%                  & 80\%                 \\
+resnet101\_pruned\_p2   & 28\%                  & 80\%                 \\
+resnet101\_pruned\_p3   & 14\%                  & 80\%                 \\
+resnet101\_pruned\_p4   & 11\%                  & 80\%                 \\ \bottomrule
+\end{tabular}
+\caption{All model shown are 8-bit quantized}
+\label{tab:states_ratio}
+\end{table}
+
+Looking at \cref{tab:states_ratio}, on average, $23\%$ is used for states.
+We observe that the states ratio can reach half of the total bytes to be written to the GrAICore.
+Thus, with the models in \cref{tab:states_ratio}, we can reduce the amount of data to be read from the external memory by up to a half.

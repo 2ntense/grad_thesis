@@ -1,0 +1,67 @@
+\section{Weight duplications}
+% When a model is compiled by the compiler, we obtain a summary of the memory requirements.
+% The memory requirements show how much memory space is required for the compiled model.
+% The memory requirements shows for each core specifically how much memory is reserved for:
+% \begin{itemize}
+%     \item Weights
+%     \item Masks
+%     \item States
+%     \item Headers
+%     \item Axons
+%     \item Queues
+% \end{itemize}
+One of the optimizations the compiler may perform to improve the inference latency is to use segmentation on certain layers (e.g., convolutional layers).
+This segmentation allows a layer to be segmented so that it can be executed in parallel (i.e., tensor parallelism).
+Performing this technique on the GrAICore, so that a layer can be executed on multiple cores at the same time, certain weights must be present on the respective neuron cores.
+In other words, this means that on the GrAICore, there are duplicate weights present.
+
+A naive approach to configure a model is to read every weight, including duplicate weights, from the external memory.
+However, we have seen in \ref{} that in the configuration process, reading from the DDR memory consumes the most energy.
+
+There is an opportunity in decreasing the energy cost for reading from the external DDR memory.
+Instead of reading all the weights (including duplicates), we can read only the unique duplicates once.
+For this to work, we need a separate controller (close to the GrAICore) that can copy and distribute the weights to the neuron cores that require them.
+
+Let's first look why this technique is interesting to pursue.
+To determine the amount of duplicates that are present in the compiled model, we do the following:
+\begin{enumerate}
+    \item
+    Count the amount of relevant parameters ($w_
+    \textrm{original}$) in the original model.
+    \item
+    Retrieve the amount of bytes required for weights for the compiled model ($d_\textrm{weights}$).
+    \item
+    Compute the number of weights in the compiled model by taking quantization into account ($w_\textrm{compiled} = d_\textrm{weights} \times \frac{8}{q}$ with $q$ as the quantization value (e.g., $8$, $16$ or $32$)).
+    \item  
+    The amount of duplicate weights can then be calculated by subtracting weights from the compiled model with the parameters counted from the original model. That is, $w_\textrm{dupes} = w_\textrm{compiled} - w_\textrm{original}$.
+\end{enumerate}
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Model}          & \textbf{Weight duplication ratio} \\ \midrule
+efficientnet            & 22\%                              \\
+hand\_detector          & 74\%                              \\
+mobnetv2                & 17\%                              \\
+hand\_tracker\_star\_v2 & 40\%                              \\
+resnet50                & 46\%                              \\
+resnet101\_p0           & 53\%                              \\
+resnet101\_p1           & 51\%                              \\
+resnet101\_p2           & 51\%                              \\
+resnet101\_p3           & 23\%                              \\
+resnet101\_p4           & 2\%                               \\
+resnet101\_pruned\_p0   & 58\%                              \\
+resnet101\_pruned\_p1   & 59\%                              \\
+resnet101\_pruned\_p2   & 59\%                              \\
+resnet101\_pruned\_p3   & 38\%                              \\
+resnet101\_pruned\_p4   & 20\%                              \\ \bottomrule
+\end{tabular}
+\caption{}
+\label{tab:my-table}
+\end{table}
+
+The amount of weight duplicates is highly dependent on the model and how the compiler performed the mapping of the original model.
+\Cref{tab:my-table} shows for various models the percentage of duplicate weights.
+We observe that up to 74\% of the weights are duplicates with an average of 41\%.
+Since weights are in most cases the largest component of the total compiled model size, these numbers show that there is potentially notable savings in configuration performance.

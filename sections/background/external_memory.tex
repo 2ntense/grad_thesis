@@ -1,0 +1,32 @@
+\section{External memory}
+
+Selecting the appropriate memory technology is critical for optimizing performance and energy efficiency.
+For example, DRAM (Dynamic Random Access Memory) and NVM (Non-Volatile Memory) each present unique advantages: DRAM is known for its high speed and throughput, making it suitable for performance-intensive tasks, while NVM offers non-volatility and energy efficiency, ideal for data persistence and energy-conscious applications.
+Advanced techniques such as burst transfers and parallel data interfaces can further enhance memory system performance.
+Additionally, optimizing both the memory controller and Network-on-Chip (NoC) for energy efficiency is essential to achieve balanced, high-performing many-core architectures.
+
+DRAM technology is a prevalent choice for main memory in many-core systems due to its high density and cost-effectiveness \cite{oExploringEnergyefficientDRAM2011}. Furthermore, DRAM offers fast access times and high throughput, making it suitable for applications necessitating real-time data processing. Its ability to rapidly read and refresh data contributes to its widespread adoption in performance-critical environments.
+Conversely, NVM technologies provide non-volatility, high capacity, and energy efficiency, making them ideal for storing large data volumes in edge devices. NVM technologies, such as Flash memory and emerging solutions like Phase-Change Memory (PCM), present a compelling alternative to traditional volatile memory.
+While DRAM excels in performance, NVM technologies are increasingly competitive and offer a compelling alternative, particularly in scenarios prioritizing energy efficiency and data persistence \cite{dulloorSystemSoftwarePersistent2014}.
+
+PCM (Phase-Change Memory) is a notable NVM technology that leverages the unique properties of chalcogenide glass to store data \cite{meenaOverviewEmergingNonvolatile2014}.
+PCM operates by changing the state of the material between amorphous and crystalline phases, which correspond to different resistance levels representing binary data.
+One of the significant advantages of PCM is its superior read performance compared to traditional Flash memory.
+PCM can achieve read latencies comparable to DRAM \cite{wangExploringHybridMemory2013}, making it suitable for read-intensive applications where quick data retrieval is critical.
+Moreover, PCM's endurance and reliability are notable.
+Unlike DRAM, which requires periodic refreshing to maintain data integrity, PCM retains data without power, significantly reducing energy consumption in standby modes.
+
+Burst transfers play a crucial role in improving the performance of external memory systems.
+By allowing for the transfer of a block of data in a single contiguous sequence, burst transfers reduce the overhead associated with individual data transfers, thereby enhancing throughput \cite{bakhodaDesigningOnchipNetworks2013}.
+
+To further enhance performance, utilizing multiple external memory interfaces for parallel data transfers can improve overall throughput.
+By enabling simultaneous data transfers through different interfaces, the system can leverage parallelism to maximize memory bandwidth utilization, particularly beneficial in many-core architectures with multiple cores accessing external memory concurrently \cite{chenIncreasingOffchipBandwidth2014}.
+
+In the context of energy consumption, both external memory and the NoC contribute significantly to the overall power consumption of the system.
+The memory controller, which manages data transfers between the processor and external memory, consumes a considerable amount of energy \cite{udipiRethinkingDRAMDesign2010}.
+Additionally, the NoC, which facilitates communication between cores in a many-core chip, may also consumes a substantial portion of the system's energy budget \cite{ziaHighlyscalable3DCLOS2010}.
+Optimizing the design of the memory controller and the NoC for energy efficiency is crucial for enhancing the overall energy performance of many-core systems.
+
+When considering the integration of external memory with a NoC in a many-core chip, it is essential to address performance metrics such as throughput, latency, and energy consumption.
+The choice between DRAM and NVM technologies for external memory impacts these metrics significantly, with NVM technologies offering potential advantages in terms of energy efficiency.
+Burst transfers and parallel data transfer interfaces are key mechanisms for improving throughput in external memory systems, while optimizing the energy consumption of the memory controller and the NoC is vital for enhancing the overall energy efficiency of many-core systems at the edge.

@@ -1,0 +1,28 @@
+\section{Conclusion}
+
+\Cref{tab:savings} shows that with the exclusion of states and weight duplicates we can up to 69\% of data to be read from the external memory and on average 39\%.
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Model}          & \textbf{Saving (\%)} \\ \midrule
+efficientnet (8b)       & 30\%                 \\
+hand\_detector (8b)     & 69\%                 \\
+mobnetv2 (8b)           & 37\%                 \\
+hand\_tracker\_star\_v2 & 43\%                 \\
+resnet50                & 42\%                 \\
+resnet101\_p0           & 55\%                 \\
+resnet101\_p1           & 46\%                 \\
+resnet101\_p2           & 47\%                 \\
+resnet101\_p3           & 21\%                 \\
+resnet101\_p4           & 7\%                  \\
+resnet101\_pruned\_p0   & 58\%                 \\
+resnet101\_pruned\_p1   & 44\%                 \\
+resnet101\_pruned\_p2   & 46\%                 \\
+resnet101\_pruned\_p3   & 24\%                 \\
+resnet101\_pruned\_p4   & 18\%                 \\ \bottomrule
+\end{tabular}
+\caption{}
+\label{tab:savings}
+\end{table}

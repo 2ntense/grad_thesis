@@ -1,0 +1,97 @@
+% \section{Introduction}
+Suppose we have a large model that does not fit on the GrAICore at once.
+We will look at two strategies to partition the model to allow it to be executed on the GrAICore.
+
+Assume we have a model of that requires \SI{60}{MiB} to be written to the GrAICore.
+We are able to partition this model in two parts of \SI{30}{MiB} and four parts of \SI{15}{MiB}.
+Furthermore, assume the latencies for processing and configuring as shown in \cref{tab:partitiong_strategies_example}.
+
+\begin{table}[hbtp]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Part} & \textbf{Processing (ms)} & \textbf{Configuration (ms)} \\ \midrule
+\SI{30}{MiB}  & 4                        & 8                           \\
+\SI{15}{MiB}  & 2                        & 4                          
+\end{tabular}
+\caption{TODO}
+\label{tab:partitiong_strategies_example}
+\end{table}
+
+\section{Sequential configuration}
+With the model partitioned in two parts of \SI{30}{MiB}, we can only fit one part on the GrAICore at a time.
+Because of this, we can only configure and process in a sequential manner.
+The configure and process timeline is illustrated in \cref{fig:schedule_sequential_configuration}.
+% In total, to fully process the model in two parts, it takes \SI{16}{ms}.
+The inference latency of a single input frame is \SI{16}{ms}.
+\Cref{fig:schedule_sequential_configuration_extended} shows a timeline when processing multiple input frames in sequence, we see that we can reach a stable input frame rate of \SI{41.7}{FPS} ($\frac{1}{\SI{24}{ms}}$).
+
+\begin{figure}[hbtp]
+    \centering
+    \resizebox{0.6\linewidth}{!}{
+        \input{assets/schedules/sequential_configuration}
+    }
+    \caption{Example timeline of sequential configuration and processing}
+    \label{fig:schedule_sequential_configuration}
+\end{figure}
+
+\begin{figure}[hbtp]
+    \centering
+    \resizebox{1.0\linewidth}{!}{
+        \input{assets/schedules/sequential_configuration_extended}
+    }
+    \caption{
+    Example timeline of sequential configuration and processing for two input frames.
+    The shaded areas represent periods where we expect an input frame.
+    The arrows pointing down represent the points of time where the associated input frame has been fully processed.
+    }
+    \label{fig:schedule_sequential_configuration_extended}
+\end{figure}
+
+\section{Parallel configuration}
+With the model partitioned in four parts, two parts of \SI{15}{MiB} can fit on the GrAICore at the same time.
+This allows for a pipeline of configuration and processing.
+For this approach to work, the neuron cores must be divided into two isolated segments/zones.
+% With each zone able to contain a part.
+Each of the zones will contain a single part.
+With the introduction of the additional injection point, two model parts can be written to the local memories of the neuron cores in parallel.
+
+\begin{figure}[hbtp]
+    \centering
+    \resizebox{0.65\linewidth}{!}{
+        \input{assets/schedules/parallel_configuration}
+    }
+    \caption{Example timeline of parallel configuration and processing}
+    \label{fig:schedule_parallel_configuration}
+\end{figure}
+
+% This approach allows configuration of the two ``zones'' to be performed in parallel (see \cref{fig:schedule_parallel_configuration}).
+% Also, processing and configuration can happen in parallel.
+\Cref{fig:schedule_parallel_configuration} shows a timeline of a pipelined configuration and processing.
+With this approach, the a constraint is that while the system is processing part $p_n$, the system should not reconfigure the zone where part $p_n$ resides at the same time.
+$Z_1$ and $Z_2$ indicate one of the two independent zones.
+Note that processing cannot be performed in parallel due to the input of the next part being dependent on the previous part's output.
+% The following figure shows the timeline using ASAP scheduling for the tasks.
+Observe that the configuration of $p_2$ can start \SI{2}{ms} later without affecting the total inference latency.
+The total inference latency of this approach is \SI{10}{ms}.
+This is a speedup of $1.6\times$ compared to the sequential configuration approach.
+% with \SI{100}{FPS} ($\frac{1}{\SI{10}{ms}}$) as the highest manageable input frame rate.
+% However, this does not allow for an input frame rate of \SI{100}{FPS} ($\frac{1}{\SI{10}{ms}}$).
+
+\Cref{fig:schedule_parallel_configuration_extended} shows a possible timeline for three consecutive input frames at the highest manageable frame rate.
+An arrow pointing up shows the arrival of an input frame.
+It is apparent that the highest manageable frame rate is \SI{83.3}{FPS} ($\frac{1}{\SI{12}{ms}}$).
+
+\begin{figure}[hbtp]
+    \centering
+    \resizebox{0.8\linewidth}{!}{
+        \input{assets/schedules/parallel_configuration_extended}
+    }
+    \caption{
+    Example timeline of parallel configuration and processing for three input frames.
+    The shaded areas represent periods where we expect an input frame.
+    The arrows pointing down represent the points of time where the associated input frame has been fully processed.
+    }
+    \label{fig:schedule_parallel_configuration_extended}
+\end{figure}
+

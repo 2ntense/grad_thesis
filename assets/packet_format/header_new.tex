@@ -1,0 +1,42 @@
+\newcommand{\fakesixtyfourbits}[1]{%
+    \ttfamily
+    \small
+    \ifnum#1=1234567890
+        #1
+    \else
+        \ifnum#1=40
+            % \count32=#1
+            % \advance\count32 by 48
+            % \the\count32%
+            63%
+        \else
+            \ifnum#1<37
+                #1%
+            \else
+                \ifnum#1=38
+                    $\cdots$%
+                \fi
+            \fi
+        \fi
+    \fi
+}
+
+\begin{bytefield}[
+    boxformatting={\centering\ttfamily},
+    % bitformatting={\ttfamily\small},
+    bitformatting={\fakesixtyfourbits},
+    endianness=big,
+    bitwidth=1.5em,
+    bitheight=2.5em
+]{41}
+% \bitheader{0-45} \\
+\bitheader{40, 38, 36, 30, 10, 6, 2, 0} \\
+
+\bitbox{5}[bgcolor=lightgray]{Unused} &
+\bitbox{6}[bgcolor=lightyellow]{Length[5:0]} &
+\bitbox{20}[bgcolor=lightcyan]{Address[19:0]} &
+\bitbox{4}[bgcolor=lightred]{Dest. Y} &
+\bitbox{4}[bgcolor=lightorange]{Dest. X} &
+\bitbox{2}[bgcolor=lightgreen]{\scriptsize Packet type} \\
+
+\end{bytefield}

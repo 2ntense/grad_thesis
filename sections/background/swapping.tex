@@ -1,0 +1,18 @@
+\section{Swapping}
+
+A technique that is similar to our plan of action is called swapping.
+Swapping involves dynamically loading and unloading part of the model or data into and out of the device’s memory during inference or execution time \cite{wangSwapNetEfficientSwapping2024, huangSwapAdvisorPushingDeep2020}.
+\cite{wang_swapnet_2024, huang_swapadvisor_2020}
+When a large model cannot fit in the device’s memory. Parts of the model (e.g., layers) are stored in slower, but larger storage.
+These parts are then loaded into the device’s memory on-demand during execution.
+The device is responsible for scheduling the execution of the model parts so that the necessary chunks are loaded into the device’s memory in time for computation.
+This will require careful timing to ensure that data is ready when needed to avoid stalling the processor.
+Swapping introduces latency, as loading data from the slower storage takes time.
+It is therefore crucial that this overhead is minimized to ensure that performance is acceptable.
+
+Research has been done on using the swapping technique for supporting large neural networks on tiny microcontrollers in \cite{miaoEnablingLargeNeural2021}.
+This is achieved by dynamically swapping neural network parts between a microcontroller's tiny SRAM and its large, low-cost external flash.
+Although they managed to address the challenge of running large models on a resource-constrained edge device without accuracy loss, a microcontroller's hardware architecture is significantly different compared to that of the GrAICore's.
+With low-cost microcontrollers as their target, the external flash bandwidth is usually poor ($<\SI{100}{MB/s}$).
+As a consequence, the throughput of processed frames per second is also poor.
+But despite that, the proposed scheduling technique shows promising results for executing large models on microcontrollers and can potentially be extended to be used on the GrAICore.

@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+\begin{axis}[
+    xmin=0, xmax=100,
+    ymin=0, ymax=100,
+    axis lines = left,
+    xlabel = {Max. data phits per packet ($n$)},
+    ylabel = {Latency (ms)},
+    ymajorgrids=true,
+    grid style=dashed,
+]
+
+% 16 bits
+\addplot[
+    domain=1:100, 
+    samples=1000, 
+    color=red,
+    line width=1.5pt
+]
+{(((36*1024*1024*8) + ((36*1024*1024*8)/(x) * (16*3)/(16))) / (800000000 * 16)) * 1000};
+\addlegendentry{16 bits}
+% 32 bits
+\addplot[
+    domain=1:100, 
+    samples=1000, 
+    color=green,
+    line width=1.5pt
+]
+{(((36*1024*1024*8) + ((36*1024*1024*8)/(x) * (32*2)/(32))) / (800000000 * 32)) * 1000};
+\addlegendentry{32 bits}
+% 64 bits
+\addplot[
+    domain=1:100, 
+    samples=1000, 
+    color=blue,
+    line width=1.5pt
+]
+{(((36*1024*1024*8) + ((36*1024*1024*8)/(x) * (64*1)/(64))) / (800000000 * 64)) * 1000};
+\addlegendentry{64 bits}
+
+\end{axis}
+\end{tikzpicture}
+

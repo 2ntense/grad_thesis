@@ -1,0 +1,24 @@
+\begin{tikzpicture}[scale=0.5]
+    \draw[] (6,0) -- (24,0);
+    \draw[dashed, ->] (24,0) -- (25,0);
+    \draw (6,0.5) -- (6,-0.5) node[below] {$0$};
+    \draw (12,0.5) -- (12,-0.5) node[below] {$T$};
+    \draw (18,0.5) -- (18,-0.5) node[below] {$2T$};
+    \draw (24,0.5) -- (24,-0.5) node[below] {$3T$};
+    % \draw (6,0.5) -- (6,-0.5) node[below] {$t_{0}$};
+    % \draw (12,0.5) -- (12,-0.5) node[below] {$t_{1}$};
+    % \draw (18,0.5) -- (18,-0.5) node[below] {$t_{2}$};
+    % \draw (24,0.5) -- (24,-0.5) node[below] {$t_{3}$};
+
+    \draw [pattern=north east lines, pattern color=gray, line width = 1pt, very thick] ($(6,0)$) rectangle ++($(1.5,1)$) node[midway] {$p_A$};
+    \draw [pattern=north west lines, pattern color=gray, line width = 1pt, very thick] ($(7.5,0)$) rectangle ++($(3,1)$) node[midway] {$c_B$};
+    \draw [decorate,decoration={brace,amplitude=6pt}]($(6,1.5)$) -- ++($(1.5,0)$) node [black,midway,above=6pt] {\tiny L};
+    
+    \draw [pattern=north east lines, pattern color=gray, line width = 1pt, very thick] ($(12,0)$) rectangle ++($(1.5,1)$) node[midway] {$p_B$};
+    \draw [pattern=north west lines, pattern color=gray, line width = 1pt, very thick] ($(13.5,0)$) rectangle ++($(3,1)$) node[midway] {$c_C$};
+    \draw [decorate,decoration={brace,amplitude=6pt}]($(12,1.5)$) -- ++($(1.5,0)$) node [black,midway,above=6pt] {\tiny L};
+    
+    \draw [pattern=north east lines, pattern color=gray, line width = 1pt, very thick] ($(18,0)$) rectangle ++($(1.5,1)$) node[midway] {$p_C$};
+    \draw [pattern=north west lines, pattern color=gray, line width = 1pt, very thick] ($(19.5,0)$) rectangle ++($(3,1)$) node[midway] {$c_D$};
+    % \draw [decorate,decoration={brace,amplitude=6pt}]($(18,1.5)$) -- ++($(1.5,0)$) node [black,midway,above=6pt] {\tiny L};
+\end{tikzpicture}

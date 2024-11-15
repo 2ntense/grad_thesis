@@ -1,0 +1,27 @@
+\begin{RTGrid}[
+    width=20cm,
+    nosymbols=1,
+]{2}{52}
+    \RowLabel{1}{Configure}
+    \RowLabel{2}{Process}
+
+    \TaskExecution[execlabel=$p_1$,color=lightred]{1}{0}{8}
+    \TaskExecution[execlabel=$p_2$,color=lightred]{1}{12}{20}
+
+    \TaskExecution[execlabel=$p_1$,color=lightred]{2}{8}{12}
+    \TaskExecution[execlabel=$p_2$,color=lightred]{2}{20}{24}
+
+    \TaskExecution[execlabel=$p_1$,color=lightcyan]{1}{24}{32}
+    \TaskExecution[execlabel=$p_2$,color=lightcyan]{1}{36}{44}
+
+    \TaskExecution[execlabel=$p_1$,color=lightcyan]{2}{32}{36}
+    \TaskExecution[execlabel=$p_2$,color=lightcyan]{2}{44}{48}
+
+    \TaskRespTime{2}{0}{8}
+    \TaskRespTime{2}{24}{8}
+    
+    % \TaskArrival{2}{8}
+    \TaskDeadline{2}{24}
+    % \TaskArrival{2}{32}
+    \TaskDeadline{2}{48}
+\end{RTGrid}

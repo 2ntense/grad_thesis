@@ -1,0 +1,57 @@
+\begin{RTGrid}[
+    width=15cm,
+    nosymbols=1,
+]{4}{38}
+    \RowLabel{1}{Configure $Z_1$}
+    \RowLabel{2}{Configure $Z_2$}
+    \RowLabel{3}{Process $Z_1$}
+    \RowLabel{4}{Process $Z_2$}
+
+    \TaskExecution[execlabel=$p_1$, color=lightred]{1}{0}{4}
+    \TaskExecution[execlabel=$p_3$, color=lightred]{1}{6}{10}
+
+    \TaskExecution[execlabel=$p_2$, color=lightred]{2}{0}{4}
+    \TaskExecution[execlabel=$p_4$, color=lightred]{2}{8}{12}
+
+    \TaskExecution[execlabel=$p_1$, color=lightred]{3}{4}{6}
+    \TaskExecution[execlabel=$p_3$, color=lightred]{3}{10}{12}
+
+    \TaskExecution[execlabel=$p_2$, color=lightred]{4}{6}{8}
+    \TaskExecution[execlabel=$p_4$, color=lightred]{4}{12}{14}
+    %%%
+    \TaskExecution[execlabel=$p_1$, color=lightcyan]{1}{12}{16}
+    \TaskExecution[execlabel=$p_2$, color=lightcyan]{2}{14}{18}
+
+    \TaskExecution[execlabel=$p_1$, color=lightcyan]{3}{16}{18}
+    \TaskExecution[execlabel=$p_2$, color=lightcyan]{4}{18}{20}
+
+    \TaskExecution[execlabel=$p_3$, color=lightcyan]{1}{18}{22}
+    \TaskExecution[execlabel=$p_4$, color=lightcyan]{2}{20}{24}
+
+    \TaskExecution[execlabel=$p_3$, color=lightcyan]{3}{22}{24}
+    \TaskExecution[execlabel=$p_4$, color=lightcyan]{4}{24}{26}
+    %%%
+    \TaskExecution[execlabel=$p_1$, color=lightgreen]{1}{24}{28}
+    \TaskExecution[execlabel=$p_2$, color=lightgreen]{2}{26}{30}
+
+    \TaskExecution[execlabel=$p_1$, color=lightgreen]{3}{28}{30}
+    \TaskExecution[execlabel=$p_2$, color=lightgreen]{4}{30}{32}
+
+    \TaskExecution[execlabel=$p_3$, color=lightgreen]{1}{30}{34}
+    \TaskExecution[execlabel=$p_4$, color=lightgreen]{2}{32}{36}
+
+    \TaskExecution[execlabel=$p_3$, color=lightgreen]{3}{34}{36}
+    \TaskExecution[execlabel=$p_4$, color=lightgreen]{4}{36}{38}
+    %%%
+    % \TaskArrival{3}{4}
+    % \TaskArrival{3}{16}
+    % \TaskArrival{3}{28}
+    
+    \TaskRespTime{3}{0}{4}
+    \TaskRespTime{3}{14}{2}
+    \TaskRespTime{3}{26}{2}
+    
+    \TaskDeadline{4}{14}
+    \TaskDeadline{4}{26}
+    \TaskDeadline{4}{38}
+\end{RTGrid}

@@ -1,0 +1,61 @@
+\section{Deep learning}
+
+\subsection{Artificial neural networks}
+Artificial Neural Networks (ANN or NN for short) is a method modeled after neuroscience’s model of a biological neural network.
+This introduces components such as neurons (corresponding to biological neurons), weights (corresponding to signal strength) and activation function (corresponding to synapses).
+ANNs have excelled in drawing conclusions from (often) large amounts of data, this is something previous methods have had a hard time doing.
+An example application is to identify an object in an image or predicting timeseries.
+Neural networks takes input into the input layer and outputs through the output layer.
+In between these there are various amount of layers of different structures, these are often called hidden layers
+
+\lipsum[1]
+
+\subsection{Convolutional neural network}
+% Lorem ipsum
+
+% What?
+% Why?
+% How?
+
+A Convolutional Neural Network (CNN) is a popular neural network model that has been shown to do well in image-related tasks.
+% It is the most widely used model for video compression [16].
+CNNs are built by stacking layers of convolving filters with activation functions.
+% Sometimes pooling layers performing subsampling are included, and many complete networks also include a dense (fully connected) layer at the end (Figure 2.7).
+% Compared to a fully connected layer, a convolutional layer allows the model to handle the large dimensions of an image by dramatically reducing the number of pixels that a certain output is depending on, as well as reducing the number of parameters by forcing the filter coecients to be the same regardless of position.
+% Furthermore the convolutional aspect allows the model to focus on features localized in the image.
+
+% \textbf{Multiply-accumulate operation} \\
+% The multiply-accumulate operation is an operation that multiplies two numbers and adds them to an accumulator.
+% \begin{equation}
+%     a \leftarrow a + ( b \times c )
+% \end{equation}
+
+% This particular operation is used especially frequently in CNNs due to the stacked convolutional layers.
+
+\lipsum[2]
+
+\subsection{Residual neural network}
+% Lorem ipsum
+
+Residual neural network (ResNet) is a deep CNN architecture that was proposed in 2015 by Microsoft Research in order to combat the difficulty of training deep CNNs (networks with multiple layers between input and output layers).
+% In their proposal they demonstrated that their ResNet outperformed current state of the art networks on the ImageNet test set while being up to 8x deeper.
+% Before ResNets, variations of deep CNNs performed best at state of the art benchmarks [17].
+% The depth of the CNNs is been proven to be beneficial with deeper CNNs such as VGG-19 [18] outperforming shallower models, but only up until a certain point where the depth yields worse results.
+% Naively, one might think that this should not happen as adding $m$ number of layers to a network with $n$ layers could
+% in worst case result in same performance as the $m$ added layers learning the identity mapping of previous layers and in best case learn features that the network with $n$ layers was unable to learn.
+% However, this is evidently not the case as exemplified in \cref{TODO}.
+% This is known as the degradation problem, where the network's ability to propagate information form the foremost layers becomes degraded and therefore loses information as the information travels through the network \cref{TODO} [17].
+% The worse performance with more layers cannot be attributed to \textit{overfitting} as the training error (as well as the validation error) is higher than that of the more shallow network.
+
+% \textbf{Skip connection} \\
+% The ResNet architecture addresses the aforementioned problem with learning identity mapping by introducing skip connections (also known as shortcut or identity connections), denoted by \textbf{x identity} in \cref{TODO}.
+
+\lipsum[3]
+
+\subsection{Model optimizations}
+% \begin{itemize}
+%     \item Quantization
+%     \item Pruning
+%     \item ...
+% \end{itemize}
+\lipsum[4]

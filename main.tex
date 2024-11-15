@@ -1,0 +1,219 @@
+% \documentclass[11pt]{article}
+\documentclass[11pt]{report}
+
+% the recommended packages discussed in section 4. Keep them!
+\usepackage{pkgs/rtsched}
+\usepackage[sorting=none]{biblatex}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{per-mode=symbol} 
+\usepackage{pgfgantt}
+\usepackage{rotating}
+\usepackage{vhistory}
+\usepackage{pgfplots}
+% \usepgfplotslibrary{external}
+% \tikzexternalize
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+\usepackage{eqexpl}
+\eqexplSetIntro{where:} % set parenthesis in the left of the first item
+\eqexplSetDelim{=} % set delimiter to "="
+\usepackage{bytefield}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{wheelchart}
+\usepackage{etoolbox}
+\usepackage{listofitems}
+\usetikzlibrary{decorations.text}
+\usepackage{lipsum}
+\usepackage{import}
+\usepackage[colorinlistoftodos]{todonotes}
+
+
+\definecolor{lightcyan}{rgb}{0.84,1,1}
+\definecolor{lightgreen}{rgb}{0.64,1,0.71}
+\definecolor{lightred}{rgb}{1,0.7,0.71}
+\definecolor{lightorange}{rgb}{1,0.8,0.5}
+\definecolor{lightpurple}{rgb}{0.89,0.79,0.96}
+\definecolor{lightyellow}{rgb}{0.92,0.99,0.48}
+\definecolor{lightgray}{gray}{0.8}
+
+% some packages required for typesetting a nice manual
+\usepackage{tabularx}
+\usepackage[a4paper]{geometry}
+\usepackage{listings}
+\lstset{language=tex, frame=single, basicstyle=\small}
+\usepackage{shortvrb}
+\MakeShortVerb{\|}
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+% load the titlepage providing package. Mind the slash!
+\usepackage[affiliation=double,corporate-identity=none]{tu/e}
+
+% its good practice to always load the ~ref packages last, in this order:
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,citecolor=red}
+\usepackage[nameinlink]{cleveref}
+
+% Use these macros to supply information for on your titlepage. The must be
+% placed in the preamble! You can safely omit any of them if you don't want to
+% print that specific bit of information to the titlepage.
+\title{Exploring efficient reconfiguration on the GrAICore}
+% \subtitle{Hello world}
+\thesistype{Master thesis}
+\idnumber{1712918}
+\author{S. Yip}
+\supervisors{Supervisors\\dr.ir. M.C.W. Geilen (TU/e)\\dr. Hamid Tabani (GrAI Matter Labs B.V.)\\dr.ir. Orlando Moreira (GrAI Matter Labs B.V.)}
+\version{Draft version}
+\citydate{Eindhoven, October 2024}
+\institutioninfo{Department of Electrical Engineering\\Electronic Systems Group}
+\secondinstitutionlogo[width=\textwidth]{assets/GML_logo_lockup_dark}
+\secondinstitutioninfo{GrAI Matter Labs B.V.\\Eindhoven, The Netherlands}
+
+\addbibresource{references.bib}
+% \addbibresource{My Library.bib}
+
+% \linespread{1.5}
+\begin{document}
+\onehalfspacing
+
+\input{sections/history}
+\input{sections/abstract}
+
+\tableofcontents
+
+% Introduction
+% - Problem statement
+% - Outline
+% Background
+% - Edge AI
+% - NoC
+% - External memory
+% - Neural network
+% - GrAICore
+
+% Multi-model analysis
+% Large model analysis
+% Current config NoC analysis
+% Improving config NoC's bandwidth 
+% - Proposed changes
+% Power analysis
+
+% Exploring model partitioning
+% Exploring model configuration enhancements
+% - Storage efficiency
+% - Improving configuration energy
+% - Improving large model inference latency
+
+\chapter{Introduction}
+\import{sections/introduction}{problem_statement}
+\import{sections/introduction}{research_question}
+\import{sections/introduction}{outline}
+
+\chapter{Background}
+\import{sections/background}{edge_ai}
+\import{sections/background}{computer_vision}
+\import{sections/background}{neural_networks}
+\import{sections/background}{ai_accelerator}
+\import{sections/background}{noc}
+\import{sections/background}{external_memory}
+\import{sections/background}{graicore}
+% \import{sections/background}{swapping}
+
+\chapter{Evaluation of the config NoC}
+\import{sections}{config_noc_eval}
+
+\chapter{Model execution analysis}
+\import{sections/model_execution_analysis}{multi_model}
+\import{sections/model_execution_analysis}{large_model}
+
+\chapter{Config NoC bandwidth improvements}
+\import{sections/bandwidth_improvements}{bandwidth_improvements}
+\import{sections/bandwidth_improvements}{proposed_changes}
+
+\chapter{Model configuration improvements}
+\import{sections}{model_configuration_improvements}
+\import{sections/model_configuration_improvements}{states}
+\import{sections/model_configuration_improvements}{weight_duplications}
+\import{sections/model_configuration_improvements}{pruning}
+\import{sections/model_configuration_improvements}{quantization}
+
+\chapter{Power analysis}
+\import{sections}{power_analysis}
+
+% \chapter{Exploring partitioning strategies}
+
+\chapter{Partitioning large models - Formal problem description}
+% \section{Large model partitioning}
+\label{section:tmp}
+\lipsum[1]
+
+\chapter{Conclusion}
+\lipsum[1]
+
+\chapter{Future work}
+\section{Exploring partitioning strategies}
+\import{sections}{exploring_partitioning}
+\section{Parallel configuration/processing}
+Explain that we can speed up inference of large models by configuring and processing the partitions in parallel or pipelined.
+
+\section{Compiler analysis}
+Explain that with a comprehensive analysis of the compiler, we can improve the search for optimal solutions for a model or model partition.
+
+\section{Add static power consumption}
+Explain that we have only considered dynamic power/energy consumption.
+Static power has not been explored.
+
+\section{Other memory technologies}
+We have only explored one specific memory technology (DDR).
+Using an other memory technology may provide us with better results.
+This could be in terms of speed and energy use.
+
+\section{}
+% \input{sections/introduction}
+% \input{sections/introduction/problem_statement}
+% \input{sections/introduction/research_question}
+% \input{sections/introduction/outline}
+
+% \input{sections/background}
+% \input{sections/background/edge_ai}
+% \input{sections/background/computer_vision}
+% \input{sections/background/neural_networks}
+% \input{sections/background/ai_accelerator}
+% \input{sections/background/noc}
+% \input{sections/background/external_memory}
+% \input{sections/background/graicore}
+% \include{sections/background/swapping}
+
+
+
+
+% \include{sections/requirements_analysis}
+
+% \section{Method}
+% \section{Results and analysis}
+% \section{Discussion}
+% \section{Conclusions and future work}
+% \subsection{Conclusions}
+% \subsection{Future work}
+
+% \include{sections/config_noc_eval}
+% \include{sections/multiple_models_analysis}
+% \include{sections/large_model_analysis}
+% \include{sections/bandwidth_improvements}
+% \include{sections/proposed_changes}
+% \include{sections/power_analysis}
+% \include{sections/power_analysis_calculation}
+% \include{sections/exploring_partitioning}
+
+\newpage
+\printbibliography[heading=bibintoc]
+
+\end{document}

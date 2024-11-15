@@ -1,0 +1,50 @@
+\begin{tikzpicture}
+\begin{axis}[
+    ylabel=Latency (ms),
+    xlabel=Zone(s),
+    ymajorgrids=true,
+    grid style=dashed,
+    ymin=0, ymax=50,
+    symbolic x coords={1, 2, 3, 4, 6, 12},
+    xtick={1, 2, 3, 4, 6, 12},
+    ybar,
+    enlarge x limits={abs=15pt},
+    bar width=6pt
+]
+
+\addplot+[
+area legend,
+] 
+	coordinates {
+            (1,23.59)
+            (2,15.73)
+            (3,11.80)
+            (4,7.86)
+            (6,3.93)
+            (12,1.97)
+        };
+\addplot+[
+area legend,
+] 
+	coordinates {
+            (1,15.73)
+            (2,11.80)
+            (3,7.86)
+            (4,3.93)
+            (6,1.97)
+            (12,0.98)
+        };
+\addplot+[
+area legend,
+] 
+	coordinates {
+            (1,11.80)
+            (2,7.86)
+            (3,3.93)
+            (4,1.97)
+            (6,0.98)
+            (12,0.49)
+        };
+\legend{16 wide phit, 32 wide phit, 64 wide phit}
+\end{axis}
+\end{tikzpicture}

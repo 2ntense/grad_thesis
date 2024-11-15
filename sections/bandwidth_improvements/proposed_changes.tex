@@ -1,0 +1,38 @@
+% \section{Proposed config NoC specifications}
+\section{Proposed specifications}
+\label{sec:proposed_noc}
+% In this section, we provide a detailed specification of the proposed configuration NoC and interface for GrAICore based on the analysis and observations presented in the previous sections of this document.
+To improve the bandwidth of configuration with the configuration NoC, a set of changes is proposed. Firstly, we propose to widen the links from 16 bits to 64 bits.
+This allows for phits of 64 bits in size.
+This change provides us with a potential bandwidth increase of 4x.
+An immediate increase to 64 bits instead of 32 bits is preferred as it allows for one-time change in the design and verification effort.
+Another benefit is the synergy with the unified memories.
+Since the SRAMs have 64-bit memory words and can write one memory word of 64 bits every cycle, there is no need to buffer multiple (smaller) phits before writing them to the SRAM.
+This first change proposal provides a peak bandwidth of \SI{3}{GiB/s}.
+
+Next, by dividing the configuration NoC into two equally sized (virtual) zones with their own external interface, we can benefit from parallel configuration of two cores (one per zone) and therefore, another 2x increase in bandwidth.
+These two changes provide a bandwidth of around \SI{6}{GiB/s}. 
+The amount of zones and injection points can be expanded in the future at relatively small costs if necessary.
+
+Lastly, the aforementioned changes require a change in the packet format.
+The new packet format benefits from less overhead per chunk of payload data.
+Since we opt for a link width of 64, the size of a single phit also increases to 64 bits.
+All header information fits within a single phit of 64 bits.
+The data phits following the header are fully utilized for payload data.
+The format of the header is shown in \cref{fig:packet_format_header_new}.
+With a length field of 6 bits, we can specify up to 65 data phits for a single packet.
+This is a sufficient amount as argued in the previous section. 
+Compared to the current packet format, an additional bandwidth increase of almost 2x can be gained with this new packet format.
+
+\begin{figure}[hbtp]
+    \centering
+    \resizebox{\linewidth}{!}{
+        \input{assets/packet_format/header_new}
+    }
+    \caption{Proposed packet header format}
+    \label{fig:packet_format_header_new}
+\end{figure}
+
+Through increasing the link width, adding an additional injection point, and adopting a new packet format, it’s possible to achieve a significant peak bandwidth improvement of nearly 16x.
+Specifically, this translates to upgrading from an initial bandwidth of \SI{0.75}{GiB/s} to a substantial \SI{11.92}{GiB/s}.
+Moreover, additional increase in bandwidth can be obtained by increasing the amount of injection points.

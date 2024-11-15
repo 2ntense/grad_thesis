@@ -1,0 +1,18 @@
+\section{Problem statement}
+
+The problem to be addressed by this project is the inability to reconfigure the GrAICore during run-time.
+The current design of the GrAICore is incapable of doing this due to the limited host to GrAICore interface.
+Adding this feature for the GrAICore to reconfigure during run-time significantly enhances its capabilities.
+Firstly, it will allow multiple computer vision models to be used simultaneously while the GrAICore is running.
+Deploying multiple computer vision models can be highly beneficial for creating a multifaceted system capable of handling diverse tasks simultaneously.
+Each model can be specialized for a specific function, allowing the system to be more versatile and responsive to different visual processing requirements.
+Secondly, using a technique such as partitioning the neural network into parts, allows the GrAICore to manage large models that do not fit on the GrAICore at once.
+This method processes one model part at a time, requiring only a part of the model to be loaded.
+Larger computer vision models for inference typically offer higher accuracy and better generalization to new data, can capture more complex features, and are more robust to noise and distortions.
+They are valuable for tasks requiring the utmost precision.
+
+Additionally, as specified by GML, they require that the GrAICore supports seamless reconfiguration.
+In this context, seamless reconfiguration refers to the ability to switch between different AI models, or to modify the current model, without interrupting or significantly delaying data processing.
+Given that the GrAICore is focused on computer vision applications, this means that it is crucial that the processing of input images occurs in a timely manner.
+This is particularly challenging for video applications, where each frame must be processed before the next one arrives. Failing to meet this requirement can reduce the usefulness of the results, thereby degrading the system's quality of service.
+Specifically, GML requires the system to support an incoming video frame rate of \SI{60}{FPS}.
