@@ -1,0 +1,33 @@
+\input{assets/power_analysis/pre.tex}
+\begin{tikzpicture}
+    \pie[
+        radius=2.5,
+        text=pin,
+        hide number,
+    ]{
+        0.8/0.8\%,
+        12.2/12.2\%,
+        3.5/3.5\%,
+        2.1/2.1\%
+    }
+    \pie[
+        radius=2.5,
+        hide number,
+        color={gray, bluehue2, bluehue4, bluehue6},
+        before number=\printonlylargeenough{2},
+        after number=\ifprintnumber\%\fi
+    ]{
+        0.8/,
+        12.2/,
+        3.5/,
+        2.1/
+    }
+    \pie[
+        radius=2,
+        text=inside,
+        color={blue!60, red!60},
+    ]{
+        18.7/$\econf$,
+        81.3/$\eproc$
+    }
+\end{tikzpicture}

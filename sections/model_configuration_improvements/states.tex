@@ -1,12 +1,14 @@
 \section{States}
-One of the components of a compiled models is \textit{states}.
-States is a section that is reserved on the SRAM that is used as a buffer for the accumulation of the activation data.
+One of the data sections of a compiled model is \textit{states}.
+States is a section that is reserved on the SRAMs and used as a buffer for the accumulation of the activation data of layers.
 
+For every new frame, the states section is initialized with a static set of bias values.
+This initialization process does not retrieve the bias values from the external memory but...
 \todo[inline]{Insert more explanation about states}
 
-We can improve the energy consumption when performing a model configuration by avoiding the reading of the states.
+Since the states do not have to be read during configuration, we can improve the energy consumption by avoiding the reading of the states.
 This allows us to read less data from the external memory, reducing the energy for configuration.
-Furthermore, this also improves the configuration latency.
+Furthermore, since less data is transferred, also the configuration latency should be improved.
 
 We perform an analysis on various models to get an idea of how much we can benefit with avoiding the read of states.
 The compiler provides us with the amount of bytes used for the states and other components of each model.
@@ -17,9 +19,9 @@ The compiler provides us with the amount of bytes used for the states and other 
 \toprule
 \textbf{Model}          & \textbf{States ratio} & \textbf{Prune ratio} \\ \midrule
 efficientnet            & 23\%                  & 20\%                 \\
-hand\_detector          & 51\%                  & 0\%                  \\
 mobnetv2                & 31\%                  & 0\%                  \\
-hand\_tracker\_star\_v2 & 28\%                  & 20\%                 \\
+hand\_tracker           & 28\%                  & 20\%                 \\
+hand\_detector          & 51\%                  & 0\%                  \\
 resnet50                & 28\%                  & 80\%                 \\
 resnet101\_p0           & 24\%                  & 0\%                  \\
 resnet101\_p1           & 14\%                  & 0\%                  \\
@@ -36,6 +38,26 @@ resnet101\_pruned\_p4   & 11\%                  & 80\%                 \\ \botto
 \label{tab:states_ratio}
 \end{table}
 
-Looking at \cref{tab:states_ratio}, on average, $23\%$ is used for states.
+Looking at \cref{tab:states_ratio}, on average, $23\%$ is used for states section.
 We observe that the states ratio can reach half of the total bytes to be written to the GrAICore.
-Thus, with the models in \cref{tab:states_ratio}, we can reduce the amount of data to be read from the external memory by up to a half.
+In certain cases, the states section can occupy up to half of all the data sections combined.
+% Thus, with the models in \cref{tab:states_ratio}, we can reduce the amount of data to be read from the external memory by up to a half.
+
+In terms of energy savings, the ResNet-50 model sees a decrease of 23\% in configuration energy when avoiding the reads of states from the external memory (see \cref{fig:resnet50_states_comparison}).
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{Includes states\label{a}}{
+        \input{assets/power_analysis/baseline/lpddr5x/sunburst_resnet50_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox*{}[0em]{
+        \includegraphics{assets/legend.pdf}
+    }
+    \hfill
+    \subcaptionbox{Excludes states\label{a}}{
+        \input{assets/power_analysis/no_states/lpddr5x/sunburst_resnet50_conf_proc.tex}
+    }
+    \caption{ResNet-50 states. Using LPDDR5X memory.}
+    \label{fig:resnet50_states_comparison}
+\end{figure}

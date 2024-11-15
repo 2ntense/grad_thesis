@@ -1,16 +1,21 @@
 \section{Conclusion}
+Optimally, we want the configuration energy to be as minimal as possible.
+\Cref{tab:savings} shows that with the exclusion of states and weight duplicates we can save up to 69\% of data to be read from the external memory and on average 39\%.
+% In terms of energy, this is up to \% and on average \%
 
-\Cref{tab:savings} shows that with the exclusion of states and weight duplicates we can up to 69\% of data to be read from the external memory and on average 39\%.
+Note that we do not look at different prune levels for the models.
+It is not trivial to predict whether a certain pruning percentage will notably affect the model's accuracy.
+Some of the example models are already pruned, see \cref{tab:states_ratio}.
 
 \begin{table}[hbtp]
 \centering
 \begin{tabular}{@{}ll@{}}
 \toprule
 \textbf{Model}          & \textbf{Saving (\%)} \\ \midrule
-efficientnet (8b)       & 30\%                 \\
-hand\_detector (8b)     & 69\%                 \\
-mobnetv2 (8b)           & 37\%                 \\
-hand\_tracker\_star\_v2 & 43\%                 \\
+efficientnet            & 30\%                 \\
+hand\_detector          & 69\%                 \\
+mobnetv2                & 37\%                 \\
+hand\_tracker           & 43\%                 \\
 resnet50                & 42\%                 \\
 resnet101\_p0           & 55\%                 \\
 resnet101\_p1           & 46\%                 \\
@@ -23,6 +28,28 @@ resnet101\_pruned\_p2   & 46\%                 \\
 resnet101\_pruned\_p3   & 24\%                 \\
 resnet101\_pruned\_p4   & 18\%                 \\ \bottomrule
 \end{tabular}
-\caption{}
+\caption{Data savings when excluding states and weight duplicates}
 \label{tab:savings}
 \end{table}
+
+\Cref{fig:pies_resnet50_no_states_and_dupes_lpddr5x} shows for the ResNet-50 model the distribution of energy use for configuration and processing when combining both the exclusion of reading of states and weight duplications.
+For the ResNet-50 model, the ratio for the configuration energy is improved with 37\%.
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{Includes states and weight duplicates}{
+        \input{assets/power_analysis/baseline/lpddr5x/sunburst_resnet50_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox*{}[0em]{
+        \includegraphics{assets/legend.pdf}
+    }
+    \hfill
+    \subcaptionbox{Excludes states and weight duplicates}{
+        \input{assets/power_analysis/no_states_and_dupes/lpddr5x/sunburst_resnet50_conf_proc.tex}
+    }
+    \caption{ResNet-50 states and weight duplicates. Based on LPDDR5X as external memory}
+    \label{fig:pies_resnet50_no_states_and_dupes_lpddr5x}
+\end{figure}
+
+% On average, we see an improvement of x\%

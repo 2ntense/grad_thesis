@@ -1,13 +1,14 @@
-The process of configuring a model on the GrAICore is the reading of the required data from the external memory, transferring it to the GrAICore's neuron cores and writing the data to the SRAMs.
+The process of configuring a model on the GrAICore is the reading of the relevent data from the external memory, transferring it to the GrAICore's neuron cores and writing the data to the SRAMs.
 
-The data for a compiled model that has to be written to the GrAICore consists of the following components:
+A compiled model, that is to be written to the GrAICore, is structured as separate sections of data, with each section containing a certain type of data.
+These sections of data are as follows:
 \begin{description}
     \item[Weights] 
     The numerical values assigned to the connections between neurons in the neural network
     \item[Masks] 
     A mask is a single bit that is associated to one weight.
     Masks are necessary to identify whether a weight is pruned or not.
-    Weights that are pruned (i.e., has an exact value of $0$) are not written to the GrAICore at all, saving memory and energy (since it isn't written to or read from the SRAM when processing)
+    Weights that are pruned (i.e., has an exact value of $0$) are not configured on the GrAICore at all, saving memory and energy (since it isn't written to or read from the SRAM when processing)
     \item[States] 
     Acts as a buffer space for the accumulation of activation (output) data of layers, which also initially includes the bias values.
     \item[Headers] 
@@ -19,6 +20,6 @@ The data for a compiled model that has to be written to the GrAICore consists of
     Acts as an input buffer for storing incoming events from other neuron cores 
 \end{description}
 
-From \ref{}, we observed that, in the configuration process, reading from the external DDR memory consumes most of the energy.
+From \cref{chapter:power_analysis}, we observed that, in the configuration process, reading from the external DDR memory consumes most of the energy.
 In this chapter, we look at a few potential means to improve the configuration energy.
 

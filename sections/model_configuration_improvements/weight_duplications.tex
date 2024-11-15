@@ -20,7 +20,7 @@ However, we have seen in \ref{} that in the configuration process, reading from 
 
 There is an opportunity in decreasing the energy cost for reading from the external DDR memory.
 Instead of reading all the weights (including duplicates), we can read only the unique duplicates once.
-For this to work, we need a separate controller (close to the GrAICore) that can copy and distribute the weights to the neuron cores that require them.
+For this to work however, we require a separate controller (close to the GrAICore) that can copy and distribute the weights to the neuron cores that require them.
 
 Let's first look why this technique is interesting to pursue.
 To determine the amount of duplicates that are present in the compiled model, we do the following:
@@ -42,9 +42,9 @@ To determine the amount of duplicates that are present in the compiled model, we
 \toprule
 \textbf{Model}          & \textbf{Weight duplication ratio} \\ \midrule
 efficientnet            & 22\%                              \\
-hand\_detector          & 74\%                              \\
 mobnetv2                & 17\%                              \\
-hand\_tracker\_star\_v2 & 40\%                              \\
+hand\_tracker           & 40\%                              \\
+hand\_detector          & 74\%                              \\
 resnet50                & 46\%                              \\
 resnet101\_p0           & 53\%                              \\
 resnet101\_p1           & 51\%                              \\
@@ -58,10 +58,37 @@ resnet101\_pruned\_p3   & 38\%                              \\
 resnet101\_pruned\_p4   & 20\%                              \\ \bottomrule
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:example_models_duplicate_weights}
 \end{table}
 
-The amount of weight duplicates is highly dependent on the model and how the compiler performed the mapping of the original model.
-\Cref{tab:my-table} shows for various models the percentage of duplicate weights.
+The amount of weight duplicates is dependent on the model and how the compiler performed the mapping of the original model.
+\Cref{tab:example_models_duplicate_weights} shows for various models the percentage of duplicate weights.
 We observe that up to 74\% of the weights are duplicates with an average of 41\%.
 Since weights are in most cases the largest component of the total compiled model size, these numbers show that there is potentially notable savings in configuration performance.
+
+\Cref{fig:resnet50_weight_duplicates} shows the energy distribution of the ResNet-50, including and excluding the reading of duplicate weights. 
+We observe an configuration energy decrease of 12\%.
+
+Note that this technique requires additional logic to be added to the system which acts as a component that transfers copies of relevant weights to multiple destination SRAMs.
+This, of course, also adds to the total energy consumption when performing a configuration.
+However, such a component has not been analyzed and is not included in the preliminary energy analysis. 
+We assumed that the amount of data read from the external memory is decreased by the amount of duplicate weights.
+Also, less data has to be transferred through the PHY, controller and AXI.
+The energy consumed by the config NoC and SRAMs are the same as in the scenario where we include the weights duplicates.
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{Includes weight duplicates}{
+        \input{assets/power_analysis/baseline/lpddr5x/sunburst_resnet50_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox*{}[0em]{
+        \includegraphics{assets/legend.pdf}
+    }
+    \hfill
+    \subcaptionbox{Excludes weight duplicates}{
+        \input{assets/power_analysis/no_dupes/lpddr5x/sunburst_resnet50_conf_proc.tex}
+    }
+    \caption{ResNet-50 weight duplicates. Using LPDDR5X memory.}
+    \label{fig:resnet50_weight_duplicates}
+\end{figure}

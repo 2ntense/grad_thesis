@@ -1,0 +1,6 @@
+\def\printonlylargeenough#1#2{{\unless\ifdim#2pt<#1pt\relax
+#2\printnumbertrue
+\else
+\printnumberfalse
+\fi}}
+\newif\ifprintnumber

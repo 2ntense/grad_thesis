@@ -13,7 +13,7 @@ To determine the required write bandwidth for configuring a model, we need the f
     \item The frame processing latency
 \end{itemize}
 
-The amount of time we have to configure the GrAICore is depend on the input frame rate and frame processing latency.
+The amount of time we have avaiable to configure the GrAICore is dependent on the input frame rate and frame processing latency.
 For example, for an input frame rate of \SI{60}{FPS}, we have a period of \SI{16.7}{ms} between every two frames.
 Suppose we want to process every new incoming frame with a new model, all with a frame processing latency of \SI{5}{ms}. 
 Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms} to reconfigure the GrAICore with the next model.
@@ -42,7 +42,7 @@ We calculate the required bandwidth for configuring model $m$ with \cref{eq:mult
     \item{$L_m$} frame processing latency for model $m$
 \end{eqexpl}
 
-In the worst-case scenario, we have configure the GrAICore with a model requiring to write the total capacity of the GrAICore (\SI{36}{\mebi\byte}).
+In the worst-case scenario, we have to configure the GrAICore with a model requiring to write the total capacity of the GrAICore (\SI{36}{\mebi\byte}).
 We require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$.
 Note that this bandwidth number does not include any overhead induced by communication protocols. Therefore, in practice, the required minimum bandwidth is higher. 
 
