@@ -1,0 +1,38 @@
+\section{Bandwidth}
+Configuration is done by transferring write request packets from the host to one or more neuron cores.
+A write request packet consists of 64 bits in total.
+Recall that the SRAM capacity of a single neuron core is \SI{256}{KiB}.
+If we want to completely fill up one of these memories, a total of $\frac{\SI{256}{KiB}}{\SI{32}{b}} = 65536$ write request packets needs to be sent.
+This means that, in total, \SI{256}{KiB} of payload data and \SI{256}{KiB} of header data is sent through the NoC.
+
+To estimate the time to write a certain amount of data to the memories of the GrAICore, we can make use of \cref{eq:latency}.
+The effective bandwidth can be calculated with \cref{eq:bandwidth}.
+
+\begin{equation}
+    T = 
+    \frac{d_{\text{payload}} + d_{\text{overhead}}}
+    {f_{\text{clock}} \times w_{\text{phit}}}
+\label{eq:latency}
+\end{equation}
+
+\begin{equation}
+    \text{BW}_{\text{eff}} =
+    \frac{d_\text{payload}}{T}
+\label{eq:bandwidth}
+\end{equation}
+
+\begin{eqexpl}[15mm]
+    \item{$T$} time to write data
+    \item{$\text{BW}_{\text{eff}}$} effective bandwidth
+    \item{$d_{\text{payload}}$} amount of payload data
+    \item{$d_{\text{overhead}}$} amount of overhead data
+    \item{$f_{\text{clock}}$} system's clock frequency
+    \item{$w_{\text{phit}}$} width of a phit
+\end{eqexpl}
+
+For example, to completely fill up the GrAICore's memory (\SI{36}{MiB}), it will take around \SI{47}{ms}\footnote{$\frac{\SI{36}{MiB} + \SI{36}{MiB}}{\SI{800}{MHz} \times \SI{16}{b}}$}.
+% This translates to an effective bandwidth of $\frac{\SI{36}{MiB}}{\SI{47}{ms}} \approx \SI{763}{MiB/s}$.
+This translates to an effective bandwidth of \SI{763}{MiB/s}\footnote{$\frac{\SI{36}{MiB}}{\SI{47}{ms}}$}.
+Here we assumed that no delays are introduced by software and reading the data from storage.
+Furthermore, it is good to note that the delays introduced by hops are minimal due to pipelining.
+Thus, \cref{eq:bandwidth} provides us the config NoC's \textit{peak} effective bandwidth.

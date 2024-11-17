@@ -1,0 +1,174 @@
+\section{Evaluation}
+To develop a preliminary understanding of the power contributions of the model reconfiguration from external memory, we evaluate a variety of practical models.
+The power is the configuration of a model and a single inference with the model at \SI{60}{FPS}.
+Effectively, this means that the same model is configured on the GrAICore 60 times per second and also used to proces an input frame 30 times per second.
+
+We will be looking at two different external memory technologies, LPDDR5X and PCM.
+We assume we use the DDR protocol for transferring data to the AXI bus that is connected to the GrAICore.
+For the DDR protocol to work, we require an DDR PHY and DDR controller.
+These components both add to the energy when transferring data to the GrAICore.
+
+\begin{table}[hbtp]
+    \centering
+    \begin{tabular}{@{}lrl@{}}
+    \toprule
+    \textbf{Component} & \textbf{Value} & \textbf{Unit} \\
+    \midrule
+    LPDDR5X read             & 36.00 & pJ/B \\
+    PCM read                 & 5.29 & pJ/B  \\
+    DDR PHY                  & 10.39 & pJ/B \\
+    DDR Controller           & 1.56 & pJ/B  \\
+    AXI Bus                  & 6.25 & pJ/B  \\
+    Config NoC hop (64 bits) & 0.26 & pJ    \\
+    SRAM write (64 bits)     & 4.98 & pJ    \\ \bottomrule
+    \end{tabular}
+    \caption{Energy parameters of PCM and LPDDR5X memory, DDR interface and GrAICore that are relevant for model configuration}
+    \label{tab:energy_parameters}
+\end{table}
+
+We look at the models as shown in \cref{tab:example_models_stats}.
+It also shows the processing latency, the number of cores used and the average utilization of the cores of each (mapped) model.
+These statistics are used for computing the processing energy.
+The ``to write'' columns show the total amount of bytes that is to be transferred to the GrAICore.
+Note that to get a more accurate energy number for configuration, we need the amount of bytes to be transferred to each core individually.
+This information is available, and will be used for the evaluation.
+
+\begin{table}[]
+\centering
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Model}          & \textbf{\begin{tabular}[c]{@{}l@{}}Latency\\ (ms)\end{tabular}} & \textbf{Cores} & \textbf{Avg util.} & \textbf{\begin{tabular}[c]{@{}l@{}}To write\\ (MiB)\end{tabular}} \\ \midrule
+efficientnet            & 1.642                                                           & 144            & 50.89\%            & 16.15                                                             \\
+mobnetv2                & 1.296                                                           & 144            & 40.78\%            & 10.67                                                             \\
+hand\_tracker           & 1.480                                                           & 144            & 36.62\%            & 12.33                                                             \\
+hand\_detector          & 4.809                                                           & 144            & 68.03\%            & 19.12                                                             \\
+resnet50                & 5.765                                                           & 144            & 36.35\%            & 29.58                                                             \\
+resnet101\_p0           & 7.080                                                           & 144            & 33.40\%            & 28.75                                                             \\
+resnet101\_p1           & 2.647                                                           & 143            & 36.42\%            & 20.06                                                             \\
+resnet101\_p2           & 4.011                                                           & 144            & 33.12\%            & 30.44                                                             \\
+resnet101\_p3           & 2.343                                                           & 143            & 33.55\%            & 17.71                                                             \\
+resnet101\_p4           & 2.040                                                           & 143            & 26.19\%            & 15.54                                                             \\
+resnet101\_pruned\_p0   & 6.552                                                           & 144            & 38.10\%            & 15.87                                                             \\
+resnet101\_pruned\_p1   & 3.245                                                           & 143            & 34.31\%            & 10.43                                                             \\
+resnet101\_pruned\_p2   & 4.501                                                           & 143            & 33.83\%            & 16.00                                                             \\
+resnet101\_pruned\_p3   & 2.114                                                           & 143            & 38.08\%            & 10.22                                                             \\
+resnet101\_pruned\_p4   & 2.437                                                           & 143            & 24.25\%            & 7.69                                                              \\
+\bottomrule
+\end{tabular}
+\caption{Model statistics}
+\label{tab:example_models_stats}
+\end{table}
+
+As an example, we demonstrate a calculation for the ResNet-50 model.
+The processing energy is calculated as follows:
+\begin{equation}
+    E_\textrm{proc} = 0.3635 \times 144 \times \SI{5.765}{ms} \times \SI{21}{mW} = \SI{6.34}{mJ}
+\end{equation}
+
+\Cref{fig:model_data_heapmap} shows for the mapped ResNet-50 the amount of data to be sent to each individual core.
+We use this information to construct matrix $D$ and the configuration energy $E_\textrm{conf}$.
+We obtain the values as shown in \cref{tab:resnet50_energy}.
+Configuration with LPDDR5X of the ResNet-50 model on the GrAICore consumes \SI{1.71}{mJ} and with PCM \SI{0.76}{mJ}.
+
+\begin{table}[hbtp]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+    \toprule
+    \textbf{Component} & \textbf{Value} \\
+    \midrule
+    $\ereadlpddr5x$ & 1116.8 \\
+    $\ereadpcm$ & 164.2 \\
+    $\ephy$ & 322.4 \\
+    $\ectrl$ & 48.5 \\
+    $\eaxi$ & 193.9 \\
+    $\enoc$ & 9.2 \\
+    $\ewrite$ & 19.3 \\
+    \bottomrule
+    \end{tabular}
+    \caption{All values are in \SI{}{\micro\joule}}
+    \label{tab:resnet50_energy}
+\end{table}
+
+% Then, performing a single configuration and a single inference, the system will consume \SI{8.05}{mJ} for LPDDR5X and \SI{7.09}{mJ} for PCM in total.
+Then, the total energy consumption when performing a single configuration and a single inference is \SI{8.05}{mJ} for LPDDR5X and \SI{7.09}{mJ} for PCM.
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{LPDDR5X\label{fig:pie_resnet50_conf_lpddr5x}}{
+        \input{assets/power_analysis/baseline/lpddr5x/pie_resnet50_conf.tex}
+    }
+    \hfill
+    \subcaptionbox{PCM\label{fig:pie_resnet50_conf_pcm}}{
+        \input{assets/power_analysis/baseline/pcm/pie_resnet50_conf.tex}
+    }
+    \caption{ResNet-50 configuration energy distribution}
+    \label{fig:resnet50_conf_energy_distribution}
+\end{figure}
+
+% \Cref{TODO} shows that for LPDDR5X memory, reading from the memory consumes most of the energy in the configuration process.
+% While the DDR PHY consumes the most energy when PCM is used.
+
+Looking at the configuration energy, with LPDDR5X, most of the energy is consumed by reading from the exteral memory (see \cref{fig:resnet50_conf_energy_distribution}).
+While for PCM, most of the energy is consumed by the DDR PHY.
+
+The energy distribution between configuration and processing.
+Shown in \cref{fig:resnet50_conf_proc}, the configuration of the ResNet-50 model occupies around 21\% with LPPDDR5X and 11\% with PCM of the total energy consumption (processing and configuration).
+Of the models as listed in \cref{tab:example_models_stats}, on average, around 23\% is used for configuration with LPDDR5X memory and 12\% with PCM as external memory (see \cref{fig:example_models_avg_conf_proc}).
+When performing configuration and processing at \SI{60}{FPS}, we get the power values as shown in \cref{tab:example_models_power_consumption}.
+
+Ideally, the power consumption of the configuration of a model should be as minimal as possible.
+In \cref{chapter:model_configuration_improvements}, we explore techniques for increasing configuration efficiency.
+
+\begin{table}[]
+    \centering
+    \begin{threeparttable}
+        \begin{tabular}{@{}lrrr@{}}
+            \toprule
+                                       & \multicolumn{2}{l}{\textbf{Conf. power (mW)}} & \textbf{Proc. power (mW)} \\ \cmidrule(l){2-3} 
+            \textbf{Model}             & \textit{LPDDR5X}  & \textit{PCM}    & \\ \midrule
+            efficientnet               & 56.0              & 24.8            & 151.6 \\
+            mobnetv2                   & 37.0              & 16.4            & 95.9 \\
+            hand\_tracker              & 42.8              & 18.9            & 98.3 \\
+            hand\_detector             & 66.3              & 29.4            & 593.6 \\
+            resnet50                   & 102.6             & 45.4            & 380.2 \\
+            resnet101\tnote{1}         & 390.2             & 172.8           & 1081.7 \\
+            resnet101\_pruned\tnote{1} & 208.9             & 92.5            & 1179.4 \\ \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+            \item[1] Combination of all parts
+        \end{tablenotes}
+    \end{threeparttable}
+    \caption{Power consumption of configuration (of the same model) and processing of an input frame at \SI{60}{Hz}}
+    \label{tab:example_models_power_consumption}
+\end{table}
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{LPDDR5X\label{fig:pie_resnet50_conf_proc_lpddr5x}}{
+        \input{assets/power_analysis/baseline/lpddr5x/pie_resnet50_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox{PCM\label{fig:pie_resnet50_conf_proc_pcm}}{
+        \input{assets/power_analysis/baseline/pcm/pie_resnet50_conf_proc.tex}
+    }
+    \caption{Configuration vs. processing energy for the ResNet-50 model}
+    \label{fig:resnet50_conf_proc}
+\end{figure}
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{LPDDR5X\label{fig:sunburst_avg_conf_proc_lpddr5x}}{
+        \input{assets/power_analysis/baseline/lpddr5x/sunburst_avg_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox*{}[0em]{
+        \includegraphics{assets/legend.pdf}
+    }
+    \hfill
+    \subcaptionbox{PCM\label{fig:sunburst_avg_conf_proc_pcm}}{
+        \input{assets/power_analysis/baseline/pcm/sunburst_avg_conf_proc.tex}
+    }
+    \caption{Average energy consumption distribution of the models listed in \cref{tab:example_models_stats}}
+    \label{fig:example_models_avg_conf_proc}
+\end{figure}
+    
