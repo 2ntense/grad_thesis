@@ -1,76 +1,24 @@
 \documentclass[a4paper,12pt]{report}
 
-% import preamble
 \usepackage{preamble}
 
-% \linespread{1.5}
+% \includeonly{chapters/ch1/index}
+% \includeonly{chapters/ch1/outline}
+
 \begin{document}
 \onehalfspacing
 
-\import{sections}{history}
-
-\chapter*{Abstract}
-\import{sections}{abstract}
-
-\tableofcontents
-
-\chapter{Introduction}
-\import{sections}{introduction}
-\import{sections/introduction}{problem_statement}
-\import{sections/introduction}{research_question}
-\import{sections/introduction}{outline}
-
-\chapter{Background}
-\import{sections}{background}
-\import{sections/background}{edge_ai}
-\import{sections/background}{computer_vision}
-\import{sections/background}{neural_networks}
-\import{sections/background}{ai_accelerator}
-\import{sections/background}{noc}
-\import{sections/background}{external_memory}
-\import{sections/background}{graicore}
-% \import{sections/background}{swapping}
-
-\chapter{Evaluation of the config NoC}
-\import{sections}{config_noc_eval}
-\import{sections/config_noc_eval}{architecture}
-\import{sections/config_noc_eval}{network_packet_format}
-\import{sections/config_noc_eval}{bandwidth}
-
-\chapter{Model execution analysis}
-\import{sections}{model_execution_analysis}
-\import{sections/model_execution_analysis}{multi_model}
-\import{sections/model_execution_analysis}{large_model}
-
-\chapter{Config NoC bandwidth improvements}
-\import{sections}{bandwidth_improvements}
-\import{sections/bandwidth_improvements}{bandwidth_improvements}
-\import{sections/bandwidth_improvements}{proposed_changes}
-
-\chapter{Power analysis} \label{chapter:power_analysis}
-\import{sections}{power_analysis}
-\import{sections/power_analysis}{configuration_energy}
-\import{sections/power_analysis}{processing_energy}
-\import{sections/power_analysis}{evaluation}
-
-\chapter{Model configuration improvements} \label{chapter:model_configuration_improvements}
-\import{sections}{model_configuration_improvements}
-\import{sections/model_configuration_improvements}{states}
-\import{sections/model_configuration_improvements}{weight_duplications}
-\import{sections/model_configuration_improvements}{pruning}
-% \import{sections/model_configuration_improvements}{quantization}
-\import{sections/model_configuration_improvements}{conclusion}
-
-\chapter{Partitioning large models - Formal problem description}
-\import{sections}{partitioning_large_models}
-
-\chapter{Conclusion}
-\import{sections}{conclusion}
-
-\chapter{Future work}
-\import{sections}{future_work}
-
-\newpage
-\printbibliography[heading=bibintoc]
+\includefrom{chapters/head/}{index}
+\includefrom{chapters/ch1/}{index}
+\includefrom{chapters/ch2/}{index}
+\includefrom{chapters/ch3/}{index}
+\includefrom{chapters/ch4/}{index}
+\includefrom{chapters/ch5/}{index}
+\includefrom{chapters/ch6/}{index}
+\includefrom{chapters/ch7/}{index}
+\includefrom{chapters/ch8/}{index}
+\includefrom{chapters/ch9/}{index}
+\includefrom{chapters/ch10/}{index}
+\includefrom{chapters/tail}{index}
 
 \end{document}

@@ -1,0 +1,86 @@
+\section{Multiple injection points}
+The config NoC has a single injection point and only allows for the transmission of a single message at a time.
+Thus, when transmitting data from external memory to a neuron core, only a fraction of the NoC's capacity is in use and the remaining part  is left unused.
+Also, cores are configured sequentially.
+There is a significant potential to improve the utilization of the NoC and parallelism to reduce the configuration time.
+We propose to divide the NoC into multiple independent zones.
+Each zone is a collection of adjacent clusters including the links between them (example segmentations are illustrated in \cref{fig:segmentation_example}).
+Each of the zones is accompanied by a separate interface to the external world, allowing each zone to have data injected into its cores separately and in parallel to other zones.
+Having more zones will allow for more parallel data transfers.
+To maximize the throughput, the zones should not overlap with each other.
+Otherwise, traffic originating from two different sources may cause congestion in the network. 
+As a result of this change, the total bandwidth will increase, lowering the end-to-end latency.
+
+We study the effects on performance when introducing multiple injection points.
+For three different phit widths and a variety of zones, we compute the latency for sending \SI{36}{MiB} to the GrAICore.
+The results are shown in \cref{fig:zones_vs_latency_vs_phit_width} for the old and new packet format.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \begin{adjustbox}{width=\linewidth}
+            \input{assets/zones_vs_latency_vs_phit_width_old}
+        \end{adjustbox}
+        \caption{Old packet format}
+        % \label{}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \begin{adjustbox}{width=\linewidth}
+            \input{assets/zones_vs_latency_vs_phit_width_new}
+        \end{adjustbox}
+        \caption{New packet format}
+        % \label{}
+    \end{subfigure}
+    \caption[]{The effects of the number of zones and phit width on the latency}
+    \label{fig:zones_vs_latency_vs_phit_width}
+\end{figure}
+
+
+Similar to the increase of the phit width, we observe that the number of zones and latency are inversely proportional. While the number of zones and bandwidth are directly proportional.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \begin{adjustbox}{width=0.6\linewidth}
+            \input{assets/zones_1}
+        \end{adjustbox}
+        \caption{One zone}
+        \label{fig:segmentation_example_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \begin{adjustbox}{width=0.6\linewidth}
+            \input{assets/zones_2}
+        \end{adjustbox}
+        \caption{Two zones}
+        \label{fig:segmentation_example_2}
+    \end{subfigure}
+    \\ \vspace{1.5em}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \begin{adjustbox}{width=0.6\linewidth}
+            \input{assets/zones_3}
+        \end{adjustbox}
+        \caption{Three zones}
+        \label{fig:segmentation_example_3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \begin{adjustbox}{width=0.6\linewidth}
+            \input{assets/zones_4}
+        \end{adjustbox}
+        \caption{Four zones}
+        \label{fig:segmentation_example_4}
+    \end{subfigure}
+    \caption{
+    Example segmentation of the config NoC into multiple zones.
+    A zone is a set of nodes (circle shapes) and is illustrated by a distinct color.
+    The diamond shapes show the unique injection sources for each zone.
+    }
+    \label{fig:segmentation_example}
+\end{figure}
+
