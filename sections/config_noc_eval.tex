@@ -1,8 +1,13 @@
-The config NoC is mainly used for configuration writes to the neuron core memories.
-Another use is status monitoring reads while the GrAICore is in operation.
+This chapter presents an analysis of the config NoC designed for the configuration of the GrAICore.
+Another use of the config NoC is status monitoring reads while the GrAICore is in operation.
 The config NoC is a separate NoC next to the event NoC, which is used for the execution of a model.
-It connects all 144 neuron cores via a 2D mesh topology (see \cref{fig:noc}).
-The network receives and forwards data using routers at each neuron core.
-The config NoC has a single 16-bit wide interface for incoming data from an AXI slave.
-Similarly, the links between every two adjacent routers are 16-bit wide. 
-The clock frequency of the system is \SI{800}{MHz}.
+The config NoC plays a crucial role in facilitating data exchange between the various components within the system.
+
+This analysis will investigate the config NoC's architecture, examining its key components and characteristics.
+We will explore its topology, routing mechanisms, and communication protocols to understand how data is transferred and managed across the network.
+Furthermore, the analysis will consider the efficiency of the applied format of the data packets.  
+This investigation will allow us to assess the config NoC's effectiveness in meeting the system's requirements, particularly in terms of providing high bandwidth for achieving timely reconfigurations.
+
+By thoroughly evaluating these aspects, we aim to provide a comprehensive understanding of the NoC's performance and suitability for its intended application.
+
+% ? Do we analyze its power?
