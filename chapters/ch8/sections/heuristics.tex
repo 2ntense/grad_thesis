@@ -1,0 +1,132 @@
+% \section{Heuristics}
+% \todo[inline]{Section is work in progress}
+% While the ideal solution would be to explore all possible partitioning strategies and compiler configurations to find the absolute minimum energy consumption (while meeting the constraints), the complexity of the problem often makes such an exhaustive search computationally infeasible.
+% Therefore, heuristic approaches can be employed to guide the exploration and more efficiently identify promising solutions.
+
+% % This section describes a few heuristics.
+
+% % we treat the compiler as a black box
+
+% \subsection{Minimizing the number of partitions}
+% One such heuristic is to minimize the number of partitions $K$.
+% This heuristic is motivated by a few observations.
+% Firstly, fewer partitions generally leads to less data transfer during configuration due to less communication overhead required.
+% Transferring less data generally results in lower energy consumption and configuration latency.
+% Secondly, managing fewer partitions can simplify the scheduling and execution of the partitioned model on the \graicore{}.
+% Thirdly, while not always the case, fewer partitions allow for larger partitions that can utilize more cores in parallel, potentially leading to faster execution.
+% This influences the processing latency in a positive sense.
+
+% It is important to acknowledge that minimizing the number of partitions might not always result in the lowest energy consumption.
+% There might be scenarios where an increase in the number of partitions, even with added communication overhead, could lead to better utilization of the \graicore{}'s resources and overall better energy usage.
+% A thorough exploration of this heuristic involves a careful analysis of the trade-offs between the number of partitions, communication overhead, resource utilization, latency, and overall energy consumption.
+
+% % \subsection{Partitions with similar computations}
+
+% % \subsection{Minimize inter-core communication}
+
+% % \subsection{Decreasing partition granularity}
+% % Instead of partitioning the model strictly layer-by-layer, we can consider grouping multiple consecutive layers into ``coarser'' partitions.
+
+% % \subsection{Memory-balancing partitioning}
+% % \subsection{Balancing computational load}
+% % This heuristic focuses on balancing the computational load evenly across the partitions.
+% % The goal is to maximize the utilization of the GrAICore's cores and prevent any single partition from becoming a performance bottleneck.
+
+% % To achieve this balance, the layers of the model must be analyzed and its computational cost estimated.
+% % This involves considering factors like the number of operations the layer performs, the complexity of those operations, and how frequently it accesses the SRAM.
+% % This helps us understand the workload distrubution within the model.
+% % Next, a partitioning algorithm can be designed that aims to create partitions with roughly equal computational cost.
+% % This ensures that no partition 
+
+% \subsection{Compiler/simulator feedback-driven partitioning}
+% This heuristic involves the compiler and simulator (\graipefruit{}) for iteratively refining the partitioning scheme and mapping.
+% Some initial partitioning strategy, which could be derived from other heuristics or even a random division of the model, is fed to the compiler with an initial set of compiler parameters.
+% If the partition is mappable, the compiler provides information about how it has mapped the layers.
+% We can use this information to examine the memory usage.
+% Furthermore, the output of the compiler also allows us to simulate the model with the \graipefruit{} simulator.
+% This provides us with an estimation of the processing latency.
+
+% With this feedback, we can then adjust the partitioning scheme to address any issues of inefficiencies identified.
+% This might involve introducing additional partitions, moving layers between partitions and refining the compiler parameters.
+% The refined partitioning scheme and compiler parameters are then fed back into the compiler, initiating another iteration of compilation and analysis.
+
+% This iterative process continues, with the partitioning scheme and compiler parameters being refined in response to the compiler's and simulator's feedback, until a satisfactory solution is reached.
+% This approach allows us to ``learn'' from the compiler's behavior, adapting our partitioning strategy and compiler parameters based on its responses to our decisions.
+
+% While this heuristic does not guarantee us with an optimal solution, it offers a practical and adaptable approach for navigating the expansive design space.
+% Furthermore, it is important to note that, depending on the complexity of the partition and compiler parameters, the compilation process can take a long time to finish (from minutes and up to an hour).
+% Similarly, the \graipefruit{} simulator can take a while to complete.
+% % \subsection{Minimizing activation data}
+% % The size of the intermediate data (activations) produced by different layers can vary significantly.
+% % Partitioning based on activation sizes could help balance memory usage and communication overhead.
+
+% % \begin{figure}
+% %     \centering
+% %     \subcaptionbox{Subfigure A\label{a}}{
+% %         \includegraphics[width=0.30\linewidth, clip, trim=170pt 0 75pt 90pt]{baseline/resnet50.pdf}
+% %     }
+% %     \hfill
+% %     \subcaptionbox{Subfigure B\label{b}}{
+% %         \includegraphics[width=0.30\linewidth, clip, trim=170pt 0 75pt 90pt]{baseline/resnet50.pdf}
+% %     }
+% %     \hfill
+% %     \subcaptionbox{Subfigure C\label{c}}{
+% %         \includegraphics[width=0.30\linewidth, clip, trim=170pt 0 75pt 90pt]{baseline/resnet50.pdf}
+% %     }
+% %     \caption{This is a figure with two subfigures}
+% % \end{figure}
+
+% % \ref{a} \ref{b}
+
+% \subsection{Multi-stage partitioning}
+% This heuristic offers a structured and more manageable approach to partitioning.
+% We divide the optimization process in two distinct stages, addressing the memory constraint and energy and performance objectives in a more focused manner.
+
+% The primary goal of the first stage is to establish a foundation by creating partitions that strictly adhere to the memory constraints of the \graicore{}.
+% It begins with a careful analysis of the memory requirements of each layer in the model, considering the size of input data, output data, and any intermediate activations that need to be stored.
+% This analysis provides crucial information about the memory footprint of each layer, guiding the partitioning process.
+% Based on this memory analysis, an initial set of partitions is created, ensuring that each partition, after being processed by the compiler, comfortably fits within the available on-chip memory.
+% This might involve a straightforward approach, such as sequentially assigning layers to partitions until the memory limit is reached.
+% Alternatively, more sophisticated algorithms could be employed, such as those that prioritize balancing memory usage across partitions or minimizing the number of partitions while still respecting the memory constraints.
+% The key outcome of this stage is a set of partitions that are guaranteed to be feasible from a memory perspective.
+% This establishes a solid foundation upon which we can build further optimizations in the second stage
+
+% With the memory constraints satisfied, the second stage shifts the focus to optimizing the partitions for energy efficiency and performance.
+% This involves a more fine-grained analysis of the partitions and the application of various heuristics and optimization techniques, always keeping in mind the potential impact on memory usage.
+% Experimentation with different compiler parameters for each partition is done to guide the compiler towards generating more efficient code or optimizing for specific performance characteristics.
+% A crucial aspect of this stage is the continuous validation of the memory constraints.
+% As different compiler parameters are explored, it's necessary to ensure that the resulting memory usage remains within the bounds of the \graicore{}'s SRAM capacity.
+% This might involve using profiling information or analytical models to estimate the memory usage for each set of compiler parameters.
+% If a configuration violates the memory constraint, it is discarded, and alternative configurations are explored.
+
+% This iterative process of exploration, estimation, and validation creates a dynamic feedback loop.
+% The memory constraint acts as a guiding principle, ensuring that the pursuit of energy efficiency and performance doesn't compromise the fundamental requirement of fitting within the available memory.
+% By separating the memory constraint satisfaction from the energy-performance optimization, it simplifies the search process while ensuring that the final solution remains feasible and efficient.
+
+% % This approach has it's challenges.
+
+% % Depending on the compiler parameters and the optimizations performed by the compiler, the mapped/compiled model can use more or less memory.
+% % We have a lower bound for the memory usage.
+% % Since we perform energy-performance optimizations in the second stage (after addressing the first stage for the memory constraint), we have a limited amount of optimizations to explore.
+
+% \subsection{Prioritizing layer types}
+% This heuristic offers a strategic approach by recognizing that different types of layers have varying characteristics and impacts on performance and energy consumption.
+% It leverages this knowledge to assign priorities to different layer types and uses these priorities to guide partitioning decisions.
+
+% The process begins with an analysis of the layers in the model.
+% These layers are categorized in distinct types, such as convolutional layers, fully connected layers, pooling layers, activation layers, and normalization layers.
+% Each layer type exhibits unique properties in terms of computational complexity and memory usage.
+
+% Based on the analysis, priorities are assigned to each layer type.
+% For instance, computatially intensive layers like convolutional and fully connected layers might be assigned high prioritym while layers with minimal computational overhead, such as activation layers, might receive low priority.
+% This prioritization reflects the relative importance of different layer types in achieving the desired performance and energy efficieny goals.
+
+% These priorities can then guide us through the partitioning process.
+% High-priority layers might be placed in smaller partitions to dedicate more resources to them, ensuring they get ample computational power and memory space.
+% Alternatively, they might be grouped with low-priority layers to balance the computational load and memory usage within each partition.
+% The placement of these layers must be considered carefully to avoid creating bottlenecks or exceeding resource constraints.
+
+% The process is iterative, with the performance of the paritioned model being evaluated and the layer priorities or partitioning scheme being adjusted as needed. 
+
+% \subsection{Approximating}
+

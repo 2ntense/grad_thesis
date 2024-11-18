@@ -26,10 +26,44 @@ A \textit{read response} packet is produced as an answer to a \textit{read reque
 This packet contains the requested data that is sent back to the host.
 Finally, the \textit{write request} is used to write data to a neuron core.
 
+\hspace*{0.5em}
+\begin{figure}[hbtp]
+    \centering
+    \begin{subcaptionblock}{\linewidth}
+        \centering
+        \begin{adjustbox}{width=0.7\linewidth}
+            \input{assets/packet_format/read_response_packet}
+        \end{adjustbox}
+        \caption{Read response}
+        \label{fig:read_response_packet}
+    \end{subcaptionblock}
+    \\ \vspace{1.5em}
+    \begin{subcaptionblock}{\linewidth}
+        \centering
+        \begin{adjustbox}{width=0.7\linewidth}
+            \input{assets/packet_format/write_request_packet}
+        \end{adjustbox}
+        \caption{Write request}
+        \label{fig:write_request_packet}
+    \end{subcaptionblock}
+    \caption{Config NoC's read response and write request packets}
+    % \label{fig:config_noc_packets}
+\end{figure}
+
 Both the \textit{read response} and \textit{write request} packets has two phits following the header (see \cref{fig:read_response_packet,fig:write_request_packet}).
 These two phits contain the payload data that is requested.
 Thus in total, packets of these two types are 64 bits in size.
 The \textit{read request} packet only consists of the header (see \cref{fig:read_request_packet}).
+
+\hspace*{0.5em}
+\begin{figure}[hbtp]
+    \centering
+    \begin{adjustbox}{width=0.7\linewidth}
+        \input{assets/packet_format/read_request_packet}
+    \end{adjustbox}
+    \caption{Read request packet}
+    \label{fig:read_request_packet}
+\end{figure}
 
 The destination cluster coordinates are both 4 bits in size due to the need to address 12 different X and 12 different Y coordinates.
 
@@ -37,44 +71,25 @@ The \textit{address field} of 20 bits, allows the system to address $2^{20}$ dif
 This address space is used to address the SRAM and the register bank of a neuron core.
 % This address space is used to address the SRAM and the register bank of a neuron core, with room to spare \cite{TODO}.
 
-With this packet format, we observe that there is a significant overhead when writing or reading data.
-For every 32 bits of data we read or write, an overhead of 32 bits is also included.
-In other words, there is an overhead of $100\%$ for every read or write request of 32 bits.
-At most, on average, the network transmits one byte of payload data per cycle.
+Upon entering the config NoC, the header phit is immediately analyzed by the router to determine the path towards the destination neuron core.
+Routers do not wait for the entire packet to arrive.
+Instead, as soon as the header phit reserves the output channel, the remaining phits follow in a pipelined manner.
+This allows the packet to ``snake'' through the network, with different phits occupying different links concurrently.
+This pipelining significantly reduces latency by allowing the transmission of subsequent phits before the entire packet has arrived at a given router.
+The placement of the destination coordinates in the header phit is crucial, as it enables routers to quickly determine the appropriate output channel and initiate forwarding with minimal delay.
 
-% There is potential to increase this to 64 bits (or 8 bytes) per cycle which is the amount of data an SRAM in a single core can write in a single cycle.
+% With this packet format, we observe that there is a significant overhead when writing or reading data.
+% For every 32 bits of data we read or write, an overhead of 32 bits is also included.
+% In other words, there is an overhead of $100\%$ for every read or write request of 32 bits.
 
-\hspace*{0.5em}
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{adjustbox}{width=0.8\linewidth}
-            \input{assets/packet_format/read_request_packet}
-        \end{adjustbox}
-        \caption{Read request}
-        \label{fig:read_request_packet}
-    \end{subfigure}
-    \\ \vspace{1.5em}
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{adjustbox}{width=0.8\linewidth}
-            \input{assets/packet_format/read_response_packet}
-        \end{adjustbox}
-        \caption{Read response}
-        \label{fig:read_response_packet}
-    \end{subfigure}
-    \\ \vspace{1.5em}
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{adjustbox}{width=0.8\linewidth}
-            \input{assets/packet_format/write_request_packet}
-        \end{adjustbox}
-        \caption{Write request}
-        \label{fig:write_request_packet}
-    \end{subfigure}
-    \caption{
-        Config NoC packet structures
-    }
-    \label{fig:config_noc_packets}
-\end{figure}
+The config NoC's packet format, while designed to facilitate efficient wormhole switching, introduces a significant overhead when reading or writing data.
+The first two phits of a packet serves as the header, with the first carrying all the information necessary for routing the packet.
+While this solution enables low-latency benefits of wormhole switching, it consumes 50\% of the packet, leaving only the other 50\% for the actual payload data.
+
+This overhead has several consequences.
+First, it reduces bandwidth utilization.
+Half of the config NoC's bandwidth is dedicated to transmitting the header information, limiting the effective throughput for application data.
+Secondly, the overhead becomes even more pronounced when transferring small amounts of data.
+If the payload data fits within a single 16-bit phit, the header occupies a major portion of the packet, leading to ineffecient bandwidth usage.
+Furthermore, the need to transfer a header for every 32 bits of data, contributes to increased power consumption.
+Transmission and processing of header information adds to the total energy consumption of data transfer.

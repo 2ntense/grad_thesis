@@ -1,0 +1,26 @@
+\section{Latency model}
+The inference latency of a single partition consists of its processing time and configuration time.
+Both the processing time and configuration time of a partition is affected by the compiler parameters.
+\begin{equation}
+    \lattotal(p_i, \pi_i) = \latconf(p_i, \pi_i) + \latproc(p_i, \pi_i)
+\end{equation}
+The total inference latency is the sum of the inference latencies of all partitions combined:
+\begin{equation}
+    \sum_{i=1}^{K} \lattotal(p_i, \pi_i)
+\end{equation}
+The configuration latency can be approximated as follows:
+
+\begin{equation}
+    \latconf(p_i, \pi_i) = \frac{\writeamount(p_i, \pi_i)}{\writebandwidth}
+\end{equation}
+\eqexplSetIntro{where:}
+\eqexplSetItemWidth{6em}
+\begin{eqexpl}
+    \item{$\writeamount(p_i, \pi_i)$} total bytes written to the cores involved for partition $p_i$ with compiler parameters $\pi_i$.
+    \item{$\writebandwidth$} write bandwidth
+\end{eqexpl}
+
+\vspace{1em}
+
+It should be noted that this equation gives us an idea of the possible minimum configuration latency.
+In reality, the configuration latency is expected to be higher due to various factors such as delays caused by stalls, memory access latencies and resource contention.

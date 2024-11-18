@@ -1,0 +1,43 @@
+\section{Scope and limitations}
+This section defines the boundaries and assumptions of this research.
+It clarifies the AI models, partitioning strategies, and hardware considered.
+We also address the limitations of our work, acknowledging constraints and potential areas for future work.
+This definition of scope and limitations ensures a focused research direction and helps understand the applicability of our findings.
+
+\subsection{Scope}
+The primary focus is on layer-wise partitioning, where the model is divided into consecutive sets of layers.
+This approach is chosen for its relative simplicity and its ability to preserve the inherent structure of the original model, ensuring functional correctness and minimizing the potential of accuracy degradation.
+
+The primary objective is to minimize energy consumption across all stages of model execution on the \graicore{}.
+This involves optimizing for the configuration and processing of the partitions.
+
+A key aspect of our research is the explicit consideration of DDR memory as the external memory for the \graicore{}.
+This choice influences the energy model, particularly the configuration energy, which accounts for the energy consumed in transferring data between the DDR memory and the \graicore{}'s on-chip SRAMs.
+
+We explicitly address the memory constraints of the \graicore{}, ensuring each partition, after compilation, fits within the available on-chip SRAM.
+Additionally, we consider performance requirements by aiming to meet latency targets, keeping the total inference time below a predefined threshold.
+
+Our research focuses on static partitioning, where the partitioning scheme is determined before runtime.
+Furthermore, we treat the compiler/mapper for the \graicore{} as a black box, focusing on exploring the effects of adjusting available compiler parameters on energy consumption and inference latency.
+
+Lastly, our focus is on partitioning strategies where each partition is executed only once in a sequential manner.
+While we acknowledge the potential benefits like data reuse and reduced configuration overhead of executing the same partition multiple times in sequence (e.g., for models with recurrent connections),
+exploring such strategies is beyond the scope of this current work.
+
+\subsection{Limitations}
+Our primary focus on layer-wise partitioning means that we do not explore alternative techniques such as tensor partitioning or pipeline execution (where configuration and processing are executed in parallel), which might offer advantages in certain scenarios.
+
+Moreover, our energy model is tailored to the characteristics of DDR memory and may need adjustments when considering other memory technologies with different performance and energy profiles.
+
+We acknowledge that our model of the \graicore{} simplifies certain aspects of the hardware.
+For instance, we represent the \graicore{}'s SRAM memory as one large memory, while in reality, it is comprised of $144$ smaller SRAMs.
+
+Similarly, the energy model uses static energy coefficients, which might not fully capture the dynamic variations in energy consumption that can occur in real-world scenarios due to factors like data locality, temperature, and process variation.
+
+Our analysis primarily focuses on energy consumption and latency, but does not explore other relevant metrics such as data throughput, model pruning and model quantization.
+These metrics could be important considerations for optimizing the partitions even further.
+
+We also acknowledge the challenges posed by certain model architectural concepts such as skip connections (used in the ResNet architecture) that complicates partitioning due to dependencies.
+
+Finally, it's important to recognize that our research involves theoretical analysis and simulation without any involvement of an actual hardware implementation.
+Practical implementation on the \graicore{} might reveal additional challenges or require further adjustments to the proposed strategies.
