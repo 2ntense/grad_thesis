@@ -1,6 +1,6 @@
-The process of configuring a model on the GrAICore is the reading of the relevent data from the external memory, transferring it to the GrAICore's neuron cores and writing the data to the SRAMs.
+The process of configuring a model on the \graicore{} is the reading of the relevent data from the external memory, transferring it to the \graicore{}'s neuron cores and writing the data to the SRAMs.
 
-A compiled model, that is to be written to the GrAICore, is structured as separate sections of data, with each section containing a certain type of data.
+A compiled model, that is to be written to the \graicore{}, is structured as separate sections of data, with each section containing a certain type of data.
 These sections of data are as follows:
 \begin{description}
     \item[Weights] 
@@ -8,7 +8,7 @@ These sections of data are as follows:
     \item[Masks] 
     A mask is a single bit that is associated to one weight.
     Masks are necessary to identify whether a weight is pruned or not.
-    Weights that are pruned (i.e., has an exact value of $0$) are not configured on the GrAICore at all, saving memory and energy (since it isn't written to or read from the SRAM when processing)
+    Weights that are pruned (i.e., has an exact value of $0$) are not configured on the \graicore{} at all, saving memory and energy (since it isn't written to or read from the SRAM when processing)
     \item[States] 
     Acts as a buffer space for the accumulation of activation (output) data of layers, which also initially includes the bias values.
     \item[Headers] 

@@ -4,7 +4,7 @@ The total energy cost of a single partition consists of two components configura
 
 \begin{description}
     \item[Configuration energy ($\econf(p_i, \pi_i)$):]
-    This accounts for the energy consumed in reading data from the external DDR memory and transferring it through the DDR PHY, DDR controller, AXI bus, and config NoC to the local SRAMs of the cores.
+    This accounts for the energy consumed in reading data from the external DDR memory and transferring it through the DDR PHY, DDR controller, AXI bus, and \confignoc{} to the local SRAMs of the cores.
     The configuration energy for partition $p_i$ is influenced by the layers contained in the partition and the compiler parameters $\pi_i$.
     \begin{equation}
     \begin{split}
@@ -23,7 +23,7 @@ The total energy cost of a single partition consists of two components configura
         \item{$\eddrphy$} energy per byte consumed by the DDR PHY during data transfer.
         \item{$\eddrctrl$} energy per byte consumed by the DDR controller during data transfer.
         \item{$\eaxi$} energy per byte consumed by the AXI bus during data transfer.
-        \item{$\enoc(p_i, \pi_i)$} energy consumed by the config NoC during the transfer of the data to their respective destination cores.
+        \item{$\enoc(p_i, \pi_i)$} energy consumed by the \confignoc{} during the transfer of the data to their respective destination cores.
         The amount of data to be transferred to each core is influenced by the partition $p_i$ and compiler parameters $\pi_i$.
         \item{$\esramwrite$} energy per byte to write to a core's SRAM.
         \item{$\readamount(p_i, \pi_i)$} total bytes read from the external DDR memory for partition $p_i$ with compiler parameters $\pi_i$.

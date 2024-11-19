@@ -1,25 +1,25 @@
 \section{Requirements analysis}
-There is a need to integrate external memory access into the GrAICore's architecture.
+There is a need to integrate external memory access into the \graicore{}'s architecture.
 The addition of the external memory extends the total memory of system, allowing the system to store larger and multiple AI models.
 The access to the external memory must be efficient in terms of throughput and power.
-The external memory, along with the GrAICore’s architecture, must provide a sufficiently high data transfer rate to load the GrAICore with a new (partial) AI model seamlessly.
+The external memory, along with the \graicore{}’s architecture, must provide a sufficiently high data transfer rate to load the \graicore{} with a new (partial) AI model seamlessly.
 
 We consider two separate cases:
 \begin{itemize}
-    \item \textbf{Multiple models}: here we assume that the AI models are all exactly the size of the memory capacity of the GrAICore.
-    This implies that the complete memory of the GrAICore must be written to load a new AI model.
-    \item \textbf{Large model}: a large AI model is too large to be fitted onto the GrAICore's memory at once.
+    \item \textbf{Multiple models}: here we assume that the AI models are all exactly the size of the memory capacity of the \graicore{}.
+    This implies that the complete memory of the \graicore{} must be written to load a new AI model.
+    \item \textbf{Large model}: a large AI model is too large to be fitted onto the \graicore{}'s memory at once.
     Therefore, a large AI model must be run in parts by partitioning the model into smaller pieces.
 \end{itemize}
 
 \subsubsection{Multiple models}
-The GrAICore is unable to make use of multiple models as they do not fit in the local memories simultaneously.
-Additionally, the GrAICore lacks the ability to reconfigure itself during run-time.
-The time it takes to process a frame is dependent on the complexity of the model on the GrAICore.
-Based on realistic use-cases with models executed on the GrAICore, it has been established by GML that the processing time of a frame takes up to \SI{5}{ms} for a representative application.
+The \graicore{} is unable to make use of multiple models as they do not fit in the local memories simultaneously.
+Additionally, the \graicore{} lacks the ability to reconfigure itself during run-time.
+The time it takes to process a frame is dependent on the complexity of the model on the \graicore{}.
+Based on realistic use-cases with models executed on the \graicore{}, it has been established by \snap{} that the processing time of a frame takes up to \SI{5}{ms} for a representative application.
 For a video with a frame rate of $\SI{60}{FPS}$, there is a period of $\SI{16.7}{ms}$ between two frames (called the frame time).
 Within this period, the succeeding frame will be processed.
-Thus, for a video with a frame rate of $\SI{60}{FPS}$, we have a maximum reconfiguration time budget of $\SI{11.7}{ms}$ to seamlessly reconfigure the GrAICore.
+Thus, for a video with a frame rate of $\SI{60}{FPS}$, we have a maximum reconfiguration time budget of $\SI{11.7}{ms}$ to seamlessly reconfigure the \graicore{}.
 For the target frame rate of \SI{60}{FPS}, where each frame must be processed within approximately \SI{11.7}{ms}, there is no need for pipelining of frames since the frame processing time consistently fits within this time budget.
 In this specific context, increasing the throughput of processed frames through pipelining does not provide additional benefits, as the system is already capable of handling each frame within the required interval.
 
@@ -53,12 +53,12 @@ Frame rate (FPS) & Frame time (ms) & Reconf. budget (ms) \\ \midrule
 \end{table}
 
 \Cref{tab:common_fps} shows a list of common video frame rates with their associated reconfiguration time budget.
-A frame rate with zero or negative time budget means that the GrAICore cannot be reconfigured seamlessly for a video with that frame rate.
+A frame rate with zero or negative time budget means that the \graicore{} cannot be reconfigured seamlessly for a video with that frame rate.
 Exceeding this time budget results into a delayed output which is undesirable since it negatively affects the user experience.
 At a frame rate of $\SI{200}{FPS}$, the time budget is exactly zero, indicating that this represents the tight upper bound.
 \Cref{fig:reconfig_time_line_ex} shows two time lines exemplifying a seamless and non-seamless reconfiguration procedure.
 
-In terms of bandwidth, to reconfigure the GrAICore fully (i.e., write all $\SI{36}{MB}$ of local memory), we require a minimum of $\SI{3086}{MB/s}$\footnote{$\frac{36}{\frac{1}{60} - 5 \times 10^{-3}} \approx 3086$} for $\SI{60}{FPS}$.
+In terms of bandwidth, to reconfigure the \graicore{} fully (i.e., write all $\SI{36}{MB}$ of local memory), we require a minimum of $\SI{3086}{MB/s}$\footnote{$\frac{36}{\frac{1}{60} - 5 \times 10^{-3}} \approx 3086$} for $\SI{60}{FPS}$.
 Note that this bandwidth number does not include any overhead induced by communication protocols. Therefore, in practice, the required minimum bandwidth is higher. 
 
 With a technique such as layer-by-layer replacement, pipelining of configuration and processing can be achieved \cite{jiDemandLayeringRealTime2022}.
@@ -86,9 +86,9 @@ Furthermore, we only consider the scenario where each frame is processed by a si
     }
     \caption{
     Example time lines of reconfiguration procedures.
-    $t_n$ indicates the time instance where the $n$th frame has been received by the GrAICore, ready to be processed.
-    At $t_0$, the GrAICore is already configured with an initial model.
-    In \protect\subref{fig:correct_reconfig}, the GrAICore uses a different model for each consecutive frame.
+    $t_n$ indicates the time instance where the $n$th frame has been received by the \graicore{}, ready to be processed.
+    At $t_0$, the \graicore{} is already configured with an initial model.
+    In \protect\subref{fig:correct_reconfig}, the \graicore{} uses a different model for each consecutive frame.
     After receiving and processing (P) the very first frame at $t_0$, it starts reconfiguration (C) to a new model.
     Since the sum of the reconfiguration and processing time does not exceed the frame time ($t_{n+1} - t_{n})$, the frame processing latency (L) is equal for every incoming frame.
     The invariant latency is desired and indicates a seamless reconfiguration.
@@ -103,7 +103,7 @@ Furthermore, we only consider the scenario where each frame is processed by a si
 
 \subsubsection{Large model}
 
-Due to the GrAICore having limited memory capacity, a single large model cannot be loaded onto it at once.
+Due to the \graicore{} having limited memory capacity, a single large model cannot be loaded onto it at once.
 Several works have proposed strategies for deploying CNNs on resource-constrained devices.
 Among these strategies, "partitioning" refers to splitting an entire model at specific locations to create one or more partitions, thereby reducing instantaneous memory requirements \cite{kaboubiHybridPartitioningEmbedded2023}.
 To fully process a frame, one or more (partial) reconfigurations will need to be performed.
@@ -135,7 +135,7 @@ FPS & Frame time (ms) & 1x         & 2x          & 3x         & 4x         & 5x 
 \end{table}
 
 As an example, assume that a large model is partitioned into an arbitrary amount of parts.
-Each part is exactly the size of the GrAICore's total capacity and the processing time for each part takes $\SI{5}{ms}$.
+Each part is exactly the size of the \graicore{}'s total capacity and the processing time for each part takes $\SI{5}{ms}$.
 \Cref{tab:common_fps_reconfig_amount} shows that for a video of $\SI{60}{FPS}$ and a large model requiring two reconfigurations, we have a maximum reconfiguration time budget of $\SI{6.7}{ms}$.
 Notice that a large model that requires $4$ reconfigurations at \SI{60}{FPS} has a negative time budget.
 This means that it is not possible to process a frame for a video of \SI{60}{FPS} within two consecutive incoming frames for that particular model.
@@ -156,7 +156,7 @@ Notably, reducing the frame rate to single digits significantly increases the av
     }
     \caption{
         Example time lines of processing a large model requiring two reconfigurations.
-        At $t_0$, the GrAICore is already configured with the first part of the model.
+        At $t_0$, the \graicore{} is already configured with the first part of the model.
         In \protect\subref{fig:large_reconfig_ex1}, the two reconfiguration periods (C) and two processing periods (P) fit within the reception of two consecutive frames ($t_n$ and $t_{n+1}$).
         The frame processing latency (L) is equal for every incoming frame.
         In \protect\subref{fig:large_reconfig_ex2}, the reconfiguration time is increased. 
@@ -165,16 +165,16 @@ Notably, reducing the frame rate to single digits significantly increases the av
     \label{fig:larger_reconfig_ex}
 \end{figure}
 
-We will examine realistic AI models, specifically the ResNet-101 model \cite{heDeepResidualLearning2015}, which is a potential use case for the GrAICore and exceeds its local memory, to understand the required timings and bandwidth.
+We will examine realistic AI models, specifically the ResNet-101 model \cite{heDeepResidualLearning2015}, which is a potential use case for the \graicore{} and exceeds its local memory, to understand the required timings and bandwidth.
 This analysis will provide insights into the bandwidth requirements and power usage of a large AI model.
 However, given the complexity of this analysis, it will be deferred to the project phase.
 
 \subsubsection{Power consumption}
-Since the GrAICore is primarily used as an AI accelerator for edge devices, maintaining low power consumption is crucial.
-The addition of external memory with the capability to reconfigure the GrAICore will inevitably increase the overall power consumption of the system.
+Since the \graicore{} is primarily used as an AI accelerator for edge devices, maintaining low power consumption is crucial.
+The addition of external memory with the capability to reconfigure the \graicore{} will inevitably increase the overall power consumption of the system.
 However, specific optimizations can be implemented to minimize this increase.
 The solution should encompass the memory, interface, and controller, with a focus on achieving minimal power usage.
 
 We are considering options such as DRAM or NVM, and the final selection will balance power efficiency, performance, and system compatibility.
-It has been measured that the GrAICore consumes between \SI{200}{mW} and \SI{500}{mW} when processing frames at \SI{60}{FPS}.
+It has been measured that the \graicore{} consumes between \SI{200}{mW} and \SI{500}{mW} when processing frames at \SI{60}{FPS}.
 We aim to not exceed \SI{20}{mW} when performing 60 reconfigurations per second.

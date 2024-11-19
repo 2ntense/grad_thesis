@@ -19,7 +19,7 @@ A larger packet size increases the efficiency as each packet carries more payloa
 Higher efficiency means an improvement in data throughput.
 However, increasing the size of the packet will not always offer a considerable increase in data throughput.
 
-To obtain an approximation of the potential speed gains when transferring \SI{36}{MiB} to the GrAICore, we use \cref{eq:latency}.
+To obtain an approximation of the potential speed gains when transferring \SI{36}{MiB} to the \graicore{}, we use \cref{eq:latency}.
 The amount of overhead can be calculated with \cref{eq:length_field_overhead}.
 
 \begin{equation}
@@ -49,7 +49,7 @@ This results in the overhead being $0$ (i.e., $d_{\text{overhead}} = 0$).
 \label{tab:length_field_optimal_latency}
 \end{table}
 
-\Cref{fig:n_vs_latency} shows for three different phit sizes the latency to fill the GrAICore for different $n$.
+\Cref{fig:n_vs_latency} shows for three different phit sizes the latency to fill the \graicore{} for different $n$.
 We observe that the latency decreases exponentially, with the latency plateauing earlier with wider phits.
 
 \begin{figure}
@@ -72,7 +72,7 @@ With 4 bits for the length, we can specify a length of up to $2^4 + 1 = 17$.
 We add $1$ since a header followed by no data phits is not practical.
 % It is 17 because a length of 0 is not practical.
 This is especially efficient for phit sizes of 32 since all the header information fits within one header phit.
-The latency for transferring \SI{36}{MiB} to the GrAICore with a phit width of 32 and length of 17 is computed to be \SI{12.5}{ms}.
+The latency for transferring \SI{36}{MiB} to the \graicore{} with a phit width of 32 and length of 17 is computed to be \SI{12.5}{ms}.
 
 \hspace*{0.5em}
 \begin{figure}[hbtp]

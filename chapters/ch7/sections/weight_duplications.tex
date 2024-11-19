@@ -12,15 +12,15 @@
 % \end{itemize}
 One of the optimizations the compiler may perform to improve the inference latency is to use segmentation on certain layers (e.g., convolutional layers).
 This segmentation allows a layer to be segmented so that it can be executed in parallel (i.e., tensor parallelism).
-Performing this technique on the GrAICore, so that a layer can be executed on multiple cores at the same time, certain weights must be present on the respective neuron cores.
-In other words, this means that on the GrAICore, there are duplicate weights present.
+Performing this technique on the \graicore{}, so that a layer can be executed on multiple cores at the same time, certain weights must be present on the respective neuron cores.
+In other words, this means that on the \graicore{}, there are duplicate weights present.
 
 A naive approach to configure a model is to read every weight, including duplicate weights, from the external memory.
 However, we have seen in \ref{} that in the configuration process, reading from the DDR memory consumes the most energy.
 
 There is an opportunity in decreasing the energy cost for reading from the external DDR memory.
 Instead of reading all the weights (including duplicates), we can read only the unique duplicates once.
-For this to work however, we require a separate controller (close to the GrAICore) that can copy and distribute the weights to the neuron cores that require them.
+For this to work however, we require a separate controller (close to the \graicore{}) that can copy and distribute the weights to the neuron cores that require them.
 
 Let's first look why this technique is interesting to pursue.
 To determine the amount of duplicates that are present in the compiled model, we do the following:
@@ -74,7 +74,7 @@ This, of course, also adds to the total energy consumption when performing a con
 However, such a component has not been analyzed and is not included in the preliminary energy analysis. 
 We assumed that the amount of data read from the external memory is decreased by the amount of duplicate weights.
 Also, less data has to be transferred through the PHY, controller and AXI.
-The energy consumed by the config NoC and SRAMs are the same as in the scenario where we include the weights duplicates.
+The energy consumed by the \confignoc{} and SRAMs are the same as in the scenario where we include the weights duplicates.
 
 \begin{figure}[hbtp]
     \centering

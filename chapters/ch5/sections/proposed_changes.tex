@@ -1,8 +1,8 @@
-% \section{Proposed config NoC specifications}
+% \section{Proposed \confignoc{} specifications}
 \section{Proposed specifications}
 \label{sec:proposed_noc}
-% In this section, we provide a detailed specification of the proposed configuration NoC and interface for GrAICore based on the analysis and observations presented in the previous sections of this document.
-To improve the bandwidth of configuration with the configuration NoC, a set of changes is proposed. Firstly, we propose to widen the links from 16 bits to 64 bits.
+% In this section, we provide a detailed specification of the proposed \confignoc{} and interface for \graicore{} based on the analysis and observations presented in the previous sections of this document.
+To improve the bandwidth of configuration with the \confignoc{}, a set of changes is proposed. Firstly, we propose to widen the links from 16 bits to 64 bits.
 This allows for phits of 64 bits in size.
 This change provides us with a potential bandwidth increase of 4x.
 An immediate increase to 64 bits instead of 32 bits is preferred as it allows for one-time change in the design and verification effort.
@@ -10,7 +10,7 @@ Another benefit is the synergy with the unified memories.
 Since the SRAMs have 64-bit memory words and can write one memory word of 64 bits every cycle, there is no need to buffer multiple (smaller) phits before writing them to the SRAM.
 This first change proposal provides a peak bandwidth of \SI{3}{GiB/s}.
 
-Next, by dividing the configuration NoC into two equally sized (virtual) zones with their own external interface, we can benefit from parallel configuration of two cores (one per zone) and therefore, another 2x increase in bandwidth.
+Next, by dividing the \confignoc{} into two equally sized (virtual) zones with their own external interface, we can benefit from parallel configuration of two cores (one per zone) and therefore, another 2x increase in bandwidth.
 These two changes provide a bandwidth of around \SI{6}{GiB/s}. 
 The amount of zones and injection points can be expanded in the future at relatively small costs if necessary.
 

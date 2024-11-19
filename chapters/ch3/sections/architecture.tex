@@ -1,22 +1,27 @@
 \section{Architecture}
-The config NoC incorporates a 2D mesh network for communication across all the routers and neuron cores.
-An extra link is attached to the config NoC that enables interfacing with the external world.
-Compared to the event NoC, intercommunication does not occur between neuron cores.
+The \confignoc{} incorporates a 2D mesh network for communication across all the routers and neuron cores.
+An extra link is attached to the \confignoc{} that enables interfacing with the external world.
+Compared to the \eventnoc{}, intercommunication does not occur between neuron cores.
 
 % TODO To make this description even clearer, you could create a simple diagram showing the 2D mesh of routers with arrows indicating the XY routing directions
+\begin{figure}[hbtp]
+\centering    
+\includegraphics[width=3cm]{example-image-a}
+\caption{TODO: NoC image}
+\end{figure}
 
 The communication links between nodes are 16-bits wide, determining the amount of data that can be transferred concurrently.
-The config NoC uses a packet-switched communication protocol, where data is transmitted in the form of independent packets routed through the network.
+The \confignoc{} uses a packet-switched communication protocol, where data is transmitted in the form of independent packets routed through the network.
 
 For routing, XY routing, a deterministic algorithm is employed.
 Packets first travel horizontally along the X-dimension until they reach the destination column, and then vertically along the Y-dimension to the destination row.
 At each router, wormhole switching is utilized.
 This is a low-latency technique where packets are divided into smaller units called flits.
 The header flit establishes the path, and the remaining flits follow in a pipelined manner, minimizing delays as the packet ``burrows'' through the network.
-A key characteristic of the config NoC's architecture is its \SI{800}{MHz} clock frequency.
+A key characteristic of the \confignoc{}'s architecture is its \SI{800}{MHz} clock frequency.
 This clock governs the rate of data transmission across the network, influencing the overall performance of the on-chip communication.
 
-Unlike the config NoC, the event NoC uses wraparound links that helps to drastically reduce the average amount of hops a packet has to take.
-Wraparound links do not provide any noticeable benefits to the config NoC since these interactions do not occur with the config NoC.
+Unlike the \confignoc{}, the \eventnoc{} uses wraparound links that helps to drastically reduce the average amount of hops a packet has to take.
+Wraparound links do not provide any noticeable benefits to the \confignoc{} since these interactions do not occur with the \confignoc{}.
 Most of the high traffic data transaction occurs when data is written to the neuron cores' SRAMs.
-This process only injects the data in the config NoC via a single point.
+This process only injects the data in the \confignoc{} via a single point.

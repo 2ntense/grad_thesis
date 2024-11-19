@@ -1,21 +1,35 @@
 \section{Deep learning}
+% TODO add intro
 
-\subsection{Artificial neural networks}
-Artificial Neural Networks (ANN or NN for short) is a method modeled after neuroscience’s model of a biological neural network.
-This introduces components such as neurons (corresponding to biological neurons), weights (corresponding to signal strength) and activation function (corresponding to synapses).
-ANNs have excelled in drawing conclusions from (often) large amounts of data, this is something previous methods have had a hard time doing.
-An example application is to identify an object in an image or predicting timeseries.
-Neural networks takes input into the input layer and outputs through the output layer.
-In between these there are various amount of layers of different structures, these are often called hidden layers
+\subsection{Neural network}
+Neural networks or artificial neural networks (ANNs), the foundation of deep learning, are inspired by the structre and function of the human brain.
+They consist of interconnected nodes, called neurons, organized into layers.
+Each neuron receives input from other neurons, performs a weighted sum of these inputs, and apllies an activation function to produce an output.
+The connections between neurons have associated weights (also called parameters), which determines the strength of the signal transmitted between them.
 
-\lipsum[1]
+\begin{figure}[hbtp]
+\centering    
+\includegraphics[width=3cm]{example-image-a}
+\caption{TODO: neural network image}
+\end{figure}
+
+The learning process in ANNs centers around adjusting their weights to minimize the difference between the network's predictions and the actual target values.
+This is achieved through algorithms like backpropagation, which calculates the error in the network's prediction and propagates this error back through the layers, adjusting the weights accordingly.
+This iterative process allows the network to continuously refine its understanding of the underlying patterns in the data.
 
 \subsection{Convolutional neural network}
-% Lorem ipsum
+Convolutional neural networks (CNNs) are a specialized type of neural network designed to process data with a grid-like structure such as images.
 
-% What?
-% Why?
-% How?
+Convolutional neural networks (CNNs) are a specialized class of artificial neural networks that excel processing data with a grid-like structure, such as images.
+Unlike traditional neural networks that treat input as a simple sequence of values, CNNs are designed to e
+
+\begin{figure}[hbtp]
+\centering    
+\includegraphics[width=3cm]{example-image-a}
+\caption{TODO: CNN image}
+\end{figure}
+% TODO complete this section
+
 
 A Convolutional Neural Network (CNN) is a popular neural network model that has been shown to do well in image-related tasks.
 % It is the most widely used model for video compression [16].
@@ -32,11 +46,8 @@ CNNs are built by stacking layers of convolving filters with activation function
 
 % This particular operation is used especially frequently in CNNs due to the stacked convolutional layers.
 
-\lipsum[2]
-
 \subsection{Residual neural network}
-% Lorem ipsum
-
+% TODO complete this section
 Residual neural network (ResNet) is a deep CNN architecture that was proposed in 2015 by Microsoft Research in order to combat the difficulty of training deep CNNs (networks with multiple layers between input and output layers).
 % In their proposal they demonstrated that their ResNet outperformed current state of the art networks on the ImageNet test set while being up to 8x deeper.
 % Before ResNets, variations of deep CNNs performed best at state of the art benchmarks [17].
@@ -50,12 +61,16 @@ Residual neural network (ResNet) is a deep CNN architecture that was proposed in
 % \textbf{Skip connection} \\
 % The ResNet architecture addresses the aforementioned problem with learning identity mapping by introducing skip connections (also known as shortcut or identity connections), denoted by \textbf{x identity} in \cref{TODO}.
 
-\lipsum[3]
+\begin{figure}[hbtp]
+\centering    
+\includegraphics[width=3cm]{example-image-a}
+\caption{TODO: ResNet image}
+\end{figure}
 
 \subsection{Model optimizations}
+% TODO complete this section
 % \begin{itemize}
 %     \item Quantization
 %     \item Pruning
 %     \item ...
 % \end{itemize}
-\lipsum[4]

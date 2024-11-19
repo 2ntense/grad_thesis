@@ -1,10 +1,9 @@
 \section{Multi-model}
-We analyse the execution of multiple models on the GrAICore.
-We assume that each of these models fit on the GrAICore individually.
-% We will be looking at the execution of multiple models on the GrAICore.
-% We assume that each of these models fit on the GrAICore individually.
+We analyze the execution of multiple models on the \graicore{}.
+We assume that each of these models fit on the \graicore{} individually.
+Furthermore, we look at the scenario where only a single model is present on the \graicore{} at a time.
 
-\subsection{Bandwidth analysis}
+% \subsection{Bandwidth analysis}
 
 To determine the required write bandwidth for configuring a model, we need the following parameters:
 \begin{itemize}
@@ -13,10 +12,10 @@ To determine the required write bandwidth for configuring a model, we need the f
     \item The frame processing latency
 \end{itemize}
 
-The amount of time we have avaiable to configure the GrAICore is dependent on the input frame rate and frame processing latency.
+The amount of time we have available to configure the \graicore{} is dependent on the input frame rate and frame processing latency.
 For example, for an input frame rate of \SI{60}{FPS}, we have a period of \SI{16.7}{ms} between every two frames.
-Suppose we want to process every new incoming frame with a new model, all with a frame processing latency of \SI{5}{ms}. 
-Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms} to reconfigure the GrAICore with the next model.
+Suppose we want to process every new incoming frame with a new model, all with a frame processing latency of \SI{5}{ms} and data size. 
+Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms} to reconfigure the \graicore{} with the next model.
 
 \begin{figure}[htbp]
     \centering
@@ -25,43 +24,29 @@ Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms}
     \label{fig:reconfig_time_line_ex3}
 \end{figure}
 
-We calculate the required bandwidth for configuring model $m$ with \cref{eq:multiple_models_bandwidth}.
-% \begin{equation}
-%     B_m = \frac{D_m}{\frac{1}{f} - L_m}
-%     \label{eq:multiple_models_bandwidth}
-% \end{equation}
+We calculate the required effective bandwidth for configuring model $m$ with \cref{eq:multiple_models_bandwidth}.
 \begin{equation}
     B_m = \frac{D_m}{f^{-1} - L_m}
     \label{eq:multiple_models_bandwidth}
 \end{equation}
+% TODO change these variable names
 
 \begin{eqexpl}[15mm]
-    \item{$B_m$} required bandwidth for writing model $m$
+    \item{$B_m$} required effective bandwidth for writing model $m$
     \item{$D_m$} amount of bytes to write for model $m$
     \item{$f$} input frame rate
     \item{$L_m$} frame processing latency for model $m$
 \end{eqexpl}
 
-In the worst-case scenario, we have to configure the GrAICore with a model requiring to write the total capacity of the GrAICore (\SI{36}{\mebi\byte}).
-We require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$.
+In the worst-case scenario, we have to configure the \graicore{} with a model requiring to write the total capacity of the \graicore{} (\SI{36}{\mebi\byte}).
+We require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$, assuming the model's processing time is \SI{5}{ms}.
 Note that this bandwidth number does not include any overhead induced by communication protocols. Therefore, in practice, the required minimum bandwidth is higher. 
 
-\Cref{fig:frame_rate_versus_time_budget} shows that an increase in frame rate decreases the available time budget for reconfiguration.
+Using the previous example, \cref{fig:frame_rate_versus_time_budget} shows that an increase in frame rate decreases the available time budget for reconfiguration.
 \Cref{tab:common_fps} shows a list of common video frame rates with their associated reconfiguration time budget.
-A frame rate with zero or negative time budget means that the GrAICore cannot be reconfigured seamlessly for a video with the corresponding frame rate.
+A frame rate with zero or negative time budget means that the \graicore{} cannot be reconfigured seamlessly for a video with the corresponding frame rate.
 Exceeding this time budget results into a delayed output which is undesirable since it negatively affects the user experience.
 At a frame rate of $\SI{200}{FPS}$, the time budget is exactly zero, indicating that this represents the tight upper bound.
-% \begin{equation}
-%     B = f^{-1} - \SI{5}{ms}
-% \end{equation}
-
-% \begin{figure}[htbp]
-%     \centering
-%     \input{assets/tmp}
-%     \caption{An increase in frame rate lowers the reconfiguration time budget}
-%     \label{fig:fps_vs_budget}
-% \end{figure}
-
 
 \begin{figure}[htbp]
     \centering
@@ -92,7 +77,8 @@ At a frame rate of $\SI{200}{FPS}$, the time budget is exactly zero, indicating 
     \label{fig:frame_rate_versus_time_budget}
 \end{figure}
 
-If we have a set of different models we want to switch between, we need to be able to reach the highest required bandwidth:
-\begin{equation*}
+If we have a set of different models (with different sizes and processing times) we want to switch between, the system needs to be able to reach the highest required writing bandwidth:
+\begin{equation}
     B = \max\{\,m \in M \mid B_m \,\} 
-\end{equation*}
+\end{equation}
+

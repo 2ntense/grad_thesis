@@ -1,9 +1,20 @@
 \section{Bandwidth}
-The config NoC's bandiwdth is influenced by its unique characteristics.
+The \confignoc{}'s bandiwdth is influenced by its unique characteristics.
 While each link has a raw bandwidth of \SI{12.8}{Gb/s}\footnote{$\SI{16}{b} \times \SI{800}{MHz}$}, the effective bandwidth available for application data is closer to \SI{6.4}{Gb/s}.
 This reduction is solely due to the 50\% overhead imposed by the 32-bit header in each packet.
-However, the use of wormhole switching, with its pipelined transmission of phits, minimizes the latency associated with multi-hop transfers in the 2D mesh, ensuring efficient data transfer regardless of distance.
-Furthermore, since we are primarly interested in writing data to the \graicore{}, the single injection point into the config NoC does not introduce contention for the links, maximizing bandwidth utilization.
+
+Multi-hop transfers in a 2D mesh network typically suffer from increased latency as distance increases.
+However, the use of wormhole switching, with its pipelined transmission of phits, minimizes this latency.
+This ensures efficient data transfer regardless of the distance between nodes.
+
+
+% Furthermore, since we are primarly interested in writing data to the \graicore{}, the single injection point into the \confignoc{} does not introduce contention for the links, maximizing bandwidth utilization.
+% Since we are primarily intereseted in writing data to the \graicore{}, the single injection point into the \confignoc{} prevents contention for network links.
+% As a consequence, this does not negatively affect the bandwidth utilization.
+
+Furthermore, since we are primarily interested in writing data to the \graicore{}, the \confignoc{}'s use of a single injection point for write transactions offers a significant advantage.
+This design inherently prevents multiple data sources from competing for the same network links, a common cause of contention and performance bottlenecks.
+By eliminating this contention, the \confignoc{} maximizes bandwidth utilization.
 
 Configuration is done by transferring write request packets from the host to one or more neuron cores.
 A write request packet consists of 64 bits in total.
@@ -37,5 +48,5 @@ The effective bandwidth can be calculated with \cref{eq:bandwidth}.
 For example, to completely fill up the \graicore{}'s memory (\SI{36}{MiB}), it will take around \SI{47}{ms}\footnote{$\frac{\SI{36}{MiB} + \SI{36}{MiB}}{\SI{800}{MHz} \times \SI{16}{b}}$}.
 This translates to an effective bandwidth of \SI{6.4}{Gb/s} or \SI{763}{MiB/s}\footnote{$\frac{\SI{36}{MiB}}{\SI{47}{ms}}$}, similar to the effective bandwidth for a single link.
 Here we assumed that no delays are introduced by software and reading the data from external storage.
-Furthermore, delays introduced by hops through the config NoC are minimal due to pipelining.
-Thus, \cref{eq:bandwidth} provides us the config NoC's \textit{peak} effective bandwidth.
+Furthermore, delays introduced by hops through the \confignoc{} are minimal due to pipelining.
+Thus, \cref{eq:bandwidth} provides us the \confignoc{}'s peak effective bandwidth.

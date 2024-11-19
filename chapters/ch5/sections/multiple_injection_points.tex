@@ -1,5 +1,5 @@
 \section{Multiple injection points}
-The config NoC has a single injection point and only allows for the transmission of a single message at a time.
+The \confignoc{} has a single injection point and only allows for the transmission of a single message at a time.
 Thus, when transmitting data from external memory to a neuron core, only a fraction of the NoC's capacity is in use and the remaining part  is left unused.
 Also, cores are configured sequentially.
 There is a significant potential to improve the utilization of the NoC and parallelism to reduce the configuration time.
@@ -12,7 +12,7 @@ Otherwise, traffic originating from two different sources may cause congestion i
 As a result of this change, the total bandwidth will increase, lowering the end-to-end latency.
 
 We study the effects on performance when introducing multiple injection points.
-For three different phit widths and a variety of zones, we compute the latency for sending \SI{36}{MiB} to the GrAICore.
+For three different phit widths and a variety of zones, we compute the latency for sending \SI{36}{MiB} to the \graicore{}.
 The results are shown in \cref{fig:zones_vs_latency_vs_phit_width} for the old and new packet format.
 
 \begin{figure}[htbp]
@@ -77,7 +77,7 @@ Similar to the increase of the phit width, we observe that the number of zones a
         \label{fig:segmentation_example_4}
     \end{subfigure}
     \caption{
-    Example segmentation of the config NoC into multiple zones.
+    Example segmentation of the \confignoc{} into multiple zones.
     A zone is a set of nodes (circle shapes) and is illustrated by a distinct color.
     The diamond shapes show the unique injection sources for each zone.
     }

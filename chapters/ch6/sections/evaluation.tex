@@ -1,12 +1,12 @@
 \section{Evaluation}
 To develop a preliminary understanding of the power contributions of the model reconfiguration from external memory, we evaluate a variety of practical models.
 The power is the configuration of a model and a single inference with the model at \SI{60}{FPS}.
-Effectively, this means that the same model is configured on the GrAICore 60 times per second and also used to proces an input frame 30 times per second.
+Effectively, this means that the same model is configured on the \graicore{} 60 times per second and also used to proces an input frame 30 times per second.
 
 We will be looking at two different external memory technologies, LPDDR5X and PCM.
-We assume we use the DDR protocol for transferring data to the AXI bus that is connected to the GrAICore.
+We assume we use the DDR protocol for transferring data to the AXI bus that is connected to the \graicore{}.
 For the DDR protocol to work, we require an DDR PHY and DDR controller.
-These components both add to the energy when transferring data to the GrAICore.
+These components both add to the energy when transferring data to the \graicore{}.
 
 \begin{table}[hbtp]
     \centering
@@ -19,17 +19,17 @@ These components both add to the energy when transferring data to the GrAICore.
     DDR PHY                  & 10.39 & pJ/B \\
     DDR Controller           & 1.56 & pJ/B  \\
     AXI Bus                  & 6.25 & pJ/B  \\
-    Config NoC hop (64 bits) & 0.26 & pJ    \\
+    \confignoc{} hop (64 bits) & 0.26 & pJ    \\
     SRAM write (64 bits)     & 4.98 & pJ    \\ \bottomrule
     \end{tabular}
-    \caption{Energy parameters of PCM and LPDDR5X memory, DDR interface and GrAICore that are relevant for model configuration}
+    \caption{Energy parameters of PCM and LPDDR5X memory, DDR interface and \graicore{} that are relevant for model configuration}
     \label{tab:energy_parameters}
 \end{table}
 
 We look at the models as shown in \cref{tab:example_models_stats}.
 It also shows the processing latency, the number of cores used and the average utilization of the cores of each (mapped) model.
 These statistics are used for computing the processing energy.
-The ``to write'' columns show the total amount of bytes that is to be transferred to the GrAICore.
+The ``to write'' columns show the total amount of bytes that is to be transferred to the \graicore{}.
 Note that to get a more accurate energy number for configuration, we need the amount of bytes to be transferred to each core individually.
 This information is available, and will be used for the evaluation.
 
@@ -68,7 +68,7 @@ The processing energy is calculated as follows:
 \Cref{fig:model_data_heapmap} shows for the mapped ResNet-50 the amount of data to be sent to each individual core.
 We use this information to construct matrix $D$ and the configuration energy $E_\textrm{conf}$.
 We obtain the values as shown in \cref{tab:resnet50_energy}.
-Configuration with LPDDR5X of the ResNet-50 model on the GrAICore consumes \SI{1.71}{mJ} and with PCM \SI{0.76}{mJ}.
+Configuration with LPDDR5X of the ResNet-50 model on the \graicore{} consumes \SI{1.71}{mJ} and with PCM \SI{0.76}{mJ}.
 
 \begin{table}[hbtp]
     \centering

@@ -1,6 +1,6 @@
 \section{Network packet format}
 The network makes use of network packets for data communication.
-The phit size of the config NoC is 16 bits wide.
+The phit size of the \confignoc{} is 16 bits wide.
 This implies that a total of 16 bits of data can be transferred over a link in a single cycle.
 Each packet contains a header, made up of two separate phits.
 The header contains the fields as shown in \cref{tab:header_fields}.
@@ -15,7 +15,7 @@ Destination cluster X & 4                   \\
 Destination cluster Y & 4                   \\
 Address               & 20                  \\ \bottomrule
 \end{tabular}
-\caption{Header fields of a config NoC packet}
+\caption{Header fields of a \confignoc{} packet}
 \label{tab:header_fields}
 \end{table}
 
@@ -46,7 +46,7 @@ Finally, the \textit{write request} is used to write data to a neuron core.
         \caption{Write request}
         \label{fig:write_request_packet}
     \end{subcaptionblock}
-    \caption{Config NoC's read response and write request packets}
+    \caption{\confignoc{}'s read response and write request packets}
     % \label{fig:config_noc_packets}
 \end{figure}
 
@@ -71,7 +71,7 @@ The \textit{address field} of 20 bits, allows the system to address $2^{20}$ dif
 This address space is used to address the SRAM and the register bank of a neuron core.
 % This address space is used to address the SRAM and the register bank of a neuron core, with room to spare \cite{TODO}.
 
-Upon entering the config NoC, the header phit is immediately analyzed by the router to determine the path towards the destination neuron core.
+Upon entering the \confignoc{}, the header phit is immediately analyzed by the router to determine the path towards the destination neuron core.
 Routers do not wait for the entire packet to arrive.
 Instead, as soon as the header phit reserves the output channel, the remaining phits follow in a pipelined manner.
 This allows the packet to ``snake'' through the network, with different phits occupying different links concurrently.
@@ -82,13 +82,13 @@ The placement of the destination coordinates in the header phit is crucial, as i
 % For every 32 bits of data we read or write, an overhead of 32 bits is also included.
 % In other words, there is an overhead of $100\%$ for every read or write request of 32 bits.
 
-The config NoC's packet format, while designed to facilitate efficient wormhole switching, introduces a significant overhead when reading or writing data.
+The \confignoc{}'s packet format, while designed to facilitate efficient wormhole switching, introduces a significant overhead when reading or writing data.
 The first two phits of a packet serves as the header, with the first carrying all the information necessary for routing the packet.
 While this solution enables low-latency benefits of wormhole switching, it consumes 50\% of the packet, leaving only the other 50\% for the actual payload data.
 
 This overhead has several consequences.
 First, it reduces bandwidth utilization.
-Half of the config NoC's bandwidth is dedicated to transmitting the header information, limiting the effective throughput for application data.
+Half of the \confignoc{}'s bandwidth is dedicated to transmitting the header information, limiting the effective throughput for application data.
 Secondly, the overhead becomes even more pronounced when transferring small amounts of data.
 If the payload data fits within a single 16-bit phit, the header occupies a major portion of the packet, leading to ineffecient bandwidth usage.
 Furthermore, the need to transfer a header for every 32 bits of data, contributes to increased power consumption.

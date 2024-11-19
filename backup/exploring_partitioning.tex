@@ -1,7 +1,7 @@
-Suppose we have a large model that does not fit on the GrAICore at once.
-We will look at two strategies to partition the model to allow it to be executed on the GrAICore.
+Suppose we have a large model that does not fit on the \graicore{} at once.
+We will look at two strategies to partition the model to allow it to be executed on the \graicore{}.
 
-Assume we have a model of that requires \SI{60}{MiB} to be written to the GrAICore.
+Assume we have a model of that requires \SI{60}{MiB} to be written to the \graicore{}.
 We are able to partition this model in two parts of \SI{30}{MiB} and four parts of \SI{15}{MiB}.
 Furthermore, assume the latencies for processing and configuring as shown in \cref{tab:partitiong_strategies_example}.
 
@@ -18,7 +18,7 @@ Furthermore, assume the latencies for processing and configuring as shown in \cr
 \end{table}
 
 \section{Sequential configuration}
-With the model partitioned in two parts of \SI{30}{MiB}, we can only fit one part on the GrAICore at a time.
+With the model partitioned in two parts of \SI{30}{MiB}, we can only fit one part on the \graicore{} at a time.
 Because of this, we can only configure and process in a sequential manner.
 The configure and process timeline is illustrated in \cref{fig:schedule_sequential_configuration}.
 % In total, to fully process the model in two parts, it takes \SI{16}{ms}.
@@ -48,7 +48,7 @@ The inference latency of a single input frame is \SI{16}{ms}.
 \end{figure}
 
 \section{Parallel configuration}
-With the model partitioned in four parts, two parts of \SI{15}{MiB} can fit on the GrAICore at the same time.
+With the model partitioned in four parts, two parts of \SI{15}{MiB} can fit on the \graicore{} at the same time.
 This allows for a pipeline of configuration and processing.
 For this approach to work, the neuron cores must be divided into two isolated segments/zones.
 % With each zone able to contain a part.

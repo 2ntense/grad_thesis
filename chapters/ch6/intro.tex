@@ -1,13 +1,13 @@
-To obtain an insight into the power consumption with the introduction of the config NoC changes in \cref{TODO} and model configuration using external memory we will provide an comprehensive analysis.
-% To get an approximation of the power consumption when configuring the GrAICore with a model and processing frames with it, we will provide calculations with energy parameters acquired from internal sources.
+To obtain an insight into the power consumption with the introduction of the \confignoc{} changes in \cref{TODO} and model configuration using external memory we will provide an comprehensive analysis.
+% To get an approximation of the power consumption when configuring the \graicore{} with a model and processing frames with it, we will provide calculations with energy parameters acquired from internal sources.
 
-When configuring the GrAICore and processing an input frame, the major components that consume energy are as follows:
+When configuring the \graicore{} and processing an input frame, the major components that consume energy are as follows:
 \begin{itemize}
     \item Configuration
     \begin{itemize}
         \item Reading data from the external memory
-        \item Transferring data from the external memory to the config NoC
-        \item Phits traversing (i.e., hops) through the config NoC
+        \item Transferring data from the external memory to the \confignoc{}
+        \item Phits traversing (i.e., hops) through the \confignoc{}
         \item Writing data to the neuron core's SRAM
     \end{itemize}
     \item Processing

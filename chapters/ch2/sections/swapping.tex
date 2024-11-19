@@ -12,7 +12,7 @@ It is therefore crucial that this overhead is minimized to ensure that performan
 
 Research has been done on using the swapping technique for supporting large neural networks on tiny microcontrollers in \cite{miaoEnablingLargeNeural2021}.
 This is achieved by dynamically swapping neural network parts between a microcontroller's tiny SRAM and its large, low-cost external flash.
-Although they managed to address the challenge of running large models on a resource-constrained edge device without accuracy loss, a microcontroller's hardware architecture is significantly different compared to that of the GrAICore's.
+Although they managed to address the challenge of running large models on a resource-constrained edge device without accuracy loss, a microcontroller's hardware architecture is significantly different compared to that of the \graicore{}'s.
 With low-cost microcontrollers as their target, the external flash bandwidth is usually poor ($<\SI{100}{MB/s}$).
 As a consequence, the throughput of processed frames per second is also poor.
-But despite that, the proposed scheduling technique shows promising results for executing large models on microcontrollers and can potentially be extended to be used on the GrAICore.
+But despite that, the proposed scheduling technique shows promising results for executing large models on microcontrollers and can potentially be extended to be used on the \graicore{}.
