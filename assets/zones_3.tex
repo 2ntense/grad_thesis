@@ -1,23 +1,17 @@
 \begin{tikzpicture}[]
-    \draw (-0.5, 4) -- (0, 4);
-    \node [diamond, draw, fill=purple] () at (-0.5,4) {};
-    
-    \draw (-0.5, 2) -- (0, 2);
-    \node [diamond, draw, fill=purple] () at (-0.5,2) {};
-    
-    \draw (-0.5, 0) -- (0, 0);
-    \node [diamond, draw, fill=purple] () at (-0.5,0) {};
-    
     \draw (0, 0) grid[step=0.5] (5.5,5.5);
     \foreach \x in {0,...,11} {
         \foreach \y in {0,...,3}  {
-           \node [circle, draw, fill=red] (\x\y) at (0.5*\x,0.5*\y) {};
+           \node [circle, draw, fill=red!50] (\x\y) at (0.5*\x,0.5*\y) {};
         }
         \foreach \y in {4,...,7} {
-           \node [circle, draw, fill=blue] (\x\y) at (0.5*\x,0.5*\y) {};
+           \node [circle, draw, fill=blue!50] (\x\y) at (0.5*\x,0.5*\y) {};
         }
         \foreach \y in {8,...,11} {
-           \node [circle, draw, fill=green] (\x\y) at (0.5*\x,0.5*\y) {};
+           \node [circle, draw, fill=green!50] (\x\y) at (0.5*\x,0.5*\y) {};
         }
     }
+    \draw[->,line width=2] (-1, 0) -- (00);
+    \draw[->,line width=2] (-1, 2) -- (04);
+    \draw[->,line width=2] (-1, 4) -- (08);
 \end{tikzpicture}

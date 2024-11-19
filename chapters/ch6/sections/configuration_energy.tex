@@ -38,7 +38,7 @@ To estimate the energy cost for configuration, we require the following informat
 \begin{itemize}
     % \item Amount of data to read from the external memory
     \item Amount of data to transfer to the SRAMs
-    \item Core destination of the data
+    \item Destination neuron core of the data
 \end{itemize}
 
 The amount of data to transfer determines how much data will be read, transferred and written.
@@ -59,23 +59,23 @@ The SRAM consumes energy by writing the data to its banks.
 A single hop through the \confignoc{} with a 64 bit phit consumes \SI{0.258}{pJ}.
 Writing back 64 bits to an SRAM consumes \SI{4.980}{pJ}.
 
-\begin{table}[hbtp]
-\centering
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Component}      & \textbf{Usage}  &  \\
-\midrule
-DDR device              & \SI{0.11}{nJ/B} &  \\
-DDR PHY                 & \SI{133}{mW}    &  \\
-DDR controller          & \SI{20}{mW}     &  \\
-AXI bus                 & \SI{80}{mW}     &  \\
-NoC hop (\SI{64}{b})    & \SI{0.258}{pJ}  &  \\
-SRAM write (\SI{64}{b}) & \SI{4.980}{pJ}  &  \\
-\bottomrule
-\end{tabular}
-\caption{Energy parameters for each of the major energy consuming components. The shown power numbers for \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus} are when at full capacity (i.e., best-case scenario).}
-\label{tab:energy_parameters_ddr}
-\end{table}
+% \begin{table}[hbtp]
+% \centering
+% \begin{tabular}{@{}lll@{}}
+% \toprule
+% \textbf{Component}      & \textbf{Usage}  &  \\
+% \midrule
+% DDR device              & \SI{0.11}{nJ/B} &  \\
+% DDR PHY                 & \SI{133}{mW}    &  \\
+% DDR controller          & \SI{20}{mW}     &  \\
+% AXI bus                 & \SI{80}{mW}     &  \\
+% NoC hop (\SI{64}{b})    & \SI{0.258}{pJ}  &  \\
+% SRAM write (\SI{64}{b}) & \SI{4.980}{pJ}  &  \\
+% \bottomrule
+% \end{tabular}
+% \caption{Energy parameters for each of the major energy consuming components. The shown power numbers for \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus} are when at full capacity (i.e., best-case scenario).}
+% \label{tab:energy_parameters_ddr}
+% \end{table}
 
 \subsection{Calculation}
 The configuration energy consists of the reading, transferring and writing of data from the external memory to the \graicore{}'s SRAMs. 

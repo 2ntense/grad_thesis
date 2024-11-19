@@ -33,7 +33,7 @@ The ``to write'' columns show the total amount of bytes that is to be transferre
 Note that to get a more accurate energy number for configuration, we need the amount of bytes to be transferred to each core individually.
 This information is available, and will be used for the evaluation.
 
-\begin{table}[]
+\begin{table}[hbtp]
 \centering
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
@@ -60,13 +60,13 @@ resnet101\_pruned\_p4   & 2.437                                                 
 \end{table}
 
 As an example, we demonstrate a calculation for the ResNet-50 model.
-The processing energy is calculated as follows:
+The processing energy is calculated as follows (assuming an average core power of \SI{21}{mW}\footnote{This constant is obtained from internal RTL simulations.}):
 \begin{equation}
     E_\textrm{proc} = 0.3635 \times 144 \times \SI{5.765}{ms} \times \SI{21}{mW} = \SI{6.34}{mJ}
 \end{equation}
 
 \Cref{fig:model_data_heapmap} shows for the mapped ResNet-50 the amount of data to be sent to each individual core.
-We use this information to construct matrix $D$ and the configuration energy $E_\textrm{conf}$.
+We use this information to construct matrix $D$ and the configuration energy $\econf$.
 We obtain the values as shown in \cref{tab:resnet50_energy}.
 Configuration with LPDDR5X of the ResNet-50 model on the \graicore{} consumes \SI{1.71}{mJ} and with PCM \SI{0.76}{mJ}.
 
@@ -101,7 +101,7 @@ Then, the total energy consumption when performing a single configuration and a 
     \subcaptionbox{PCM\label{fig:pie_resnet50_conf_pcm}}{
         \input{assets/power_analysis/baseline/pcm/pie_resnet50_conf.tex}
     }
-    \caption{ResNet-50 configuration energy distribution}
+    \caption{ResNet-50 configuration energy distribution. The ``other'' slice includes $\ectrl$, $\enoc$ and $\ewrite$.}
     \label{fig:resnet50_conf_energy_distribution}
 \end{figure}
 
@@ -117,9 +117,9 @@ Of the models as listed in \cref{tab:example_models_stats}, on average, around 2
 When performing configuration and processing at \SI{60}{FPS}, we get the power values as shown in \cref{tab:example_models_power_consumption}.
 
 Ideally, the power consumption of the configuration of a model should be as minimal as possible.
-In \cref{chapter:model_configuration_improvements}, we explore techniques for increasing configuration efficiency.
+In \cref{ch:7}, we explore techniques for increasing configuration efficiency.
 
-\begin{table}[]
+\begin{table}[hbtp]
     \centering
     \begin{threeparttable}
         \begin{tabular}{@{}lrrr@{}}

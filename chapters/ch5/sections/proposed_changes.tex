@@ -1,7 +1,5 @@
-% \section{Proposed \confignoc{} specifications}
 \section{Proposed specifications}
 \label{sec:proposed_noc}
-% In this section, we provide a detailed specification of the proposed \confignoc{} and interface for \graicore{} based on the analysis and observations presented in the previous sections of this document.
 To improve the bandwidth of configuration with the \confignoc{}, a set of changes is proposed. Firstly, we propose to widen the links from 16 bits to 64 bits.
 This allows for phits of 64 bits in size.
 This change provides us with a potential bandwidth increase of 4x.
@@ -20,7 +18,7 @@ Since we opt for a link width of 64, the size of a single phit also increases to
 All header information fits within a single phit of 64 bits.
 The data phits following the header are fully utilized for payload data.
 The format of the header is shown in \cref{fig:packet_format_header_new}.
-With a length field of 6 bits, we can specify up to 65 data phits for a single packet.
+With a length field of 6 bits, we can specify up to 64 data phits for a single packet.
 This is a sufficient amount as argued in the previous section. 
 Compared to the current packet format, an additional bandwidth increase of almost 2x can be gained with this new packet format.
 
@@ -33,6 +31,6 @@ Compared to the current packet format, an additional bandwidth increase of almos
     \label{fig:packet_format_header_new}
 \end{figure}
 
-Through increasing the link width, adding an additional injection point, and adopting a new packet format, it’s possible to achieve a significant peak bandwidth improvement of nearly 16x.
-Specifically, this translates to upgrading from an initial bandwidth of \SI{0.75}{GiB/s} to a substantial \SI{11.92}{GiB/s}.
+Through increasing the link width, adding an additional injection point, and adopting a new packet format, it's possible to achieve a significant peak bandwidth improvement of nearly 16x.
+Specifically, this translates to upgrading from an initial effective write bandwidth of \SI{763}{MiB/s} to a substantial \SI{11.92}{GiB/s}.
 Moreover, additional increase in bandwidth can be obtained by increasing the amount of injection points.

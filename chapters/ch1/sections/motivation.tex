@@ -1,4 +1,4 @@
-\section{AI at the edge}
+\section{Motivation}
 
 Edge devices are often the frontline for data collection and user interaction, making them crucial for applications that require real-time processing, such as facial recognition on smartphones or decision-making in autonomous vehicles.
 These devices are characterized by their compact size and energy efficiency.
@@ -6,7 +6,7 @@ However, the compute capacities of edge devices are considerably lower than thos
 This presents a significant challenge for deploying sophisticated AI models directly onto edge devices.
 Given the constraints of memory and processing power on the edge, it is crucial to adapt models to operate within these limitations while striving to maximize their efficacy.
 
-To bridge this gap, AI researchers and engineers have developed several model compression techniques \cite{neill_overview_2020}.
+To bridge this gap, AI researchers and engineers have developed several model compression techniques \autocite{neillOverviewNeuralNetwork2020}.
 One such technique is quantization, which reduces the precision of a model's numerical parameters.
 For example, instead of using 32-bit floating-point numbers, a model might use 16-bit or even 8-bit representations, which can drastically cut down the memory requirement and computational costs.
 Another technique is pruning, which removes parameters that contribute little to the model's outputs.

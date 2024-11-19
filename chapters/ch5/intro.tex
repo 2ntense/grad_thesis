@@ -1,4 +1,22 @@
-This section discusses various modifications to the \confignoc{} that can be implemented to improve the configuration speed of the \graicore{}.
+% As observed from the analysis in \cref{ch:4}, the bandwidth of the current \confignoc{} is insufficient for supporting the execution of multiple and large models.
+% There is a need for increasing the bandwidth for 
 
-% TODO add introduction to chapter
-\lipsum[1]
+% This section discusses various modifications to the \confignoc{} that can be implemented to improve the configuration speed of the \graicore{}.
+
+% Our previous analysis has highlighted a write bandwidth bottleneck in the \confignoc{}.
+Our previous analysis has highlighted a bottleneck in the \confignoc{}.
+This bandwidth of the \confignoc{} hinders the overall performance and prevents us from executing multiple and large models.
+To address this challenge, this chapter focuses on enhancing the \confignoc{}'s architecture to increase its bandwidth.
+
+We explore a range of techniques to improve the \confignoc{}'s bandwidth:
+\begin{description}
+    \item[Improved packet format:]
+    A improved packet format is explored to minimize the overhead during write transactions to the \graicore{}.
+    \item[Widening link widths:]
+    Widening of the link widths allows for more data to be transferred across a link in a single clock cycle.
+    \item[Multiple injection point:]
+    Adding additional injection points allows data to enter the \confignoc{} from multiple points in parallel.
+\end{description}
+
+This chapter provides an examination of each technique, analyzing their potential benefits and expected performance gains within the context of our \confignoc{} and application requirements.
+As a conclusion, we propose a specification of an improved \confignoc{}.

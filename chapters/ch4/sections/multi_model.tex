@@ -3,8 +3,6 @@ We analyze the execution of multiple models on the \graicore{}.
 We assume that each of these models fit on the \graicore{} individually.
 Furthermore, we look at the scenario where only a single model is present on the \graicore{} at a time.
 
-% \subsection{Bandwidth analysis}
-
 To determine the required write bandwidth for configuring a model, we need the following parameters:
 \begin{itemize}
     \item The input frame rate
@@ -16,13 +14,48 @@ The amount of time we have available to configure the \graicore{} is dependent o
 For example, for an input frame rate of \SI{60}{FPS}, we have a period of \SI{16.7}{ms} between every two frames.
 Suppose we want to process every new incoming frame with a new model, all with a frame processing latency of \SI{5}{ms} and data size. 
 Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms} to reconfigure the \graicore{} with the next model.
+\Cref{fig:reconfig_time_line_ex} show two example timelines of a good and a bad scenario when performing execution of multiple models in sequence.
+% A frame enters the system at every $T$.
+% Every new frame is to be processed by a new model.
+% The \graicore{} is configured with model $A$ before time $0$.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \input{assets/reconfig_time_line_ex3}
+%     \caption{
+%         Example reconfiguration timeline.
+%         $p_A$ and $c_B$ depicts the processing of model $A$ and configuration of model $B$ respectively.
+%     }
+%     \label{fig:reconfig_time_line_ex3}
+% \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \input{assets/reconfig_time_line_ex3}
-    \caption{TODO}
-    \label{fig:reconfig_time_line_ex3}
+    \subfloat[]{
+        \input{assets/reconfig_time_line_ex1_new}
+        \label{fig:correct_reconfig}
+    } \\
+    \subfloat[]{
+        \input{assets/reconfig_time_line_ex2_new}
+        \label{fig:incorrect_reconfig}
+    }
+    \caption{
+    Example time lines of reconfiguration procedures.
+    $t_n$ indicates the time instance where the $n$th frame has been received by the GrAICore, ready to be processed.
+    At $t_0$, the GrAICore is already configured with an initial model.
+    In \protect\subref{fig:correct_reconfig}, the GrAICore uses a different model for each consecutive frame.
+    After receiving and processing (P) the very first frame at $t_0$, it starts reconfiguration (C) to a new model.
+    Since the sum of the reconfiguration and processing time does not exceed the frame time ($t_{n+1} - t_{n})$, the frame processing latency (L) is equal for every incoming frame.
+    The invariant latency is desired and indicates a seamless reconfiguration.
+    \protect\subref{fig:incorrect_reconfig} has an increased reconfiguration time.
+    Now, the sum of the reconfiguration and processing time does exceed the frame time.
+    As a consequence, the frame processing latency increases for each incoming frame.
+    In the long run, this latency will grow to infinity.
+    Since the latency varies, this is an example of a non-seamless reconfiguration.
+    }
+    \label{fig:reconfig_time_line_ex}
 \end{figure}
+
 
 We calculate the required effective bandwidth for configuring model $m$ with \cref{eq:multiple_models_bandwidth}.
 \begin{equation}

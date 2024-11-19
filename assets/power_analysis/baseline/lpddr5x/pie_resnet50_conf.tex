@@ -1,17 +1,24 @@
 \import{assets/power_analysis}{pre}
 \begin{tikzpicture}
     \pie[
-        radius=2,
+        radius=1.8,
         text=pin,
         color = {blue!60, blue!50, blue!40, blue!30, blue!20, blue!10},
         before number=\printonlylargeenough{10},
         after number=\ifprintnumber\%\fi
     ]{
+        % 64.9/$\eread$,
+        % 19.3/$\ephy$,
+        % 2.8/$\ectrl$,
+        % 11.3/$\eaxi$,
+        % 0.5/$\enoc$,
+        % 1.1/$\ewrite$
         64.9/$\eread$,
         19.3/$\ephy$,
-        2.8/$\ectrl$,
+        % 2.8/$\ectrl$,
         11.3/$\eaxi$,
-        0.5/$\enoc$,
-        1.1/$\ewrite$
+        % 0.5/$\enoc$,
+        % 1.1/$\ewrite$
+        4.4/$\textrm{other}$
     }
 \end{tikzpicture}
