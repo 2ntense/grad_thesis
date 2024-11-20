@@ -10,8 +10,8 @@ Since we have access to various energy parameters for DDR memory, we will use DD
     \label{fig:ddr_graicore_block_diagram}
 \end{figure}
 
+% TODO add explanation for every component
 A typical system with DDR as external memory looks as shown in \cref{fig:ddr_graicore_block_diagram}.
-% TODO add image
 \begin{itemize}
     \item The \textit{DDR device} where the (model) data is read from.
     \item The \textit{DDR PHY} that connects the \textit{DDR device} and \textit{DDR controller}.
@@ -20,23 +20,14 @@ A typical system with DDR as external memory looks as shown in \cref{fig:ddr_gra
     \item The \textit{\graicore{}} that transfers and writes data the SRAMs.
 \end{itemize}
 
-% It has been established that performing a hop on the \eventnoc{} consumes around \SI{129}{fJ}.
-% These hops are for phits of 32 bits.
-% For the \confignoc{} (which uses phits of 16 bits), we are interested in the energy use for transferring phits of 16 bits. We can approximate this value by dividing the value for 32 phit hops into two. I.e., 129 fJ / 2 = 64.5 fJ. 
-
-% Furthermore, it has been established that for the SRAM to write 64 bits, it consumes \SI{2.490}{pJ}.
-% The SRAM system has the property to write 64 bits at once by first buffering four consecutive phits.
-% This improves efficiency. 
-
 For the analysis, we assume that we are using the newly proposed \confignoc{} in \cref{sec:proposed_noc}. 
-With the new packet format, a packet contains at most 65 data phits of 64 bits each.
-That is, a maximum of 520 bytes\footnote{$65 \times \frac{\SI{64}{b}}{8} = \SI{520}{B}$} of payload per packet.
+With the new packet format, a packet contains at most 64 data phits of 64 bits each.
+That is, a maximum of 512 bytes\footnote{$64 \times \frac{\SI{64}{b}}{8} = \SI{512}{B}$} of payload per packet.
 Furthermore, an additional injection point is introduced (see \cref{fig:segmentation_example_2}).
 Next to the injection point connected to the router on the bottom left of the \confignoc{}, a new one is added and connected to the router six positions up.
 
 To estimate the energy cost for configuration, we require the following information from a model:
 \begin{itemize}
-    % \item Amount of data to read from the external memory
     \item Amount of data to transfer to the SRAMs
     \item Destination neuron core of the data
 \end{itemize}
@@ -59,24 +50,6 @@ The SRAM consumes energy by writing the data to its banks.
 A single hop through the \confignoc{} with a 64 bit phit consumes \SI{0.258}{pJ}.
 Writing back 64 bits to an SRAM consumes \SI{4.980}{pJ}.
 
-% \begin{table}[hbtp]
-% \centering
-% \begin{tabular}{@{}lll@{}}
-% \toprule
-% \textbf{Component}      & \textbf{Usage}  &  \\
-% \midrule
-% DDR device              & \SI{0.11}{nJ/B} &  \\
-% DDR PHY                 & \SI{133}{mW}    &  \\
-% DDR controller          & \SI{20}{mW}     &  \\
-% AXI bus                 & \SI{80}{mW}     &  \\
-% NoC hop (\SI{64}{b})    & \SI{0.258}{pJ}  &  \\
-% SRAM write (\SI{64}{b}) & \SI{4.980}{pJ}  &  \\
-% \bottomrule
-% \end{tabular}
-% \caption{Energy parameters for each of the major energy consuming components. The shown power numbers for \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus} are when at full capacity (i.e., best-case scenario).}
-% \label{tab:energy_parameters_ddr}
-% \end{table}
-
 \subsection{Calculation}
 The configuration energy consists of the reading, transferring and writing of data from the external memory to the \graicore{}'s SRAMs. 
 
@@ -93,8 +66,8 @@ Therefore, we require information how much data needs to be transferred to each 
 
 \begin{figure}[hbtp]
     \centering
-    \includegraphics[width=0.8\linewidth]{assets/model_data_heatmap.png}
-    \caption{Amount of data to be written to each core for the ResNet-50 model (80\% pruned).}
+    \includegraphics[clip, trim=80 20 10 30, width=0.8\linewidth]{assets/resnet50_coredata_heatmap.pdf}
+    \caption{Amount of data to be written to each neuron core for the ResNet-50 model (80\% pruned).}
     \label{fig:model_data_heapmap}
 \end{figure}
 
@@ -106,55 +79,51 @@ This matrix can be constructed from the artifacts outputted by the compiler.
 The number of phits to be transferred through the \confignoc{} influences the total energy costs.
 In particular, the amount of phits to be transferred affects the number of hops to be taken in total and the amount of data to be written to the SRAMs.
 Therefore, we need to determine how many phits needs to be transferred to each neuron core.
-% The number of phits to be transferred influences the energy cost in the \confignoc{} hops and SRAM writes.
-% A packet can contain up to 520 bytes\footnote{$65 \times \frac{64}{8}$} of payload data. 
-A packet can contain up to 65 data phits, that is $65 \times \SI{64}{b} = \SI{520}{B}$ of payload data.
-% If we transfe
-Suppose we need to transfer $d$ bytes to a neuron core, we then require a total of $\left\lfloor \frac{d}{520} \right\rfloor$ packets with 65 data phits.
-% If $d \bmod 520 > 0$, then there is an additional packet consisting of $\left\lceil \frac{\left( d \bmod 520 \right) \times 8}{64}\right\rceil$ data phits.
-If $\left( d \bmod 520 \right) > 0$, then there is an additional packet for the remaining $\left( d \bmod 520 \right)$ bytes of data.
-The remaining packet will consist of $\left\lceil \frac{d \bmod 520}{8}\right\rceil$ data phits.
+A packet can contain up to 64 data phits, that is $64 \times \SI{64}{b} = \SI{512}{B}$ of payload data.
+Suppose we need to transfer $d$ bytes to a neuron core, we then require a total of $\left\lfloor \frac{d}{512} \right\rfloor$ packets with 64 data phits.
+If $\left( d \bmod 512 \right) > 0$, then there is an additional packet for the remaining $\left( d \bmod 512 \right)$ bytes of data.
+The remaining packet will consist of $\left\lceil \frac{d \bmod 512}{8}\right\rceil$ data phits.
 Note that each packet also contains a single phit of 64 bits for the header information.
 
 The total energy cost for configuring the \graicore{} can be estimated with the following equation:
 \begin{equation}
-    E_{\textrm{config}} = E_{\textrm{ext\_mem}} + E_{\textrm{noc}} + E_{\textrm{write}}
+    \econf = \eextmem + \enoc + \ewrite
 \end{equation}
 
 With:
 \begin{align*} 
-E_{\textrm{ext\_mem}} &= 
-        \sum_{c \in C}^{}{E_\textrm{read\_ext\_mem}(D_c) + E_{\textrm{send\_to\_noc}}(D_c)} \\
-E_{\textrm{noc}} &=
-    E_{\textrm{hop}} \times \sum_{c \in C}^{}{N_\textrm{hops}(c) \times p_{\textrm{total}}(D_c)} \\
-E_{\textrm{write}} &=
-    E_{\textrm{sram\_write\_64b}} \times \sum_{c \in C}^{}{p_{\textrm{data}}(D_c)}
+\eextmem &= 
+        \sum_{c \in C}^{}{\ereadextmem(D_c) + \esendtonoc(D_c)} \\
+\enoc &=
+    \ehop \times \sum_{c \in C}^{}{\nhops(c) \times \ptotal(D_c)} \\
+\ewrite &=
+    \esramwrite64b \times \sum_{c \in C}^{}{\pdata(D_c)}
 \end{align*}
 
 And:
 \begin{align*} 
-N_{\textrm{hops}}(x,y) &=
+\nhops(x,y) &=
     \begin{cases} 
         x + y & \textrm{if } 0 \leq y \leq 5 \\
         x + y - 6 & \text{if } 6 \leq y \leq 11
     \end{cases}
 \\
-p_{\textrm{total}}(d) &=
-    \left\lfloor \frac{d}{520} \right\rfloor \times (65 + 1) + \left\lceil \frac{d \bmod 520}{8} \right\rceil + 1 =
-    \left\lceil \frac{d}{8} \right\rceil + \left\lfloor \frac{d}{520} \right\rfloor + 1 
+\ptotal(d) &=
+    \left\lfloor \frac{d}{512} \right\rfloor \times (64 + 1) + \left\lceil \frac{d \bmod 512}{8} \right\rceil + 1 =
+    \left\lceil \frac{d}{8} \right\rceil + \left\lfloor \frac{d}{512} \right\rfloor + 1 
 \\
-p_{\textrm{data}}(d) &=
-    \left\lfloor \frac{d}{520} \right\rfloor \times 65 + \left\lceil \frac{d \bmod 520}{8} \right\rceil =
+\pdata(d) &=
+    \left\lfloor \frac{d}{512} \right\rfloor \times 64 + \left\lceil \frac{d \bmod 512}{8} \right\rceil =
     \left\lceil \frac{d}{8} \right\rceil
 \end{align*}
 
 \begin{eqexpl}[15mm]
-    \item{$p_{\textrm{total}}(D_c)$} total phits (includes headers) for transferring $D_c$ bytes
-    \item{$p_{\textrm{data}}(D_c)$} total data phits (excludes headers) for transferring $D_c$ bytes
-    \item{$N_{\textrm{hops}}(c)$} the amount of hops required to reach a neuron core at coordinate $c$, starting from the router closest to the injection point. It has two sub-functions due to the new \confignoc{}'s dual injector architecture
-    \item{$E_{\textrm{read\_ext\_mem}}(D_c)$} energy for reading $D_c$ bytes from the external memory
-    \item{$E_{\textrm{send\_to\_noc}}(D_c)$} energy for sending $D_c$ bytes from the external memory to the \confignoc{}
-    \item{$E_{\textrm{hop}}$} energy for performing a single hop in the \confignoc{}
-    \item{$E_{\textrm{sram\_write\_64b}}$} energy for writing back 64 bits to a neuron core's SRAM
+    \item{$\ptotal(D_c)$} total phits (includes headers) for transferring $D_c$ bytes
+    \item{$\pdata(D_c)$} total data phits (excludes headers) for transferring $D_c$ bytes
+    \item{$\nhops(c)$} the amount of hops required to reach a neuron core at coordinate $c$, starting from the router closest to the injection point. It has two sub-functions due to the new \confignoc{}'s dual injector architecture
+    \item{$\ereadextmem(D_c)$} energy for reading $D_c$ bytes from the external memory
+    \item{$\esendtonoc(D_c)$} energy for sending $D_c$ bytes from the external memory to the \confignoc{}
+    \item{$\ehop$} energy for performing a single hop in the \confignoc{}
+    \item{$\esramwrite64b$} energy for writing back 64 bits to a neuron core's SRAM
 \end{eqexpl}
 

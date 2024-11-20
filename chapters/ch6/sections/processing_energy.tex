@@ -1,6 +1,5 @@
 \section{Processing energy}
 The processing energy is the energy consumed when the \graicore{} is processing input frames.
-% Note that the \graicore{} does not make use of the \confignoc{} to process input frames.
 Note that the \graicore{} uses the \eventnoc{} for communication between nodes when processing input frames, the \confignoc{} is not involved in this process.
 
 The processing energy can be estimated with the following equation:
@@ -13,11 +12,8 @@ Processing latency (\textrm{processing\_latency}) is the time the model takes to
 Cores used (\textrm{cores\_used}) is the amount of neuron cores that were used to execute the model.
 Average utilization (\textrm{avg\_util}) is the average percentage of the time the cores were active while the frame was processed. 
 % The constant \SI{21}{mW} is the approximated power usage of a single neuron core while it's being fully utilized.
-% The constant \SI{21}{mW} is the approximated power usage of a single neuron core while it's being fully utilized.
 Average core power (\textrm{core\_power}) is the average power a single neuron core consumes while performing inference on a frame.
-% This constant is obtained from internal RTL simulations.
 
 Since the \confignoc{} is not involved in the processing of an input frame, any change to the \confignoc{} does not influence the processing energy.
 A significant factor (other than hardware changes) that may affect the processing energy is the mapping performed by the compiler on the original model. 
 Different mappings on the same model have an effect on the average utilization and the number of neuron cores used, which in turn influences the processing latency.
-

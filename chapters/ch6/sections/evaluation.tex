@@ -37,7 +37,7 @@ This information is available, and will be used for the evaluation.
 \centering
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
-\textbf{Model}          & \textbf{\begin{tabular}[c]{@{}l@{}}Latency\\ (ms)\end{tabular}} & \textbf{Cores} & \textbf{Avg util.} & \textbf{\begin{tabular}[c]{@{}l@{}}To write\\ (MiB)\end{tabular}} \\ \midrule
+\textbf{Model}          & \textbf{\begin{tabular}[c]{@{}l@{}}Latency\\ (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Cores\\used\end{tabular}} & \textbf{Avg util.} & \textbf{\begin{tabular}[c]{@{}l@{}}To write\\ (MiB)\end{tabular}} \\ \midrule
 efficientnet            & 1.642                                                           & 144            & 50.89\%            & 16.15                                                             \\
 mobnetv2                & 1.296                                                           & 144            & 40.78\%            & 10.67                                                             \\
 hand\_tracker           & 1.480                                                           & 144            & 36.62\%            & 12.33                                                             \\
@@ -55,14 +55,18 @@ resnet101\_pruned\_p3   & 2.114                                                 
 resnet101\_pruned\_p4   & 2.437                                                           & 143            & 24.25\%            & 7.69                                                              \\
 \bottomrule
 \end{tabular}
-\caption{Model statistics}
+\caption{
+    Statistics of various mapped models.
+    The latency, cores used and average utilization are obtained from simulations with \graipefruit{}.
+    The amount of bytes to write are obtained from the compiler artifacts.
+}
 \label{tab:example_models_stats}
 \end{table}
 
 As an example, we demonstrate a calculation for the ResNet-50 model.
 The processing energy is calculated as follows (assuming an average core power of \SI{21}{mW}\footnote{This constant is obtained from internal RTL simulations.}):
 \begin{equation}
-    E_\textrm{proc} = 0.3635 \times 144 \times \SI{5.765}{ms} \times \SI{21}{mW} = \SI{6.34}{mJ}
+    \eproc = 0.3635 \times 144 \times \SI{5.765}{ms} \times \SI{21}{mW} = \SI{6.34}{mJ}
 \end{equation}
 
 \Cref{fig:model_data_heapmap} shows for the mapped ResNet-50 the amount of data to be sent to each individual core.
@@ -85,11 +89,13 @@ Configuration with LPDDR5X of the ResNet-50 model on the \graicore{} consumes \S
     $\ewrite$ & 19.3 \\
     \bottomrule
     \end{tabular}
-    \caption{All values are in \SI{}{\micro\joule}}
+    \caption{
+        Computed energy values for each relevant component during configuration.
+        All values shown are in \SI{}{\micro\joule}.
+    }
     \label{tab:resnet50_energy}
 \end{table}
 
-% Then, performing a single configuration and a single inference, the system will consume \SI{8.05}{mJ} for LPDDR5X and \SI{7.09}{mJ} for PCM in total.
 Then, the total energy consumption when performing a single configuration and a single inference is \SI{8.05}{mJ} for LPDDR5X and \SI{7.09}{mJ} for PCM.
 
 \begin{figure}[hbtp]
@@ -105,13 +111,9 @@ Then, the total energy consumption when performing a single configuration and a 
     \label{fig:resnet50_conf_energy_distribution}
 \end{figure}
 
-% \Cref{TODO} shows that for LPDDR5X memory, reading from the memory consumes most of the energy in the configuration process.
-% While the DDR PHY consumes the most energy when PCM is used.
-
-Looking at the configuration energy, with LPDDR5X, most of the energy is consumed by reading from the exteral memory (see \cref{fig:resnet50_conf_energy_distribution}).
+Looking at the configuration energy, with LPDDR5X, most of the energy is consumed by reading from the external memory (see \cref{fig:resnet50_conf_energy_distribution}).
 While for PCM, most of the energy is consumed by the DDR PHY.
 
-The energy distribution between configuration and processing.
 Shown in \cref{fig:resnet50_conf_proc}, the configuration of the ResNet-50 model occupies around 21\% with LPPDDR5X and 11\% with PCM of the total energy consumption (processing and configuration).
 Of the models as listed in \cref{tab:example_models_stats}, on average, around 23\% is used for configuration with LPDDR5X memory and 12\% with PCM as external memory (see \cref{fig:example_models_avg_conf_proc}).
 When performing configuration and processing at \SI{60}{FPS}, we get the power values as shown in \cref{tab:example_models_power_consumption}.

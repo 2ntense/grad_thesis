@@ -1,15 +1,5 @@
 \section{Large model}
-% We analyse the execution of large models on the \graicore{}.
-% A large model is defined as a model with a size that is greater than the capacity of the \graicore{}.
-% The main challenge for executing a large model is that it does not fit on the \graicore{} as a single whole.
-
-% We employ layer-wise partitioning to the large models to allow for sequential execution of the parts.
-% TODO add more info about partitioning
-
-
-%%%
 The memory capacity of the \graicore{} is limited to \SI{36}{MiB}.
-% This is a relatively small value and many models exist that do not fit on this amount of memory, even after applying model optimizations.
 Large models have high memory requirements, exceeding the memory capacity of the \graicore{}, even after applying model optimizations.
 This limitation has a major implication and that is the inability to deploy such large models.
 
