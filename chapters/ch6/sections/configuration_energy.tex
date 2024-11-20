@@ -1,24 +1,46 @@
 \section{Configuration energy}
-Since we have access to various energy parameters for DDR memory, we will use DDR memory as an example.
+Since we have access to various energy parameters for the DDR interface, we will use DDR interface as an example.
 
 \begin{figure}[hbtp]
     \centering
     \includegraphics[width=0.8\linewidth]{assets/ddr_graicore_block_diagram.pdf}
     \caption{
-        Interconnection of the DDR device and \graicore{}
+        Interconnection of the DDR memory device and \graicore{}
     }
     \label{fig:ddr_graicore_block_diagram}
 \end{figure}
 
 % TODO add explanation for every component
+% A typical system with DDR as external memory looks as shown in \cref{fig:ddr_graicore_block_diagram}.
+% \begin{itemize}
+%     \item The \textit{DDR device} where the (model) data is read from.
+%     \item The \textit{DDR PHY} that connects the \textit{DDR device} and \textit{DDR controller}.
+%     \item The \textit{DDR controller} that handles the read/write requests from the \textit{\graicore{}}.
+%     \item The \textit{AXI bus} that connects the \textit{DDR controller} and \textit{\graicore{}}.
+%     \item The \textit{\graicore{}} that transfers and writes data the SRAMs.
+% \end{itemize}
+
 A typical system with DDR as external memory looks as shown in \cref{fig:ddr_graicore_block_diagram}.
-\begin{itemize}
-    \item The \textit{DDR device} where the (model) data is read from.
-    \item The \textit{DDR PHY} that connects the \textit{DDR device} and \textit{DDR controller}.
-    \item The \textit{DDR controller} that handles the read/write requests from the \textit{\graicore{}}.
-    \item The \textit{AXI bus} that connects the \textit{DDR controller} and \textit{\graicore{}}.
-    \item The \textit{\graicore{}} that transfers and writes data the SRAMs.
-\end{itemize}
+\begin{description}
+    \item[Memory device:] 
+    The physical component where (model) data is stored and read from.
+    This typically takes the form of an integrated circuit that contains an array of memory cells.
+    These cells hold individual bits of information, and they are organized into a structured format to allow for efficient access.
+    \item[DDR PHY:] 
+    A crucial component that bridges the gap between the \graicore{}'s digital signals and the analog signals required by the memory device.
+    It manages the high-speed signaling, precise timing, and voltage levels necessary for reliable communication.
+    The DDR PHY serializes data from the DDR controller for transmission and deserializes incoming data, ensuring proper data transfer.
+    \item[DDR Controller:] 
+    This component is responsible for managing all memory operations.
+    It acts as an intermediary between the \graicore{} and the memory device, translating the requests from the \graicore{}, such as read and write requests, into the specific control signals required by the memory device.
+    The DDR controller also manages essential functions like memory refresh, power management and error correction.
+    \item[AXI bus:] 
+    The AXI bus (Advanced eXtensible Interface) is a standardized, high-performance interconnect used to connect different components within a SoC.
+    It enables parallel data transfer, facilitating high bandwidth and low latency communication between the components.
+    Specifically, we explore AXI 4.0.
+    \item[\graicore{}:] 
+    The major components of the \graicore{} that contributes to the configuration energy is the data transfers through its \confignoc{} and the writing of data to the SRAMs.
+\end{description}
 
 For the analysis, we assume that we are using the newly proposed \confignoc{} in \cref{sec:proposed_noc}. 
 With the new packet format, a packet contains at most 64 data phits of 64 bits each.
@@ -37,7 +59,7 @@ We are assuming that the same amount of data read from the external memory is wr
 The location (specific neuron core) of the data determines the amount of hops the data has to perform in the \confignoc{}.
 The amount of data to write can also be used to determine the configuration time.
 The configuration time is calculated by dividing the amount of data with the write bandwidth.
-The configuration time is used for computing the energy for the \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus}.
+% The configuration time is used for computing the energy for the \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus}.
 
 The amount of data to be written and to which neuron cores depends on how the compiler has performed the mapping on the \graicore{}. % explain
 Phits that needs to be transferred to neuron cores further away from an injection point will require more hops to reach, and therefore consume more energy than neuron cores closer to an injection point.

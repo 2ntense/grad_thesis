@@ -4,24 +4,35 @@ The power is the configuration of a model and a single inference with the model 
 Effectively, this means that the same model is configured on the \graicore{} 60 times per second and also used to proces an input frame 30 times per second.
 
 We will be looking at two different external memory technologies, LPDDR5X and PCM.
+LPDDR5X is chosen for its high bandwidth and density, while PCM is selected for its potential to reduce energy consumption due to its non-volatility.
 We assume we use the DDR protocol for transferring data to the AXI bus that is connected to the \graicore{}.
 For the DDR protocol to work, we require an DDR PHY and DDR controller.
 These components both add to the energy when transferring data to the \graicore{}.
 
 \begin{table}[hbtp]
     \centering
-    \begin{tabular}{@{}lrl@{}}
-    \toprule
-    \textbf{Component} & \textbf{Value} & \textbf{Unit} \\
-    \midrule
-    LPDDR5X read             & 36.00 & pJ/B \\
-    PCM read                 & 5.29 & pJ/B  \\
-    DDR PHY                  & 10.39 & pJ/B \\
-    DDR Controller           & 1.56 & pJ/B  \\
-    AXI Bus                  & 6.25 & pJ/B  \\
-    \confignoc{} hop (64 bits) & 0.26 & pJ    \\
-    SRAM write (64 bits)     & 4.98 & pJ    \\ \bottomrule
-    \end{tabular}
+    \begin{threeparttable}
+        \begin{tabular}{@{}lrl@{}}
+        \toprule
+        \textbf{Component} & \textbf{Value} & \textbf{Unit} \\
+        \midrule
+        LPDDR5X read\tnote{1}               & 36.00 & pJ/B \\
+        PCM read\tnote{2}                   & 5.29  & pJ/B \\
+        DDR PHY\tnote{3}                    & 10.39 & pJ/B \\
+        DDR Controller\tnote{3}             & 1.56  & pJ/B \\
+        AXI Bus\tnote{3}                    & 6.25  & pJ/B \\
+        \confignoc{} hop (64 bits)\tnote{3} & 0.26  & pJ   \\
+        SRAM write (64 bits)\tnote{3}       & 4.98  & pJ   \\ \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+            \item[1] From internal research of the MT62F1G16D1 memory chip from Micron.
+            \item[2] From internal research of a custom PCM memory architecture.
+            \item[3] From internal measurements.
+            % \item[3] From internal measurements (\SI{133}{mW} at full capacity).
+            % \item[4] From internal measurements (\SI{20}{mW} at full capacity).
+            % \item[5] From internal measurements (\SI{80}{mW} at full capacity).
+        \end{tablenotes}
+    \end{threeparttable}
     \caption{Energy parameters of PCM and LPDDR5X memory, DDR interface and \graicore{} that are relevant for model configuration}
     \label{tab:energy_parameters}
 \end{table}
@@ -29,7 +40,7 @@ These components both add to the energy when transferring data to the \graicore{
 We look at the models as shown in \cref{tab:example_models_stats}.
 It also shows the processing latency, the number of cores used and the average utilization of the cores of each (mapped) model.
 These statistics are used for computing the processing energy.
-The ``to write'' columns show the total amount of bytes that is to be transferred to the \graicore{}.
+The ``to write'' column shows the total amount of bytes that is to be transferred to the \graicore{} for the corresponding model.
 Note that to get a more accurate energy number for configuration, we need the amount of bytes to be transferred to each core individually.
 This information is available, and will be used for the evaluation.
 
@@ -71,12 +82,12 @@ The processing energy is calculated as follows (assuming an average core power o
 
 \Cref{fig:model_data_heapmap} shows for the mapped ResNet-50 the amount of data to be sent to each individual core.
 We use this information to construct matrix $D$ and the configuration energy $\econf$.
-We obtain the values as shown in \cref{tab:resnet50_energy}.
+Finally, we compute the values as presented in \cref{tab:resnet50_energy}.
 Configuration with LPDDR5X of the ResNet-50 model on the \graicore{} consumes \SI{1.71}{mJ} and with PCM \SI{0.76}{mJ}.
 
 \begin{table}[hbtp]
     \centering
-    \begin{tabular}{@{}ll@{}}
+    \begin{tabular}{@{}lr@{}}
     \toprule
     \textbf{Component} & \textbf{Value} \\
     \midrule
@@ -114,9 +125,39 @@ Then, the total energy consumption when performing a single configuration and a 
 Looking at the configuration energy, with LPDDR5X, most of the energy is consumed by reading from the external memory (see \cref{fig:resnet50_conf_energy_distribution}).
 While for PCM, most of the energy is consumed by the DDR PHY.
 
-Shown in \cref{fig:resnet50_conf_proc}, the configuration of the ResNet-50 model occupies around 21\% with LPPDDR5X and 11\% with PCM of the total energy consumption (processing and configuration).
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{LPDDR5X\label{fig:pie_resnet50_conf_proc_lpddr5x}}{
+        \input{assets/power_analysis/baseline/lpddr5x/pie_resnet50_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox{PCM\label{fig:pie_resnet50_conf_proc_pcm}}{
+        \input{assets/power_analysis/baseline/pcm/pie_resnet50_conf_proc.tex}
+    }
+    \caption{Configuration vs. processing energy for the ResNet-50 model}
+    \label{fig:resnet50_conf_proc}
+\end{figure}
+
+Shown in \cref{fig:resnet50_conf_proc}, the configuration of the ResNet-50 model occupies around 21\% with LPDDR5X and 11\% with PCM of the total energy consumption (processing and configuration).
 Of the models as listed in \cref{tab:example_models_stats}, on average, around 23\% is used for configuration with LPDDR5X memory and 12\% with PCM as external memory (see \cref{fig:example_models_avg_conf_proc}).
 When performing configuration and processing at \SI{60}{FPS}, we get the power values as shown in \cref{tab:example_models_power_consumption}.
+
+\begin{figure}[hbtp]
+    \centering
+    \subcaptionbox{LPDDR5X\label{fig:sunburst_avg_conf_proc_lpddr5x}}{
+        \input{assets/power_analysis/baseline/lpddr5x/sunburst_avg_conf_proc.tex}
+    }
+    \hfill
+    \subcaptionbox*{}[0em]{
+        \includegraphics{assets/legend.pdf}
+    }
+    \hfill
+    \subcaptionbox{PCM\label{fig:sunburst_avg_conf_proc_pcm}}{
+        \input{assets/power_analysis/baseline/pcm/sunburst_avg_conf_proc.tex}
+    }
+    \caption{Average energy consumption distribution of the models listed in \cref{tab:example_models_stats}}
+    \label{fig:example_models_avg_conf_proc}
+\end{figure}
 
 Ideally, the power consumption of the configuration of a model should be as minimal as possible.
 In \cref{ch:7}, we explore techniques for increasing configuration efficiency.
@@ -143,34 +184,4 @@ In \cref{ch:7}, we explore techniques for increasing configuration efficiency.
     \caption{Power consumption of configuration (of the same model) and processing of an input frame at \SI{60}{Hz}}
     \label{tab:example_models_power_consumption}
 \end{table}
-
-\begin{figure}[hbtp]
-    \centering
-    \subcaptionbox{LPDDR5X\label{fig:pie_resnet50_conf_proc_lpddr5x}}{
-        \input{assets/power_analysis/baseline/lpddr5x/pie_resnet50_conf_proc.tex}
-    }
-    \hfill
-    \subcaptionbox{PCM\label{fig:pie_resnet50_conf_proc_pcm}}{
-        \input{assets/power_analysis/baseline/pcm/pie_resnet50_conf_proc.tex}
-    }
-    \caption{Configuration vs. processing energy for the ResNet-50 model}
-    \label{fig:resnet50_conf_proc}
-\end{figure}
-
-\begin{figure}[hbtp]
-    \centering
-    \subcaptionbox{LPDDR5X\label{fig:sunburst_avg_conf_proc_lpddr5x}}{
-        \input{assets/power_analysis/baseline/lpddr5x/sunburst_avg_conf_proc.tex}
-    }
-    \hfill
-    \subcaptionbox*{}[0em]{
-        \includegraphics{assets/legend.pdf}
-    }
-    \hfill
-    \subcaptionbox{PCM\label{fig:sunburst_avg_conf_proc_pcm}}{
-        \input{assets/power_analysis/baseline/pcm/sunburst_avg_conf_proc.tex}
-    }
-    \caption{Average energy consumption distribution of the models listed in \cref{tab:example_models_stats}}
-    \label{fig:example_models_avg_conf_proc}
-\end{figure}
     
