@@ -119,7 +119,7 @@ With:
 \enoc &=
     \ehop \times \sum_{c \in C}^{}{\nhops(c) \times \ptotal(D_c)} \\
 \ewrite &=
-    \esramwrite64b \times \sum_{c \in C}^{}{\pdata(D_c)}
+    \esramwrite \times \sum_{c \in C}^{}{\pdata(D_c)}
 \end{align*}
 
 And:
@@ -146,6 +146,6 @@ And:
     \item{$\ereadextmem(D_c)$} energy for reading $D_c$ bytes from the external memory
     \item{$\esendtonoc(D_c)$} energy for sending $D_c$ bytes from the external memory to the \confignoc{}
     \item{$\ehop$} energy for performing a single hop in the \confignoc{}
-    \item{$\esramwrite64b$} energy for writing back 64 bits to a neuron core's SRAM
+    \item{$\esramwrite$} energy for writing back 64 bits to a neuron core's SRAM
 \end{eqexpl}
 
