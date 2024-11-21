@@ -26,6 +26,7 @@ The neuron then applies a non-linear transformation to this weighted sum to prod
 
 A deep learning model typically consist of multiple layers stacked on top of each other, forming a hierarchical structure.
 This structure allows the network to learn increasingly complex representations of the data as it flows through the layers.
+
 Different types of layers serve different purposes in a deep learning model:
 \begin{description}
     \item[Input layer:] 
@@ -34,7 +35,17 @@ Different types of layers serve different purposes in a deep learning model:
     \item[Hidden layer:] 
     Intermediate layers that lie between the input and output layers.
     They perform computations on the data received from the input, extracting features and learning increasingly abstract representations.
-    Each hidden layer typically consists of many neurons, each applying a non-linear transformation to the weighted sum of its inputs. % TODO add activation function explanation
+    Each hidden layer typically consists of many neurons, each applying a non-linear transformation (i.e., an activation function) to the weighted sum of its inputs.
+    The activation function determines whether a neuron ``activates''.
+    A neuron is said to be activated when its output is significant enough to contribute to the next layer's computations.
+    Common activation functions used are ReLU, sigmoid and tanh.
+
+    \begin{figure}[hbtp]
+        \centering    
+        \includegraphics[width=3cm]{example-image-a}
+        \caption{TODO: activation functions}
+    \end{figure}
+
     The number of hidden layers and neurons in each layer determines the depth and complexity of the network.
     \item[Output layer:] 
     The final layer, producing the result of the network's computation.
@@ -75,7 +86,7 @@ Common pooling operations include taking the maximum or average value within a l
 
 The use of activation functions introduces non-linearity, which enables the learning of complex patterns.
 These activation functions are applied to the output of the convolutional and pooling layers.
-Common choices for such function are ReLU, sigmoid and tanh.
+% Common choices for such function are ReLU, sigmoid and tanh.
 
 Finally, fully connected layers are often used in the final stages of a CNN.
 These layers connect every neuron in the previous layer to every layer in the current layer.
