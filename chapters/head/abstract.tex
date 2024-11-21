@@ -1,1 +1,19 @@
-\lipsum[1]
+Modern computer vision applications rely heavily on complex neural networks, often exceeding the memory capacity of resource-constrained processors found in edge devices.
+
+This thesis investigates the use of off-chip memory to enable such processors (in particular the \graicore{}) to execute large and multiple computer vision models efficiently.
+In this context, large models are models that do not fit on the \graicore{} due to their size exceeding the memory capacity of the \graicore{}.
+Executing multiple models means that two or more models are used by the \graicore{} while its online.
+These models are assumed to fit on the \graicore{}, but not at the same time.
+
+Execution of these models is done by high-speed reprogramming or reconfiguration of the \graicore{} by transferring the relevant data its on-chip memory.
+Specifically, we explore the architectural adaptations required to facilitate high bandwidth data transfers to the \graicore{} while maintaining sustainable power consumption.
+
+This study investigates how breaking down large models into smaller parts (partitioning) makes them more manageable for processing by the \graicore{}.
+It was found that optimal partitioning of large models for execution on the \graicore{} is found to be complex problem when targeting high performance.
+
+Furthermore, LPDDR5X and PCM are explored as external memory solutions and examines the power consumption when performing model reconfiguration through modeling.
+Optimally, the reconfiguration energy is as minimal as possible.
+Findings demonstrate that on average around 23\% and 12\% is consumed by reconfiguration and the rest for the processing part for LPDDR5X and PCM respectively.
+The ratio for reconfiguration can be further reduced by avoiding the transfer of certain redundant data.
+
+This research contributes to the development of a more featureful and futureproof \graicore{}, granting it the ability to execute large and multiple models during run-time.
