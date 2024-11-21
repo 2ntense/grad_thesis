@@ -1,65 +1,100 @@
 \section{Deep learning}
-% TODO add intro
-
-\subsection{Neural network}
-Neural networks or artificial neural networks (ANNs), the foundation of deep learning, are inspired by the structre and function of the human brain.
-They consist of interconnected nodes, called neurons, organized into layers.
-Each neuron receives input from other neurons, performs a weighted sum of these inputs, and apllies an activation function to produce an output.
-The connections between neurons have associated weights (also called parameters), which determines the strength of the signal transmitted between them.
+Deep learning is a specialized branch of machine learning that focuses on training artificial neural networks with many layers.
+These layers are the core building blocks that enable deep learning models to learn complex patterns and representations from vast amounts of data.
+This approach has led to significant breakthroughs in various AI tasks, outperforming traditional machine learning methods in many applications \cite{}.
 
 \begin{figure}[hbtp]
-\centering    
-\includegraphics[width=3cm]{example-image-a}
-\caption{TODO: neural network image}
+    \centering    
+    \includegraphics[width=3cm]{example-image-a}
+    \caption{TODO: classic ANN diagram}
 \end{figure}
 
-The learning process in ANNs centers around adjusting their weights to minimize the difference between the network's predictions and the actual target values.
-This is achieved through algorithms like backpropagation, which calculates the error in the network's prediction and propagates this error back through the layers, adjusting the weights accordingly.
-This iterative process allows the network to continuously refine its understanding of the underlying patterns in the data.
+In the context of artificial neural networks, a layer is a collection of interconnected nodes, or neurons, that process information.
+Each connection between two neurons has an associated weight (also known as a parameter), which is a numerical value that determines the strength of the connection.
+These weights, play a crucial role in the learning process of a neural network.
+
+\begin{figure}[hbtp]
+    \centering    
+    \includegraphics[width=3cm]{example-image-a}
+    \caption{TODO: classic neuron diagram}
+\end{figure}
+
+Each layer performs a specific computation on the data it receives from the previous layer.
+A neuron that receives input values from its connected neurons multiplies this value by their corresponding weights before being aggregated by the receiving neuron.
+This aggregation is a simple summation, resulting in a weighted sum of the input values.
+The neuron then applies a non-linear transformation to this weighted sum to produce its output.
+
+A deep learning model typically consist of multiple layers stacked on top of each other, forming a hierarchical structure.
+This structure allows the network to learn increasingly complex representations of the data as it flows through the layers.
+Different types of layers serve different purposes in a deep learning model:
+\begin{description}
+    \item[Input layer:] 
+    The first layer in the network, responsible for receiving the initial input data.
+    Each neuron in this layer represent a feature of the input data, such as the pixel values in an image or the words in a sentence.
+    \item[Hidden layer:] 
+    Intermediate layers that lie between the input and output layers.
+    They perform computations on the data received from the input, extracting features and learning increasingly abstract representations.
+    Each hidden layer typically consists of many neurons, each applying a non-linear transformation to the weighted sum of its inputs. % TODO add activation function explanation
+    The number of hidden layers and neurons in each layer determines the depth and complexity of the network.
+    \item[Output layer:] 
+    The final layer, producing the result of the network's computation.
+    The number of neurons in the output layer depends on the specific task, such as a classification label for image recognition or predicted value for natural language generation \cite{}.
+\end{description}
+
+ANNs learn by adjusting the weights of the connections between neurons.
+This process is called training and involves feeding the network with labeled data and iteratively updating the weights to minimize the difference between the network's predictions and the true labels.
+The most common algorithm for training ANNs is backpropagation \cite{}, which calculates the gradient of the error with respect to each weight and updates the weights accordingly.
 
 \subsection{Convolutional neural network}
-Convolutional neural networks (CNNs) are a specialized type of neural network designed to process data with a grid-like structure such as images.
+Convolutional neural networks (CNNs) are a specialized class of artificial neuron networks designed to process data with inherent spatial structure, such as images.
 
-Convolutional neural networks (CNNs) are a specialized class of artificial neural networks that excel processing data with a grid-like structure, such as images.
-Unlike traditional neural networks that treat input as a simple sequence of values, CNNs are designed to e
+A key element that sets them apart is the convolutional layer.
+CNNs leverage the concept of convolution to extract local features.
+The network then uses these extracted features to construct increasingly complex understandings of the input as the data progresses through its layers
+
+\begin{figure}[hbtp]
+    \centering    
+    \includegraphics[width=3cm]{example-image-a}
+    \caption{TODO: convolution operation}
+\end{figure}
+
+A convolution operation involves sliding a learnable filter, or kernel, across the input data.
+At each position, the filter performs an element-wise multiplication with the corresponding input data and sums the results.
+This produces a single value in the output feature map.
+By applying different filters, the network learns to detect various patterns like edges and shapes.
+
+\begin{figure}[hbtp]
+    \centering    
+    \includegraphics[width=3cm]{example-image-a}
+    \caption{TODO: pooling operation}
+\end{figure}
+
+The output of convolutional layers is then typically passed through pooling layers.
+Pooling downsamples the feature map, reducing their dimensionality and making the network more robust to variations in the input.
+Common pooling operations include taking the maximum or average value within a local region. % show pooling img
+
+The use of activation functions introduces non-linearity, which enables the learning of complex patterns.
+These activation functions are applied to the output of the convolutional and pooling layers.
+Common choices for such function are ReLU, sigmoid and tanh.
+
+Finally, fully connected layers are often used in the final stages of a CNN.
+These layers connect every neuron in the previous layer to every layer in the current layer.
+This enables high-level reasoning and decision-making based on the extracted features.
+
+The combining of simpler features into more complex ones across layers makes CNNs excel in computer vision tasks like image classification, object detection and image segmentation \cite{}.
+
+\subsection{Residual neural network}
 
 \begin{figure}[hbtp]
 \centering    
 \includegraphics[width=3cm]{example-image-a}
-\caption{TODO: CNN image}
+\caption{TODO: ResNet image}
 \end{figure}
-% TODO complete this section
 
+Artificial neural networks have shown success in various tasks, but training very deep networks can be challenging due to issues like vanishing gradients \cite{}.
+Residual neural networks (ResNets) address this problem by introducing a novel architecture with skip connections, also known as residual connections.
+These connections create ``shortcuts'' within the network, allowing information to bypass one or more layers.
 
-A Convolutional Neural Network (CNN) is a popular neural network model that has been shown to do well in image-related tasks.
-% It is the most widely used model for video compression [16].
-CNNs are built by stacking layers of convolving filters with activation functions.
-% Sometimes pooling layers performing subsampling are included, and many complete networks also include a dense (fully connected) layer at the end (Figure 2.7).
-% Compared to a fully connected layer, a convolutional layer allows the model to handle the large dimensions of an image by dramatically reducing the number of pixels that a certain output is depending on, as well as reducing the number of parameters by forcing the filter coecients to be the same regardless of position.
-% Furthermore the convolutional aspect allows the model to focus on features localized in the image.
-
-% \textbf{Multiply-accumulate operation} \\
-% The multiply-accumulate operation is an operation that multiplies two numbers and adds them to an accumulator.
-% \begin{equation}
-%     a \leftarrow a + ( b \times c )
-% \end{equation}
-
-% This particular operation is used especially frequently in CNNs due to the stacked convolutional layers.
-
-\subsection{Residual neural network}
-% TODO complete this section
-Residual neural network (ResNet) is a deep CNN architecture that was proposed in 2015 by Microsoft Research in order to combat the difficulty of training deep CNNs (networks with multiple layers between input and output layers).
-% In their proposal they demonstrated that their ResNet outperformed current state of the art networks on the ImageNet test set while being up to 8x deeper.
-% Before ResNets, variations of deep CNNs performed best at state of the art benchmarks [17].
-% The depth of the CNNs is been proven to be beneficial with deeper CNNs such as VGG-19 [18] outperforming shallower models, but only up until a certain point where the depth yields worse results.
-% Naively, one might think that this should not happen as adding $m$ number of layers to a network with $n$ layers could
-% in worst case result in same performance as the $m$ added layers learning the identity mapping of previous layers and in best case learn features that the network with $n$ layers was unable to learn.
-% However, this is evidently not the case as exemplified in \cref{TODO}.
-% This is known as the degradation problem, where the network's ability to propagate information form the foremost layers becomes degraded and therefore loses information as the information travels through the network \cref{TODO} [17].
-% The worse performance with more layers cannot be attributed to \textit{overfitting} as the training error (as well as the validation error) is higher than that of the more shallow network.
-
-% \textbf{Skip connection} \\
-% The ResNet architecture addresses the aforementioned problem with learning identity mapping by introducing skip connections (also known as shortcut or identity connections), denoted by \textbf{x identity} in \cref{TODO}.
 
 \begin{figure}[hbtp]
 \centering    
