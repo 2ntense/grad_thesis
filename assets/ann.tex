@@ -1,0 +1,46 @@
+\begin{tikzpicture}[
+    neuron/.style={circle,fill=blue!20,draw=black,minimum size=17pt,inner sep=0pt},
+    input/.style={neuron, fill=green!20},
+    output/.style={neuron, fill=red!20},
+    hidden/.style={neuron, fill=blue!20},
+    weight/.style={->,>=stealth'},
+]
+
+% Input layer
+\foreach \name / \y in {1,...,4}
+  \node[input] (I-\name) at (0,-\y) {};
+
+% Hidden layer 1
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H1-\name) at (2.5,-\y+0.5) {};
+
+% Hidden layer 2
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H2-\name) at (5,-\y+0.5) {};
+
+% Output layer
+\foreach \name / \y in {1,...,4}
+  \node[output] (O-\name) at (7.5,-\y) {};
+
+% Connect every node in the input layer with every node in the hidden layer 1
+\foreach \source in {1,...,4}
+  \foreach \dest in {1,...,5}
+    \path[weight] (I-\source) edge (H1-\dest);
+
+% Connect every node in the hidden layer 1 with every node in the hidden layer 2
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,5}
+    \path[weight] (H1-\source) edge (H2-\dest);
+
+% Connect every node in the hidden layer 2 with every node in the output layer
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,4}
+    \path[weight] (H2-\source) edge (O-\dest);
+
+% Annotate the layers
+\node[above=0.5 of I-1] {Input layer};
+\node[above=0.4 of H1-1, align=center] {Hidden\\layer 1};
+\node[above=0.4 of H2-1, align=center] {Hidden\\layer 2};
+\node[above=0.5 of O-1] {Output layer};
+
+\end{tikzpicture}

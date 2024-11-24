@@ -1,0 +1,32 @@
+\begin{tikzpicture}[
+    neuron/.style={circle,draw=black,minimum size=24pt,inner sep=0pt},
+    input/.style={neuron, fill=blue!20},
+    activation/.style={neuron, fill=yellow!20},
+    sum/.style={neuron, fill=green!20},
+    bias/.style={neuron, fill=red!20},
+    arrow/.style={->,>=stealth'},
+]
+% input nodes
+\node [input] (x1) at (0,1.5) {$x_1$};
+\node [input] (x2) at (0,0) {$x_2$};
+\node [input] (x3) at (0,-1.5) {$x_3$};
+% sum node
+\node [sum] (sum) at (2.5,0) {$\Sigma$};
+% bias node
+\node [bias] (bias) at (2.5,-1.5) {$b$};
+% activation node
+\node [activation] (activation) at (3.75,0) {$f$};
+% output node
+\node [] (y) at (5,0) {$y$};
+
+% inputs to sum
+\draw [arrow] (x1) -- node[above] {$w_{1}$} (sum);
+\draw [arrow] (x2) -- node[above] {$w_{2}$} (sum);
+\draw [arrow] (x3) -- node[above] {$w_{3}$} (sum);
+% sum to activation
+\draw [arrow] (sum) -- (activation);
+% activation to output
+\draw [arrow] (activation) -- node[right] {} (y);
+% bias to sum
+\draw [arrow] (bias) -- (sum);
+\end{tikzpicture}

@@ -1,12 +1,13 @@
 \section{Deep learning}
 Deep learning is a specialized branch of machine learning that focuses on training artificial neural networks with many layers.
 These layers are the core building blocks that enable deep learning models to learn complex patterns and representations from vast amounts of data.
-This approach has led to significant breakthroughs in various AI tasks, outperforming traditional machine learning methods in many applications \cite{}.
+This approach has led to significant breakthroughs in various AI tasks, outperforming traditional machine learning methods in many applications \cite{lecunDeepLearning2015}.
 
 \begin{figure}[hbtp]
     \centering    
-    \includegraphics[width=3cm]{example-image-a}
+    \input{assets/ann.tex}
     \caption{TODO: classic ANN diagram}
+    \label{fig:ann}
 \end{figure}
 
 In the context of artificial neural networks, a layer is a collection of interconnected nodes, or neurons, that process information.
@@ -15,8 +16,9 @@ These weights, play a crucial role in the learning process of a neural network.
 
 \begin{figure}[hbtp]
     \centering    
-    \includegraphics[width=3cm]{example-image-a}
-    \caption{TODO: classic neuron diagram}
+    \input{assets/neuron.tex}
+    \caption{Neuron} % TODO explain
+    \label{TODO}
 \end{figure}
 
 Each layer performs a specific computation on the data it receives from the previous layer.
@@ -38,23 +40,25 @@ Different types of layers serve different purposes in a deep learning model:
     Each hidden layer typically consists of many neurons, each applying a non-linear transformation (i.e., an activation function) to the weighted sum of its inputs.
     The activation function determines whether a neuron ``activates''.
     A neuron is said to be activated when its output is significant enough to contribute to the next layer's computations.
-    Common activation functions used are ReLU, sigmoid and tanh.
+    \Cref{fig:activation_functions} shows activation functions that are commonly used: $\relu$, $\tanh$ and $\sigma$ (sigmoid).
 
     \begin{figure}[hbtp]
         \centering    
-        \includegraphics[width=3cm]{example-image-a}
-        \caption{TODO: activation functions}
-    \end{figure}
+        \input{assets/activation_functions.tex}
+        \caption{Commonly used activation functions}
+        \label{fig:activation_functions}
+    \end{figure} 
+
 
     The number of hidden layers and neurons in each layer determines the depth and complexity of the network.
     \item[Output layer:] 
     The final layer, producing the result of the network's computation.
-    The number of neurons in the output layer depends on the specific task, such as a classification label for image recognition or predicted value for natural language generation \cite{}.
+    The number of neurons in the output layer depends on the specific task, such as a classification label for image recognition or predicted value for natural language generation \cite{goodfellowDeepLearning2016}.
 \end{description}
 
 ANNs learn by adjusting the weights of the connections between neurons.
 This process is called training and involves feeding the network with labeled data and iteratively updating the weights to minimize the difference between the network's predictions and the true labels.
-The most common algorithm for training ANNs is backpropagation \cite{}, which calculates the gradient of the error with respect to each weight and updates the weights accordingly.
+The most common algorithm for training ANNs is backpropagation \cite{rumelhartLearningRepresentationsBackpropagating1986}, which calculates the gradient of the error with respect to each weight and updates the weights accordingly.
 
 \subsection{Convolutional neural network}
 Convolutional neural networks (CNNs) are a specialized class of artificial neuron networks designed to process data with inherent spatial structure, such as images.
@@ -92,19 +96,19 @@ Finally, fully connected layers are often used in the final stages of a CNN.
 These layers connect every neuron in the previous layer to every layer in the current layer.
 This enables high-level reasoning and decision-making based on the extracted features.
 
-The combining of simpler features into more complex ones across layers makes CNNs excel in computer vision tasks like image classification, object detection and image segmentation \cite{}.
+The combining of simpler features into more complex ones across layers makes CNNs excel in computer vision tasks like image classification, object detection and image segmentation \cite{krizhevskyImageNetClassificationDeep2017}.
 
-\subsection{Residual neural network}
+% \subsection{Residual neural network}
 
-\begin{figure}[hbtp]
-\centering    
-\includegraphics[width=3cm]{example-image-a}
-\caption{TODO: ResNet image}
-\end{figure}
+% \begin{figure}[hbtp]
+% \centering    
+% \includegraphics[width=3cm]{example-image-a}
+% \caption{TODO: ResNet image}
+% \end{figure}
 
-Artificial neural networks have shown success in various tasks, but training very deep networks can be challenging due to issues like vanishing gradients \cite{}.
-Residual neural networks (ResNets) address this problem by introducing a novel architecture with skip connections, also known as residual connections.
-These connections create ``shortcuts'' within the network, allowing information to bypass one or more layers.
+% Artificial neural networks have shown success in various tasks, but training very deep networks can be challenging due to issues like vanishing gradients \cite{}.
+% Residual neural networks (ResNets) address this problem by introducing a novel architecture with skip connections, also known as residual connections.
+% These connections create ``shortcuts'' within the network, allowing information to bypass one or more layers.
 
 
 \begin{figure}[hbtp]
@@ -114,9 +118,28 @@ These connections create ``shortcuts'' within the network, allowing information 
 \end{figure}
 
 \subsection{Model optimizations}
-% TODO complete this section
-% \begin{itemize}
-%     \item Quantization
-%     \item Pruning
-%     \item ...
-% \end{itemize}
+Reducing the memory footprint of neural networks is an actively researched topic \cite{neillOverviewNeuralNetwork2020, leEfficientNeuralNetworks2023}.
+Model compression involves refining a model to ensure it can function on devices with limited computational power, memory, and energy.
+The goal is to maintain the model's performance while reducing resource demands.
+
+Quantization focuses on reducing the numerical precision of a neural network's parameters.
+Instead of relying on resource-intensive, high-precision floating-point numbers, quantization techniques employ lower-bit representations.
+This reduction in precision translates to significant savings in memory and computational costs \autocite{guoSurveyMethodsTheories2018}.
+
+Pruning techniques strategically remove less important components from a neural network.
+This can involve eliminating individual weights, entire neurons, or even complete layers.
+By simplifying the network architecture, pruning reduces its memory footprint and improves computational efficiency \cite{blalockWhatStateNeural2020}.
+Different pruning strategies exist, including unstructured pruning, which removes individual weights based on their importance, and structured pruning, which eliminates entire filters within convolutional layers.
+
+Beyond applying compression techniques to existing models, researchers are actively exploring novel neural network architectures that are inherently more efficient.
+One such example is the residual neural network (ResNet) \autocite{heDeepResidualLearning2015}.
+ResNets introduce skip connections, which allow the input of a layer to bypass one or more subsequent layers.
+This seemingly simple modification has profound implications, enabling the training of much deeper networks while mitigating the vanishing gradient problem \cite{pascanuDifficultyTrainingRecurrent2012}.
+Skip connections provide an alternate path for gradients to flow during backpropagation, preventing them from diminishing excessively as they travel through many layers.
+This allows ResNets to learn more complex features and achieve higher accuracy with fewer parameters. 
+
+\begin{figure}[hbtp]
+\centering    
+\includegraphics[width=3cm]{example-image-a}
+\caption{TODO: ResNet image}
+\end{figure}

@@ -48,6 +48,17 @@
   doi = {10.14569/IJACSA.2013.040910}
 }
 
+@misc{blalockWhatStateNeural2020,
+  title = {What Is the {{State}} of {{Neural Network Pruning}}?},
+  author = {Blalock, Davis and Ortiz, Jose Javier Gonzalez and Frankle, Jonathan and Guttag, John},
+  year = {2020},
+  publisher = {arXiv},
+  doi = {10.48550/ARXIV.2003.03033},
+  abstract = {Neural network pruning---the task of reducing the size of a network by removing parameters---has been the subject of a great deal of work in recent years. We provide a meta-analysis of the literature, including an overview of approaches to pruning and consistent findings in the literature. After aggregating results across 81 papers and pruning hundreds of models in controlled conditions, our clearest finding is that the community suffers from a lack of standardized benchmarks and metrics. This deficiency is substantial enough that it is hard to compare pruning techniques to one another or determine how much progress the field has made over the past three decades. To address this situation, we identify issues with current practices, suggest concrete remedies, and introduce ShrinkBench, an open-source framework to facilitate standardized evaluations of pruning methods. We use ShrinkBench to compare various pruning techniques and show that its comprehensive evaluation can prevent common pitfalls when comparing pruning methods.},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+  keywords = {FOS: Computer and information sciences,Machine Learning (cs.LG),Machine Learning (stat.ML)}
+}
+
 @article{chenIncreasingOffchipBandwidth2014,
   title = {Increasing Off-Chip Bandwidth in Multi-Core Processors with Switchable Pins},
   author = {Chen, Shaoming and Hu, Yue and Zhang, Ying and Peng, Lu and Ardonne, Jesse and Irving, Samuel and Srivastava, Ashok},
@@ -149,6 +160,26 @@
   publisher = {IEEE},
   address = {Gold Coast, Australia},
   doi = {10.1109/ISCA.1992.753324}
+}
+
+@book{goodfellowDeepLearning2016,
+  title = {Deep Learning},
+  author = {Goodfellow, Ian and Courville, Aaron and Bengio, Yoshua},
+  year = {2016},
+  series = {Adaptive Computation and Machine Learning},
+  publisher = {The MIT Press},
+  address = {Cambridge, Massachusetts}
+}
+
+@misc{guoSurveyMethodsTheories2018,
+  title = {A {{Survey}} on {{Methods}} and {{Theories}} of {{Quantized Neural Networks}}},
+  author = {Guo, Yunhui},
+  year = {2018},
+  publisher = {arXiv},
+  doi = {10.48550/ARXIV.1808.04752},
+  abstract = {Deep neural networks are the state-of-the-art methods for many real-world tasks, such as computer vision, natural language processing and speech recognition. For all its popularity, deep neural networks are also criticized for consuming a lot of memory and draining battery life of devices during training and inference. This makes it hard to deploy these models on mobile or embedded devices which have tight resource constraints. Quantization is recognized as one of the most effective approaches to satisfy the extreme memory requirements that deep neural network models demand. Instead of adopting 32-bit floating point format to represent weights, quantized representations store weights using more compact formats such as integers or even binary numbers. Despite a possible degradation in predictive performance, quantization provides a potential solution to greatly reduce the model size and the energy consumption. In this survey, we give a thorough review of different aspects of quantized neural networks. Current challenges and trends of quantized neural networks are also discussed.},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+  keywords = {FOS: Computer and information sciences,Machine Learning (cs.LG),Machine Learning (stat.ML),Neural and Evolutionary Computing (cs.NE)}
 }
 
 @incollection{guReviewResearchNetworkonChip2011,
@@ -280,6 +311,33 @@
   abstract = {We present an overview of techniques for quantizing convolutional neural networks for inference with integer weights and activations. Per-channel quantization of weights and per-layer quantization of activations to 8-bits of precision post-training produces classification accuracies within 2\% of floating point networks for a wide variety of CNN architectures. Model sizes can be reduced by a factor of 4 by quantizing weights to 8-bits, even when 8-bit arithmetic is not supported. This can be achieved with simple, post training quantization of weights.We benchmark latencies of quantized networks on CPUs and DSPs and observe a speedup of 2x-3x for quantized implementations compared to floating point on CPUs. Speedups of up to 10x are observed on specialized processors with fixed point SIMD capabilities, like the Qualcomm QDSPs with HVX. Quantization-aware training can provide further improvements, reducing the gap to floating point to 1\% at 8-bit precision. Quantization-aware training also allows for reducing the precision of weights to four bits with accuracy losses ranging from 2\% to 10\%, with higher accuracy drop for smaller networks.We introduce tools in TensorFlow and TensorFlowLite for quantizing convolutional networks and review best practices for quantization-aware training to obtain high accuracy with quantized weights and activations. We recommend that per-channel quantization of weights and per-layer quantization of activations be the preferred quantization scheme for hardware acceleration and kernel optimization. We also propose that future processors and hardware accelerators for optimized inference support precisions of 4, 8 and 16 bits.},
   copyright = {Creative Commons Zero v1.0 Universal},
   keywords = {Computer Vision and Pattern Recognition (cs.CV),FOS: Computer and information sciences,Machine Learning (cs.LG),Machine Learning (stat.ML)}
+}
+
+@article{krizhevskyImageNetClassificationDeep2017,
+  title = {{{ImageNet}} Classification with Deep Convolutional Neural Networks},
+  author = {Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E.},
+  year = {2017},
+  month = may,
+  journal = {Communications of the ACM},
+  volume = {60},
+  number = {6},
+  pages = {84--90},
+  issn = {0001-0782, 1557-7317},
+  doi = {10.1145/3065386},
+  abstract = {We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5\% and 17.0\%, respectively, which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overfitting in the fully connected layers we employed a recently developed regularization method called "dropout" that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3\%, compared to 26.2\% achieved by the second-best entry.}
+}
+
+@article{lecunDeepLearning2015,
+  title = {Deep Learning},
+  author = {LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
+  year = {2015},
+  month = may,
+  journal = {Nature},
+  volume = {521},
+  number = {7553},
+  pages = {436--444},
+  issn = {0028-0836, 1476-4687},
+  doi = {10.1038/nature14539}
 }
 
 @article{leEfficientNeuralNetworks2023,
@@ -436,6 +494,17 @@
   doi = {10.1145/2593069.2593187}
 }
 
+@misc{pascanuDifficultyTrainingRecurrent2012,
+  title = {On the Difficulty of Training {{Recurrent Neural Networks}}},
+  author = {Pascanu, Razvan and Mikolov, Tomas and Bengio, Yoshua},
+  year = {2012},
+  publisher = {arXiv},
+  doi = {10.48550/ARXIV.1211.5063},
+  abstract = {There are two widely known issues with properly training Recurrent Neural Networks, the vanishing and the exploding gradient problems detailed in Bengio et al. (1994). In this paper we attempt to improve the understanding of the underlying issues by exploring these problems from an analytical, a geometric and a dynamical systems perspective. Our analysis is used to justify a simple yet effective solution. We propose a gradient norm clipping strategy to deal with exploding gradients and a soft constraint for the vanishing gradients problem. We validate empirically our hypothesis and proposed solutions in the experimental section.},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+  keywords = {FOS: Computer and information sciences,Machine Learning (cs.LG)}
+}
+
 @inproceedings{ranDeepDecisionMobileDeep2018,
   title = {{{DeepDecision}}: {{A Mobile Deep Learning Framework}} for {{Edge Video Analytics}}},
   shorttitle = {{{DeepDecision}}},
@@ -459,6 +528,20 @@
   publisher = {IEEE},
   address = {Melbourne, VIC},
   doi = {10.1109/ICPADS.2008.43}
+}
+
+@article{rumelhartLearningRepresentationsBackpropagating1986,
+  title = {Learning Representations by Back-Propagating Errors},
+  author = {Rumelhart, David E. and Hinton, Geoffrey E. and Williams, Ronald J.},
+  year = {1986},
+  month = oct,
+  journal = {Nature},
+  volume = {323},
+  number = {6088},
+  pages = {533--536},
+  issn = {0028-0836, 1476-4687},
+  doi = {10.1038/323533a0},
+  copyright = {http://www.springer.com/tdm}
 }
 
 @misc{russakovskyImageNetLargeScale2014,
