@@ -66,13 +66,15 @@ Convolutional neural networks (CNNs) are a specialized class of artificial neuro
 A key element that sets them apart is the convolutional layer.
 CNNs leverage the concept of convolution to extract local features.
 The network then uses these extracted features to construct increasingly complex understandings of the input as the data progresses through its layers
-
 \begin{figure}[hbtp]
     \centering    
-    \includegraphics[width=3cm]{example-image-a}
-    \caption{TODO: convolution operation}
+    \input{assets/2dconv.tex}
+    \caption{
+        This convolution operation involves a 3x3 kernel sliding across the input matrix.
+        At each step, the kernel covers a receptive field (highlighted) and computes a weighted sum of the input values.
+        This example shows one such step, resulting in the value 4 in the feature map.
+    }
 \end{figure}
-
 A convolution operation involves sliding a learnable filter, or kernel, across the input data.
 At each position, the filter performs an element-wise multiplication with the corresponding input data and sums the results.
 This produces a single value in the output feature map.
@@ -80,8 +82,11 @@ By applying different filters, the network learns to detect various patterns lik
 
 \begin{figure}[hbtp]
     \centering    
-    \includegraphics[width=3cm]{example-image-a}
-    \caption{TODO: pooling operation}
+    \input{assets/maxpooling.tex}
+    \caption{
+        Max pooling operation with a 2x2 pooling window.
+        In this example, the maximum value (3) within the highlighted region of the input feature map is extracted and placed in the pooled feature map.
+    }
 \end{figure}
 
 The output of convolutional layers is then typically passed through pooling layers.
@@ -97,25 +102,6 @@ These layers connect every neuron in the previous layer to every layer in the cu
 This enables high-level reasoning and decision-making based on the extracted features.
 
 The combining of simpler features into more complex ones across layers makes CNNs excel in computer vision tasks like image classification, object detection and image segmentation \cite{krizhevskyImageNetClassificationDeep2017}.
-
-% \subsection{Residual neural network}
-
-% \begin{figure}[hbtp]
-% \centering    
-% \includegraphics[width=3cm]{example-image-a}
-% \caption{TODO: ResNet image}
-% \end{figure}
-
-% Artificial neural networks have shown success in various tasks, but training very deep networks can be challenging due to issues like vanishing gradients \cite{}.
-% Residual neural networks (ResNets) address this problem by introducing a novel architecture with skip connections, also known as residual connections.
-% These connections create ``shortcuts'' within the network, allowing information to bypass one or more layers.
-
-
-\begin{figure}[hbtp]
-\centering    
-\includegraphics[width=3cm]{example-image-a}
-\caption{TODO: ResNet image}
-\end{figure}
 
 \subsection{Model optimizations}
 Reducing the memory footprint of neural networks is an actively researched topic \cite{neillOverviewNeuralNetwork2020, leEfficientNeuralNetworks2023}.
@@ -134,7 +120,7 @@ Different pruning strategies exist, including unstructured pruning, which remove
 Beyond applying compression techniques to existing models, researchers are actively exploring novel neural network architectures that are inherently more efficient.
 One such example is the residual neural network (ResNet) \autocite{heDeepResidualLearning2015}.
 ResNets introduce skip connections, which allow the input of a layer to bypass one or more subsequent layers.
-This seemingly simple modification has profound implications, enabling the training of much deeper networks while mitigating the vanishing gradient problem \cite{pascanuDifficultyTrainingRecurrent2012}.
+This seemingly simple modification has a major impact, enabling the training of much deeper networks while mitigating the vanishing gradient problem \cite{pascanuDifficultyTrainingRecurrent2012}.
 Skip connections provide an alternate path for gradients to flow during backpropagation, preventing them from diminishing excessively as they travel through many layers.
 This allows ResNets to learn more complex features and achieve higher accuracy with fewer parameters. 
 

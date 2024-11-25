@@ -1,0 +1,39 @@
+\begin{tikzpicture}[
+    input/.style={matrix of nodes,
+          nodes={draw, minimum size=5mm, fill=green!30},
+          column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+          nodes in empty cells,
+          },
+    pool/.style={matrix of nodes,
+          nodes={draw, minimum size=5mm, fill=blue!30},
+          column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+          nodes in empty cells,
+          },
+  ]
+  
+  % Input matrix (feature map)
+  \matrix[input] (mat1)
+  {
+  1 & 2 & 2\\
+  0 & 3 & 4\\
+  5 & 1 & 2\\
+  };
+  \node[below=0.1cm of mat1] {Feature Map};
+  
+  % Pooling matrix (moved higher)
+  \matrix[pool, above right=0cm and 1.5cm of mat1] (mat2)
+  {
+  3 & 4  \\
+  5 & 4 \\
+  };
+  \node[below=0.2cm of mat2] {Pooled Feature Map};
+  
+  % Draw lines
+  \draw[red!30, thin] (mat1-1-1.north west) -- (mat2-1-1.north west);
+  \draw[red!30, thin] (mat1-2-2.south east) -- (mat2-1-1.south east);
+  
+  
+  % Highlight the pooling window
+  \draw[red, thick, dashed] (mat1-1-1.north west) -- (mat1-1-2.north east) -- (mat1-2-2.south east) -- (mat1-2-1.south west) -- cycle;
+  
+\end{tikzpicture}

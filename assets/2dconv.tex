@@ -1,0 +1,53 @@
+\begin{tikzpicture}[
+    input/.style={matrix of nodes,
+          nodes={draw, minimum size=5mm, fill=yellow!30},
+          column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+          nodes in empty cells,
+          },
+    kernel/.style={matrix of nodes,
+          nodes={draw, minimum size=5mm, fill=red!30},
+          column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+          nodes in empty cells,
+          },
+    feature/.style={matrix of nodes,
+          nodes={draw, minimum size=5mm, fill=green!30},
+          column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+          nodes in empty cells,
+          },
+  ]
+  
+  % Input matrix
+  \matrix[input] (mat1)
+  {
+  1 & 2 & 1 & 0\\
+  0 & 1 & 1 & 1\\
+  3 & 0 & 1 & 2\\
+  1 & 1 & 0 & 1\\
+  };
+  \node[below=0.1cm of mat1] {Input};
+  
+  % Kernel matrix
+  \matrix[kernel, above right=0.5cm and 1cm of mat1] (mat2)
+  {
+  0 & 1 & 0\\
+  1 & 1 & 1\\
+  0 & 1 & 0\\
+  };
+  \node[above=0.1cm of mat2] {Kernel};
+  
+  % Feature map matrix
+  \matrix[feature, below right=0.5cm and 1cm of mat2] (mat3)
+  {
+  4 &  \\
+   &  \\
+  };
+  \node[below=0.1cm of mat3] {Feature Map};
+  
+  % Draw lines
+  \draw[blue!30, thin] (mat1-1-1.north west) -- (mat2-1-1.north west);
+  \draw[blue!30, thin] (mat1-3-3.south east) -- (mat2-3-3.south east);
+  
+  % Highlight the receptive field
+  \draw[red, thick, dashed] (mat1-1-1.north west) -- (mat1-1-3.north east) -- (mat1-3-3.south east) -- (mat1-3-1.south west) -- cycle;
+  
+\end{tikzpicture}
