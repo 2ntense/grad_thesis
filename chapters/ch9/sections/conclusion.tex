@@ -1,1 +1,12 @@
-\lipsum[1]
+\section{Conclusion}
+As AI models continue to grow in size and complexity, existing AI accelerators, such as the \graicore{}, must adapt to handle these demanding workloads, calling for novel approaches to enhance their capabilities.
+This research explores effective approaches to enable the execution of multiple and large neural networks on \graicore{} using external memory.
+Beginning with a comprehensive evaluation of the \graicore{}'s \confignoc{}, its limitations in handling rapid (re)configuration for such models were identified.
+A subsequent analysis of the requirements for efficient execution of these models laid the foundation for the innovative solutions developed in this work.
+By strategically widening data links, doubling the injection points, and optimizing the data packet format, this research achieved a remarkable 16x increase in effective write bandwidth for the \confignoc{}, enabling the \graicore{} to fully leverage the potential of high-speed external memory.
+This breakthrough not only unleashes the potential for running larger models on the memory-constrained \graicore{} but also enables rapid (re)configuration of the device to switch between different models at runtime.
+Recognizing the challenges of efficiently partitioning large models for external memory execution, this work provides a formal problem definition and demonstrates a practical partitioning strategy using a heuristic approach, exemplified by the partitioning of the ResNet-101 model.
+The analysis of energy consumption provides valuable insights into the energy dynamics of two external memory technologies when reconfiguring the \graicore{} with various example models
+Notably, LPDDR5X memory, the configuration process accounts for 23\% of the total energy consumed (including both configuration and processing), while this figure drops to 12\% with PCM.
+To further enhance energy efficiency, this thesis introduces effective methods to minimize data transfer during reconfiguration which includes the avoidance of transfers of redudant data.
+This thesis lays the groundwork for the next generation of \graicore{}, empowering it to tackle increasingly complex AI workloads with enhanced efficiency and flexibility.
