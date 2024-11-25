@@ -1,8 +1,7 @@
 \section{\graicore{}}
-
-% One of these edge AI accelerators is the \graicore{} designed by GrAI Matter Labs (GML).
-One of these edge AI accelerators is the \graicore{}.
-The \graicore{} utilizes the ``NeuronFlow'' technology, a many-core architecture that is inspired by the neural structures of the brain \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
+In this research, we focus on the \graicore{}, a many-core AI accelerator designed specifically for edge devices.
+The \graicore{} utilizes the ``NeuronFlow'' technology that is inspired by the neural structures of the brain \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
+The \graicore{} prioritizes energy efficiency while offering specialized hardware for execution of neural networks. 
 Its main use case is computer vision applications using models based on convolutional neural networks (CNNs).
 It features a total of 144 neuron cores, arranged in a 12 by 12 grid.
 A neuron core includes a local SRAM memory for storing data such as model parameters and a processing element for performing mathematical operations (see \cref{fig:neuron_core}).
@@ -14,6 +13,21 @@ A neuron core includes a local SRAM memory for storing data such as model parame
     \label{fig:neuron_core}
 \end{figure}
 
+% TODO mapping?
+\subsection{Mapping}
+Before an AI model can be used on the \graicore{}, the model must first be mapped for the \graicore{} and configured on the \graicore{}.
+Mapping models or neural networks on the \graicore{} demands a strategic approach to distributing the computational workload and managing resources.
+This involves carefully segmenting the network, which can be done at the layer level, neuron level, or a combination of both, depending on the network's structure. 
+The goal is to balance the computational load across the cores while minimizing communication overhead and maximizing the use of on-chip memory.
+Efficient dataflow management is also critical.
+This can involve employing data parallelism, where different cores process different batches of data, or model parallelism, where different parts of the model are distributed across cores.
+Pipelining can further enhance efficiency by dividing the computation into stages and allowing concurrent execution.
+Communication between cores is another crucial factor.
+The \graicore{} employs specialized interconnect networks to facilitate efficient data exchange.
+Synchronization mechanisms ensure correct execution, and collective operations are used to aggregate results from multiple cores.
+While this mapping process can be complex, a specialized compiler has been made to automate these tasks.
+This compiler analyzes the neural network and generates optimized code that efficiently utilizes the \graicore{}'s available resources.
+
 \subsection{Near-memory computing}
 The \graicore{} makes use of near-memory computing.
 Near-memory computing refers to an computer architecture where computation is performed close to the memory.
@@ -21,8 +35,8 @@ This approach aims to mitigate the ``von Neumann bottleneck'', a limitation caus
 By performing computations closer to where data is stored, data movement between the processing element and memory is minimized, reducing latency and energy consumption.
 However, this introduces a constraint that requires the parameters of a model to reside in local memory before it can be used by the processing element.
 Thus, an AI model must first be mapped and loaded onto the \graicore{} before it can be used for inference.
-Mapping means to assign the layers of a neural network to the neuron cores.
-Intelligent mapping is important for balancing memory, computation and traffic between neuron cores.
+% Mapping means to assign the layers of a neural network to the neuron cores.
+% Intelligent mapping is important for balancing memory, computation and traffic between neuron cores.
 The \graicore{} features a total of \SI{36}{MB} of local memory, which is evenly distributed across its $144$ neuron cores.
 The size of an AI model can be quantified by the number of its parameters.
 For instance, if a parameter is stored as a 16-bit value on the \graicore{}, it can accommodate approximately $\frac{\SI{36}{MiB}}{\SI{16}{b}}$ parameters\footnote{In practice, the available space for parameters is smaller because a portion of the memory is allocated for storing other relevant data.}, which translates to around \SI{19}{M} parameters in total.
@@ -51,7 +65,6 @@ In summary, the number of parameters that can be stored on the \graicore{} is li
 
 \subsection{NoCs}
 The neuron cores are connected to each other with two distinct network-on-chips (NoCs), each serving its own purpose (see \cref{fig:noc}).
-% Firstly, the \eventnoc{} is responsible for transferring small packets of data called Events to its destination.
 Firstly, the \eventnoc{} is used for exchanging activated neuron states in the form of small messages called Events.
 Events are only generated when an AI model is being executed.
 The \eventnoc{} uses the 2D torus topology.

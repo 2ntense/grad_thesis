@@ -6,26 +6,39 @@ This approach has led to significant breakthroughs in various AI tasks, outperfo
 \begin{figure}[hbtp]
     \centering    
     \input{assets/ann.tex}
-    \caption{TODO: classic ANN diagram}
+    \caption{An artificial neural network with two hidden layers, showing neurons fully connected between consecutive layers.}
     \label{fig:ann}
 \end{figure}
 
-In the context of artificial neural networks, a layer is a collection of interconnected nodes, or neurons, that process information.
+In the context of artificial neural networks, a layer is a collection of interconnected nodes, or neurons, that process information (see \cref{fig:ann}).
 Each connection between two neurons has an associated weight (also known as a parameter), which is a numerical value that determines the strength of the connection.
 These weights, play a crucial role in the learning process of a neural network.
 
 \begin{figure}[hbtp]
     \centering    
     \input{assets/neuron.tex}
-    \caption{Neuron} % TODO explain
-    \label{TODO}
+    \caption{
+        A single neuron in an artificial neural network, showing the weighted sum of inputs ($\sum_{i=1}^{3}{w_i \times x_i}$), bias ($b$), activation function ($f$), and output ($y$).
+    }
+    \label{fig:neuron}
 \end{figure}
 
-Each layer performs a specific computation on the data it receives from the previous layer.
-A neuron that receives input values from its connected neurons multiplies this value by their corresponding weights before being aggregated by the receiving neuron.
-This aggregation is a simple summation, resulting in a weighted sum of the input values.
-The neuron then applies a non-linear transformation to this weighted sum to produce its output.
+% Each layer performs a specific computation on the data it receives from the previous layer.
+% A neuron that receives input values from its connected neurons multiplies this value by their corresponding weights before being aggregated by the receiving neuron (see \cref{fig:neuron}).
+% This aggregation is a simple summation, resulting in a weighted sum of the input values.
+% The neuron then applies a non-linear transformation to this weighted sum to produce its output.
 
+%%%
+Each layer performs a specific computation on the data it receives from the previous layer.
+A neuron that receives input values from its connected neurons multiplies each value by its corresponding weight (see \cref{fig:neuron}).
+These weighted values are then aggregated by the receiving neuron.
+This aggregation is a simple summation, resulting in a weighted sum of the input values.
+In addition to the weighted sum of inputs, a bias term is also added to the neuron.
+The bias acts as an offset, allowing the neuron to activate even when the weighted sum of inputs is zero.
+It provides flexibility for the neuron to adjust its output based on the specific task it is learning.
+Finally, the neuron applies a non-linear transformation, called an activation function, to the sum of the weighted inputs and the bias to produce its output.
+% This non-linearity is crucial for the network to learn complex patterns and relationships in the data.
+%%%
 A deep learning model typically consist of multiple layers stacked on top of each other, forming a hierarchical structure.
 This structure allows the network to learn increasingly complex representations of the data as it flows through the layers.
 
@@ -37,7 +50,7 @@ Different types of layers serve different purposes in a deep learning model:
     \item[Hidden layer:] 
     Intermediate layers that lie between the input and output layers.
     They perform computations on the data received from the input, extracting features and learning increasingly abstract representations.
-    Each hidden layer typically consists of many neurons, each applying a non-linear transformation (i.e., an activation function) to the weighted sum of its inputs.
+    Each hidden layer typically consists of many neurons, each applying an activation function to the weighted sum of its inputs.
     The activation function determines whether a neuron ``activates''.
     A neuron is said to be activated when its output is significant enough to contribute to the next layer's computations.
     \Cref{fig:activation_functions} shows activation functions that are commonly used: $\relu$, $\tanh$ and $\sigma$ (sigmoid).
@@ -48,7 +61,6 @@ Different types of layers serve different purposes in a deep learning model:
         \caption{Commonly used activation functions}
         \label{fig:activation_functions}
     \end{figure} 
-
 
     The number of hidden layers and neurons in each layer determines the depth and complexity of the network.
     \item[Output layer:] 
@@ -66,6 +78,7 @@ Convolutional neural networks (CNNs) are a specialized class of artificial neuro
 A key element that sets them apart is the convolutional layer.
 CNNs leverage the concept of convolution to extract local features.
 The network then uses these extracted features to construct increasingly complex understandings of the input as the data progresses through its layers
+
 \begin{figure}[hbtp]
     \centering    
     \input{assets/2dconv.tex}
@@ -74,8 +87,10 @@ The network then uses these extracted features to construct increasingly complex
         At each step, the kernel covers a receptive field (highlighted) and computes a weighted sum of the input values.
         This example shows one such step, resulting in the value 4 in the feature map.
     }
+    \label{fig:2dconv}
 \end{figure}
-A convolution operation involves sliding a learnable filter, or kernel, across the input data.
+
+A convolution operation involves sliding a learnable filter, or kernel, across the input data (see \cref{fig:2dconv}).
 At each position, the filter performs an element-wise multiplication with the corresponding input data and sums the results.
 This produces a single value in the output feature map.
 By applying different filters, the network learns to detect various patterns like edges and shapes.
@@ -87,15 +102,15 @@ By applying different filters, the network learns to detect various patterns lik
         Max pooling operation with a 2x2 pooling window.
         In this example, the maximum value (3) within the highlighted region of the input feature map is extracted and placed in the pooled feature map.
     }
+    \label{fig:maxpooling}
 \end{figure}
 
 The output of convolutional layers is then typically passed through pooling layers.
 Pooling downsamples the feature map, reducing their dimensionality and making the network more robust to variations in the input.
-Common pooling operations include taking the maximum or average value within a local region. % show pooling img
+Common pooling operations include taking the maximum or average value within a local region (see \cref{fig:maxpooling}). 
 
 The use of activation functions introduces non-linearity, which enables the learning of complex patterns.
 These activation functions are applied to the output of the convolutional and pooling layers.
-% Common choices for such function are ReLU, sigmoid and tanh.
 
 Finally, fully connected layers are often used in the final stages of a CNN.
 These layers connect every neuron in the previous layer to every layer in the current layer.
@@ -124,8 +139,8 @@ This seemingly simple modification has a major impact, enabling the training of 
 Skip connections provide an alternate path for gradients to flow during backpropagation, preventing them from diminishing excessively as they travel through many layers.
 This allows ResNets to learn more complex features and achieve higher accuracy with fewer parameters. 
 
-\begin{figure}[hbtp]
-\centering    
-\includegraphics[width=3cm]{example-image-a}
-\caption{TODO: ResNet image}
-\end{figure}
+% \begin{figure}[hbtp]
+% \centering    
+% \includegraphics[width=3cm]{example-image-a}
+% \caption{TODO: ResNet image}
+% \end{figure}
