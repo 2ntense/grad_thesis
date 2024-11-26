@@ -1,18 +1,75 @@
 \section{Problem statement}
+% The problem to be addressed by this project is this thesis is the inability to reconfigure the \graicore{} during run-time.
+The problem to be addressed in this thesis is the inability to execute large models and multiple models on the \graicore{}.
+The \graicore{} was not designed for supporting large models or switching between multiple models, as one of its main design choices---keeping its memory self-contained---limits its total memory capacity and prevents external communication to retrieve data.
+Due to this design, the \graicore{} is only configured (or pre-loaded) once with a model during its boot time.
+Furthermore, this design lead to an interface between the external host and the \graicore{} in which the bandwidth was not an important factor.
+% Thus, one of the challenges is its need for configuring (or pre-loading) the model data before it can be used for inference.
+% Due to the architectural design of the \graicore{}, where the interface between an external host and \graicore{} is limited, it is incapable of rapidly loading the necessary data from an external source.
 
-The problem to be addressed by this project is the inability to reconfigure the \graicore{} during run-time.
-The current design of the \graicore{} is incapable of doing this due to the limited host to \graicore{} interface.
-Adding this feature for the \graicore{} to reconfigure during run-time significantly enhances its capabilities.
-Firstly, it will allow multiple computer vision models to be used simultaneously while the \graicore{} is running.
-Deploying multiple computer vision models can be highly beneficial for creating a multifaceted system capable of handling diverse tasks simultaneously.
+
+% This is in some cases required due to the need to perform inference at frequencies as high as \SI{60}{Hz}.
+
+% The current design of the \graicore{} is incapable of doing this due to the limited host to \graicore{} interface.
+% Adding this feature to the \graicore{} for rapid configure during run-time significantly enhances its capabilities.
+% Adding the feature to the \graicore{} to allow it for rapid configuration during run-time can significantly enhance its capabilities.
+% Firstly, it will allow multiple AI models to be switched between while the \graicore{} is running.
+% This can be accomplished by reconfiguring the \graicore{} while it is in operation
+% Deploying AI models can be highly beneficial for creating a multifaceted system capable of handling diverse tasks simultaneously.
+% Each model can be specialized for a specific function, allowing the system to be more versatile and responsive to different visual processing requirements.
+% Secondly, using a technique such as partitioning the neural network into smaller parts, allows the \graicore{} to manage and execute large models that do not fit on the \graicore{} at once.
+% This method processes one model part at a time, requiring only a part of the model to be loaded.
+% Larger AI models for inference typically offer higher accuracy and better generalization to new data, can capture more complex features, and are more robust to noise and distortions.
+% They are valuable for tasks requiring the utmost precision.
+
+% Additionally, as specified by \snap{}, they require that the \graicore{} supports seamless reconfiguration.
+% In this context, seamless reconfiguration refers to the ability to switch between different AI models, or to modify the current model, without interrupting or significantly delaying data processing.
+% Given that the \graicore{} is focused on computer vision applications, this means that it is crucial that the processing of input images occurs in a timely manner.
+% This is particularly challenging for video applications, where each frame must be processed before the next one arrives.
+% Failing to meet this requirement can reduce the usefulness of the results, thereby degrading the system's quality of service.
+% Specifically, we aim the system to support an incoming video frame rate of up to \SI{60}{FPS}
+
+Adding the feature to the \graicore{} to allow it for rapid configuration during run-time can significantly enhance its capabilities.
+Firstly, it will allow multiple AI models to be switched between while the \graicore{} is running.
+This can be accomplished by rapidly reconfiguring the \graicore{} with a different model while it is in operation.
+Deploying multiple AI models can be highly beneficial for creating a multifaceted system capable of handling diverse tasks.
 Each model can be specialized for a specific function, allowing the system to be more versatile and responsive to different visual processing requirements.
-Secondly, using a technique such as partitioning the neural network into parts, allows the \graicore{} to manage large models that do not fit on the \graicore{} at once.
+Secondly, using a technique such as partitioning the neural network into smaller parts, allows the \graicore{} to manage and execute large models that do not fit on the \graicore{} at once.
 This method processes one model part at a time, requiring only a part of the model to be loaded.
-Larger computer vision models for inference typically offer higher accuracy and better generalization to new data, can capture more complex features, and are more robust to noise and distortions.
+Larger AI models for inference typically offer higher accuracy and better generalization to new data, can capture more complex features, and are more robust to noise and distortions.
 They are valuable for tasks requiring the utmost precision.
 
-Additionally, as specified by \snap{}, they require that the \graicore{} supports seamless reconfiguration.
-In this context, seamless reconfiguration refers to the ability to switch between different AI models, or to modify the current model, without interrupting or significantly delaying data processing.
+We aim to support seamless reconfiguration, which refers to the ability to switch between different AI models, or to modify the current model, without interrupting or significantly delaying data processing.
 Given that the \graicore{} is focused on computer vision applications, this means that it is crucial that the processing of input images occurs in a timely manner.
-This is particularly challenging for video applications, where each frame must be processed before the next one arrives. Failing to meet this requirement can reduce the usefulness of the results, thereby degrading the system's quality of service.
-Specifically, \snap{} requires the system to support an incoming video frame rate of \SI{60}{FPS}.
+This is particularly challenging for video applications, where each frame must be processed before the next one arrives.
+Failing to meet this requirement can reduce the usefulness of the results, thereby degrading the system's quality of service.
+Specifically, we aim the system to support an incoming video frame rate of up to \SI{60}{FPS}
+
+%%% Objectives
+% The introduction of a high-speed interface to an off-chip memory is a potential solution to this challenge.
+% The \graicore{}'s on-chip memories are in forms of SRAMs, which makes them fast and efficient, however, limited in size.
+% An off-chip memory come with higher densities, but as a tradeoff comes with a higher memory access latencies.
+% Furthermore, this requires careful integration to maintain the energy efficient, high-speed and low-latency performance expected from edge devices.
+
+To overcome this challenge, a high-speed interface could be introduced to connect to an off-chip memory.
+While the \graicore{}'s on-chip SRAM offer speed and energy efficiency, their limited size presents a bottleneck.
+Off-chip memory like DRAM provides higher density but introduces higher latency.
+Careful integration is crucial to maintain the energy efficiency, high speed, and low latency required for edge devices.
+
+%%% "Research objectives"
+This thesis aims to adapt the architectural design of the \graicore{} to enable seamless reconfiguration.
+This will be achieved through the following objectives:
+\begin{itemize}
+    \item
+    Enhance the \graicore{}'s architecture for high speed data transfers from off-chip memory.
+    This involves identifying necessary architectural modifications and proposing effective solutions to optimize data transfer rates.
+    \item
+    Enable the \graicore{} to support switching between multiple AI models for videos up to \SI{60}{FPS}.
+    This requires an investigation of the data transfer speeds required to achieve timely model switching.
+    \item
+    Evaluate strategies for the \graicore{} to execute large AI models effectively.
+    This includes exploring methods for partitioning large models into smaller, more manageable parts that can be efficiently processed by the \graicore{}.
+    \item
+    Ensure low-power operation of the \graicore{} during reconfiguration without compromising performance.
+    This necessitates a comprehensive analysis of the system's power consumption during reconfigurations.
+\end{itemize}

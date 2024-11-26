@@ -1,5 +1,4 @@
 \section{Motivation}
-
 Edge devices are often the frontline for data collection and user interaction, making them crucial for applications that require real-time processing, such as facial recognition on smartphones or decision-making in autonomous vehicles.
 These devices are characterized by their compact size and energy efficiency.
 However, the compute capacities of edge devices are considerably lower than those of dedicated AI cloud servers.
@@ -15,16 +14,19 @@ The challenge with pruning is to identify which parts of the model can be remove
 These model optimization techniques are crucial for maintaining a balance between performance and efficiency.
 They aim to minimize the impact on the model's accuracy and predictive capabilities while significantly reducing its memory footprint and computational requirements.
 
-In addition, hardware innovations have emerged to bridge the gap between the computational demands of AI models and the capabilities of edge devices.
+In addition, hardware innovations have emerged to reduce the gap between the computational demands of AI models and the capabilities of edge devices.
 The emergence of edge AI accelerators is a clear indicator of this trend.
 These specialized processors are engineered to perform the matrix operations and linear algebra that are fundamental to AI computations with high efficiency and low power consumption.
 By integrating these accelerators into edge devices, it is possible to execute complex AI models more effectively within the stringent constraints of power, space, and computing resources typical of edge environments.
 
-Although optimization techniques can reduce the memory and computational demands of AI models, the internal memory in edge AI accelerators is inherently limited due to their compact size and design constraints aimed at conserving energy and space.
-This limitation can be a significant bottleneck, especially as AI models become more complex and require more data to function optimally.
-Internal memory may not be sufficient to store large models or to handle multiple models running simultaneously, which is increasingly necessary for more advanced applications.
+Although optimization techniques can reduce the memory and computational demands of AI models, the on-chip memory in edge AI accelerators is inherently limited due to their compact size and design constraints aimed at conserving energy and space.
+This limitation can be a significant bottleneck, especially as AI models become more complex and require more data to function due to the increase in the amount of parameters.
+This becomes particularly pronounced when dealing with edge AI accelerators that necessitates pre-loading model data onto their on-chip memory before inference can begin.
 
-To overcome these limitations, there is a growing interest in exploring external memory solutions that can be integrated with edge AI accelerators.
-External memory provides additional storage capacity and allows edge devices to support larger AI models or multiple models simultaneously without compromising performance.
-Supporting large models on edge devices typically results in better accuracy compared to using smaller, compressed models. Additionally, running multiple models simultaneously allows for a wider array of functionalities.
+To overcome these limitations, there is a growing interest in exploring off-chip memory solutions that can be integrated with edge AI accelerators.
+Off-chip memory provides additional storage capacity and allows edge devices to support larger AI models or multiple models without compromising their accuracy performance.
+Furthermore, supporting large models on edge devices typically results in better accuracy compared to using smaller, compressed models.
+Additionally, switching between different models during runtime allows for a wider array of functionalities.
 Therefore, expanding the memory capacity through external solutions is an effective way to extend the potential of AI at the edge.
+
+% The \graicore{} is one such edge AI accelerator that requires a model to be pre-loaded before it can be utilized for inference.

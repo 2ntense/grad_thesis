@@ -4,8 +4,7 @@ Large models have high memory requirements, exceeding the memory capacity of the
 This limitation has a major implication and that is the inability to deploy such large models.
 
 We employ splitting of a large model into groups of layers to allow for a large model to be partitioned in parts.
-Each part is expected to fit on the \graicore{} and is configured and processed in sequence.
-Whenever the large model is invoked for execution, each part configured and processed by the \graicore{} in a sequential manner.
+Each part is expected to fit on the \graicore{} and whenever the large model is invoked for execution, each part configured and processed by the \graicore{} sequentially.
 
 We acknowledge that a optimal partitioning strategy for an arbitrary large model is a complex problem to solve.
 In \cref{ch:8}, we present a comprehensive formal description of the problem.
@@ -30,10 +29,6 @@ To target a specific input frame rate with a large model, we require information
 \end{itemize}
 
 We approximate the maximum reachable input frame rate ($f$) as follows:
-% \begin{align*} 
-%     L &= \sum_{p \in P}^{}{p_{\textrm{config}} + p_{\textrm{process}}} \\
-%     f &= L^{-1}
-% \end{align*}
 \begin{align*} 
     \lattotal &= \sum_{p \in P}^{}{\latconf(p) + \latproc(p)} \\
     f &= \lattotal^{-1}
