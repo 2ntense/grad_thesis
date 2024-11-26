@@ -172,7 +172,8 @@ We can roughly say that the network requires \SI{47.7}{MiB}\footnote{$\frac{\num
 However, this does not include any mandatory header information and buffer space when mapping the network for the \graicore{}. 
 
 We use the in-house compiler to find a valid mapping for the \graicore{}, with focus on low processing latency.
-The compiler also outputs files necessary for simulating the networks with \graipefruit{}. \graipefruit{} is used to approximate the processing latency of each part.
+The compiler also outputs files necessary for simulating the networks with a proprietary performance simulator.
+This performance simulator is used to approximate the processing latency of each part.
 Note that the compiler is a complex piece of software.
 Since it accepts many parameters that affects the processing latency, it is difficult to find an optimal mapping. 
 % The in-house compiler for the \graicore{} is complex and we will not get into detail.
@@ -187,7 +188,7 @@ One example partitioning is done as follows.
 The splitting points are performed right after the following residual blocks: $(4, 6)$, $(4, 12)$, $(4,21)$ and $(5,1)$.
 The ResNet-101 model is therefore partitioned in five parts.
 The compiler is able to compile each of the parts, indicating that they are configurable on the \graicore{}.
-The processing latency for each of the parts are then estimated using the \graipefruit{} simulator.
+The processing latency for each of the parts are then estimated using the performance simulator.
 An attempt has been made to instruct the compiler to optimize the parts for processing latency.
 
 \begin{table}[hbtp]

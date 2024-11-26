@@ -63,14 +63,15 @@ The configuration time is calculated by dividing the amount of data with the wri
 
 The amount of data to be written and to which neuron cores depends on how the compiler has performed the mapping on the \graicore{}. % explain
 Phits that needs to be transferred to neuron cores further away from an injection point will require more hops to reach, and therefore consume more energy than neuron cores closer to an injection point.
-The amount of data that needs to be written to each core differs.
-We can retrieve this information from the compiler.
+Furthermore, the amount of data that needs to be written to each core differs.
+We can retrieve this information from the compiler artifacts.
 
 For estimating the energy for the \graicore{} component, we consider the \confignoc{} and the SRAMs.
+These are the main components for the energy consumption in the \graicore{}.
 The \confignoc{} consumes energy by transferring the phits to its destinations via one or multiple hops through the NoC.
 The SRAM consumes energy by writing the data to its banks.
-A single hop through the \confignoc{} with a 64 bit phit consumes \SI{0.258}{pJ}.
-Writing back 64 bits to an SRAM consumes \SI{4.980}{pJ}.
+% A single hop through the \confignoc{} with a 64 bit phit consumes \SI{0.258}{pJ}.
+% Writing back 64 bits to an SRAM consumes \SI{4.980}{pJ}.
 
 \subsection{Calculation}
 The configuration energy consists of the reading, transferring and writing of data from the external memory to the \graicore{}'s SRAMs. 
@@ -82,7 +83,7 @@ Let $C$ be the set of tuples holding the coordinates of every core:
 
 Notice that the x-coordinate and y-coordinate starts at index $1$ and $0$ respectively.
 
-\Cref{fig:model_data_heapmap} shows for a $80\%$ pruned version of ResNet-50\footnote{Internally named \texttt{resnet50\_pruned80\_star}} the amount of data that needs to be written to each of the 144 neuron cores.
+\Cref{fig:model_data_heapmap} shows for an $80\%$ pruned version of ResNet-50 the amount of data that needs to be written to each of the 144 neuron cores.
 We observe that the data is not uniformly distributed across the SRAMs.
 Therefore, we require information how much data needs to be transferred to each SRAM.
 

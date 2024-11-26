@@ -51,8 +51,8 @@ This information is available, and will be used for the evaluation.
 \textbf{Model}          & \textbf{\begin{tabular}[c]{@{}l@{}}Latency\\ (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Cores\\used\end{tabular}} & \textbf{Avg util.} & \textbf{\begin{tabular}[c]{@{}l@{}}To write\\ (MiB)\end{tabular}} \\ \midrule
 efficientnet            & 1.642                                                           & 144            & 50.89\%            & 16.15                                                             \\
 mobnetv2                & 1.296                                                           & 144            & 40.78\%            & 10.67                                                             \\
-hand\_tracker           & 1.480                                                           & 144            & 36.62\%            & 12.33                                                             \\
-hand\_detector          & 4.809                                                           & 144            & 68.03\%            & 19.12                                                             \\
+object\_tracker         & 1.480                                                           & 144            & 36.62\%            & 12.33                                                             \\
+object\_detector        & 4.809                                                           & 144            & 68.03\%            & 19.12                                                             \\
 resnet50                & 5.765                                                           & 144            & 36.35\%            & 29.58                                                             \\
 resnet101\_p0           & 7.080                                                           & 144            & 33.40\%            & 28.75                                                             \\
 resnet101\_p1           & 2.647                                                           & 143            & 36.42\%            & 20.06                                                             \\
@@ -68,7 +68,7 @@ resnet101\_pruned\_p4   & 2.437                                                 
 \end{tabular}
 \caption{
     Statistics of various mapped models.
-    The latency, cores used and average utilization are obtained from simulations with \graipefruit{}.
+    The latency, cores used and average utilization are obtained from simulations with the performance simulator.
     The amount of bytes to write are obtained from the compiler artifacts.
 }
 \label{tab:example_models_stats}
@@ -171,8 +171,8 @@ In \cref{ch:7}, we explore techniques for increasing configuration efficiency.
             \textbf{Model}             & \textit{LPDDR5X}  & \textit{PCM}    & \\ \midrule
             efficientnet               & 56.0              & 24.8            & 151.6 \\
             mobnetv2                   & 37.0              & 16.4            & 95.9 \\
-            hand\_tracker              & 42.8              & 18.9            & 98.3 \\
-            hand\_detector             & 66.3              & 29.4            & 593.6 \\
+            object\_tracker              & 42.8              & 18.9            & 98.3 \\
+            object\_detector             & 66.3              & 29.4            & 593.6 \\
             resnet50                   & 102.6             & 45.4            & 380.2 \\
             resnet101\tnote{1}         & 390.2             & 172.8           & 1081.7 \\
             resnet101\_pruned\tnote{1} & 208.9             & 92.5            & 1179.4 \\ \bottomrule
