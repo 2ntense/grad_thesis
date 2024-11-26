@@ -9,6 +9,7 @@ Compared to the \eventnoc{}, intercommunication does not occur between neuron co
 \includegraphics[width=3cm]{example-image-a}
 \caption{TODO: NoC image}
 \end{figure}
+% TODO show injection point and wormhole switching
 
 The communication links between nodes are 16-bits wide, determining the amount of data that can be transferred concurrently.
 The \confignoc{} uses a packet-switched communication protocol, where data is transmitted in the form of independent packets routed through the network.
@@ -22,7 +23,7 @@ Whenever the header has been processed, all the payload data will follow it and 
 The flits on the \confignoc{} are of the same size as phits.
 A phit is the amount of bits that can be transferred over a single hop in one clock cycle.
 
-A key characteristic of the \confignoc{}'s architecture is iwts \SI{800}{MHz} clock frequency.
+A key characteristic of the \confignoc{}'s architecture is its \SI{800}{MHz} clock frequency.
 This clock governs the rate of data transmission across the network, influencing the overall performance of the on-chip communication.
 
 % Unlike the \confignoc{}, the \eventnoc{} uses wraparound links that helps to drastically reduce the average amount of hops a packet has to take.

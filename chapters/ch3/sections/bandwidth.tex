@@ -1,25 +1,21 @@
 \section{Bandwidth}
-The \confignoc{}'s bandiwdth is influenced by its unique characteristics.
-While each link has a raw bandwidth of \SI{12.8}{Gb/s}\footnote{$\SI{16}{b} \times \SI{800}{MHz}$}, the effective bandwidth available for application data is closer to \SI{6.4}{Gb/s}.
+The \confignoc{}'s bandwidth is influenced by its unique characteristics.
+While each link has a peak bandwidth of \SI{12.8}{Gb/s}\footnote{$\SI{16}{b} \times \SI{800}{MHz}$}, the effective bandwidth available for application data is closer to \SI{6.4}{Gb/s}.
 This reduction is solely due to the 50\% overhead imposed by the 32-bit header in each packet.
 
 Multi-hop transfers in a 2D mesh network typically suffer from increased latency as distance increases.
 However, the use of wormhole switching, with its pipelined transmission of phits, minimizes this latency.
 This ensures efficient data transfer regardless of the distance between nodes.
 
-
-% Furthermore, since we are primarly interested in writing data to the \graicore{}, the single injection point into the \confignoc{} does not introduce contention for the links, maximizing bandwidth utilization.
-% Since we are primarily intereseted in writing data to the \graicore{}, the single injection point into the \confignoc{} prevents contention for network links.
-% As a consequence, this does not negatively affect the bandwidth utilization.
-
-Furthermore, since we are primarily interested in writing data to the \graicore{}, the \confignoc{}'s use of a single injection point for write transactions offers a significant advantage.
+Furthermore, it is expected that in most cases the \confignoc{} is used for writing data to the \graicore{}.
+The \confignoc{}'s use of a single injection point for write transactions offers a significant advantage.
 This design inherently prevents multiple data sources from competing for the same network links, a common cause of contention and performance bottlenecks.
 By eliminating this contention, the \confignoc{} maximizes bandwidth utilization.
 
 Configuration is done by transferring write request packets from the host to one or more neuron cores.
 A write request packet consists of 64 bits in total.
 Recall that the SRAM capacity of a single neuron core is \SI{256}{KiB}.
-If we want to completely fill up one of these memories, a total of $\frac{\SI{256}{KiB}}{\SI{32}{b}} = 65536$ write request packets needs to be sent.
+If we want to completely fill up one of these memories, a total of $\frac{\SI{256}{KiB}}{\SI{32}{b}} = \num{65536}$ write request packets needs to be sent.
 This means that, in total, \SI{256}{KiB} of payload data and \SI{256}{KiB} of header data is sent through the NoC.
 
 To estimate the time to write a certain amount of data to the memories of the \graicore{}, we can make use of \cref{eq:latency}.
