@@ -4,10 +4,11 @@ Widening the links increases the amount of data that can be transferred in a sin
 Physically, this means that the number of wires for each link increases.
 Furthermore, the routers need to be enlarged to support the change in link width.
 This includes an expansion in buffer size and size of the crossbar switch. % TODO add ref
-These changes will see an increase in the required silicon area and power consumption.
+% These changes will see an increase in the required silicon area and power consumption, although this is negligible compared to the rest of the system.
+While these changes increase silicon area and power consumption, the overall impact on the system remains minimal.
 
 \Cref{tab:latency_bandwidth_phit_width_packet_format,fig:latency_bandwidth_phit_width_packet_format} show for three different phit widths the time it takes to fill the \graicore{} and the associated effective bandwidth for the current and the improved packet format.
-For the new packet format, we assume that there is overhead.
+For the new packet format, we assume that there is minimal overhead.
 
 \begin{table}[hbtp]
 \centering

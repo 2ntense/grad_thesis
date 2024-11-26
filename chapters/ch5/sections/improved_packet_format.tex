@@ -51,7 +51,7 @@ This results in the overhead being $0$ (i.e., $d_{\text{overhead}} = 0$).
 \Cref{fig:n_vs_latency} shows for three different phit sizes the latency to fill the \graicore{} for different $n$.
 We observe that the latency decreases exponentially, with the latency plateauing earlier with wider phits.
 
-\begin{figure}
+\begin{figure}[hbtp]
     \centering
     \input{assets/n_vs_latency}
     \caption{The trend of latency with increasing $n$.}
@@ -61,7 +61,7 @@ We observe that the latency decreases exponentially, with the latency plateauing
 Note that with $n=15$ the latencies for all three phit widths are close to their optimum.
 Since we already use 30 bits for the header information, adding a length field of 4 bits\footnote{$\lceil log_{2}( 15 )\rceil = 4$} requires an additional header phit (i.e., three header phits in total). Similarly, for 32-bit phits, 2 header phits are needed. For 64 bit phits, all information fits within a single header phit.
 
-An example packet format is shown in figure \cref{fig:example_packet_format_length_field} for a phit width of 16 with the length field taking up 4 bits.
+An example packet format is shown in \cref{fig:example_packet_format_length_field} for a phit width of 16 with the length field taking up 4 bits.
 An alternative format is to remove two bits of the address field and use those (including the unused bits) for the length field.
 With this, we do not require an additional header phit.
 Since we have shrunk the address space, we cannot address the SRAM per byte anymore.

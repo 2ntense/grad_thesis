@@ -8,7 +8,7 @@ Another benefit is the synergy with the unified memories.
 Since the SRAMs have 64-bit memory words and can write one memory word of 64 bits every cycle, there is no need to buffer multiple (smaller) phits before writing them to the SRAM.
 This first change proposal provides a peak bandwidth of \SI{3}{GiB/s}.
 
-Next, by dividing the \confignoc{} into two equally sized (virtual) zones with their own external interface, we can benefit from parallel configuration of two cores (one per zone) and therefore, another 2x increase in bandwidth.
+Next, by dividing the \confignoc{} into two equally sized logical zones with their own external interface, we can benefit from parallel configuration of two cores (one per zone) and therefore, another 2x increase in bandwidth.
 These two changes provide a bandwidth of around \SI{6}{GiB/s}. 
 The amount of zones and injection points can be expanded in the future at relatively small costs if necessary.
 
