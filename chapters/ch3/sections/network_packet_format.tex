@@ -50,7 +50,7 @@ Finally, the \textit{write request} is used to write data to a neuron core.
     % \label{fig:config_noc_packets}
 \end{figure}
 
-Both the \textit{read response} and \textit{write request} packets has two phits following the header (see \cref{fig:read_response_packet,fig:write_request_packet}).
+Both the \textit{read response} and \textit{write request} packets have two phits following the header (see \cref{fig:read_response_packet,fig:write_request_packet}).
 These two phits contain the payload data that is requested.
 Thus in total, packets of these two types are 64 bits in size.
 The \textit{read request} packet only consists of the header (see \cref{fig:read_request_packet}).
@@ -65,13 +65,15 @@ The \textit{read request} packet only consists of the header (see \cref{fig:read
     \label{fig:read_request_packet}
 \end{figure}
 
-The destination cluster coordinates are both 4 bits in size due to the need to address 12 different X and 12 different Y coordinates.
+% The destination cluster coordinates are both 4 bits in size due to the need to address 12 different X and 12 different Y coordinates.
+The destination cluster coordinates are both 4 bits in size.
+This allows them to address up to 16 different X and 16 different Y coordinates.
 
 The \textit{address field} of 20 bits, allows the system to address $2^{20}$ different addresses.
 This address space is used to address the SRAM and the register bank of a neuron core.
 % This address space is used to address the SRAM and the register bank of a neuron core, with room to spare \cite{TODO}.
 
-Upon entering the \confignoc{}, the header phit is immediately analyzed by the router to determine the path towards the destination neuron core.
+Upon entering the \confignoc{}, the header phit is analyzed by the router to determine the path towards the destination neuron core.
 Routers do not wait for the entire packet to arrive.
 Instead, as soon as the header phit reserves the output channel, the remaining phits follow in a pipelined manner.
 This allows the packet to ``snake'' through the network, with different phits occupying different links concurrently.
