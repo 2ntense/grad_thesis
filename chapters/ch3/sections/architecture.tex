@@ -1,15 +1,14 @@
 \section{Architecture}
 The \confignoc{} incorporates a 2D mesh network for communication across all the routers and neuron cores.
-An extra link is attached to the \confignoc{} that enables interfacing with the external world.
+An extra link is attached to the \confignoc{} that enables interfacing with the external world (shown as the red arrow in \cref{fig:config_noc_ext}).
 Compared to the \eventnoc{}, intercommunication does not occur between neuron cores.
 
-% TODO To make this description even clearer, you could create a simple diagram showing the 2D mesh of routers with arrows indicating the XY routing directions
 \begin{figure}[hbtp]
 \centering    
-\includegraphics[width=3cm]{example-image-a}
-\caption{TODO: NoC image}
+\includegraphics[width=0.45\textwidth]{assets/config_noc_inj.pdf}
+\caption{\confignoc{} including the external inferface}
+\label{fig:config_noc_ext}
 \end{figure}
-% TODO show injection point and wormhole switching
 
 The communication links between nodes are 16-bits wide, determining the amount of data that can be transferred concurrently.
 The \confignoc{} uses a packet-switched communication protocol, where data is transmitted in the form of independent packets routed through the network.
