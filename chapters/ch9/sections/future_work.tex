@@ -1,33 +1,14 @@
 \section{Future work}
-This chapter discusses future work to be done for further improving the analysis
+While this study demonstrated the effectiveness of our approach using a sequential configuration and processing scheme, a promising avenue for future research lies in exploring pipelined parallelism.
+By enabling concurrent configuration and processing, the system can dynamically reconfigure on-chip memory locations that are no longer required by the current input, even while the current input is still being processed.
+This pipelined approach has the potential to significantly increase inference bandwidth, allowing the system to process a higher volume of frames per unit of time.
+However, it also introduces complexities in terms of scheduling, resource management, and synchronization that need to be carefully addressed.
 
-\subsection{Exploring partitioning strategies}
-% \import{sections}{exploring_partitioning}
-% TODO
+Furthermore we focussed was on minimizing inference latency through model partitioning.
+Another important consideration for resource-constrained devices is energy efficiency.
+Future work will investigate energy-aware partitioning strategies, which may involve different partitioning points and compiler parameters compared to latency-driven approaches.
+This is motivated by the understanding that minimizing latency does not necessarily correlate with minimizing energy consumption.
 
-
-\subsection{Parallel configuration/processing}
-Explain that we can speed up inference of large models by configuring and processing the partitions in parallel or pipelined.
-
-\subsection{Compiler analysis}
-Explain that with a comprehensive analysis of the compiler, we can improve the search for optimal solutions for a model or model partition.
-
-\subsection{Add static power consumption}
-Explain that we have only considered dynamic power/energy consumption.
-Static power has not been explored.
-
-\subsection{Other memory technologies}
-We have only explored two specific memory technologies (DDR).
-Using an other memory technology may provide us with better results.
-This could be in terms of speed and energy use.
-
-The energy numbers of PCM looks more promising compared to the LPDDR5X memory.
-However, a few parameters haven't been considered in this research.
-For example, the density (capcity per physical area) of LPDDR5X is higher than PCM.
-
-\subsection{More accurate bandwidth analysis}
-We only analyzed the peak effective bandwidth
-
-\subsection{More models}
-We should analyze more models to get a more accurate figure
-
+Finally, future research will thoroughly examine the trade-offs between performance, density, reliability, and cost associated with LPDDR5X memory and PCM.
+This analysis will involve a comprehensive evaluation of how the densities of these memory technologies affect cost-effectiveness, especially in terms of required silicon area.
+Furthermore, to provide a more complete understanding of the energy consumption, future work will also investigate the contribution of static energy, especially considering the varying static power properties of DRAM and NVM technologies.

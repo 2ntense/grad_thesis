@@ -73,7 +73,7 @@ The SRAM consumes energy by writing the data to its banks.
 % A single hop through the \confignoc{} with a 64 bit phit consumes \SI{0.258}{pJ}.
 % Writing back 64 bits to an SRAM consumes \SI{4.980}{pJ}.
 
-\subsection{Calculation}
+\subsection{Modeling}
 The configuration energy consists of the reading, transferring and writing of data from the external memory to the \graicore{}'s SRAMs. 
 
 Let $C$ be the set of tuples holding the coordinates of every core:
@@ -102,7 +102,7 @@ This matrix can be constructed from the artifacts outputted by the compiler.
 The number of phits to be transferred through the \confignoc{} influences the total energy costs.
 In particular, the amount of phits to be transferred affects the number of hops to be taken in total and the amount of data to be written to the SRAMs.
 Therefore, we need to determine how many phits needs to be transferred to each neuron core.
-A packet can contain up to 64 data phits, that is $64 \times \SI{64}{b} = \SI{512}{B}$ of payload data.
+A packet can contains up to 64 data phits, that is $64 \times \SI{64}{b} = \SI{512}{B}$ of payload data.
 Suppose we need to transfer $d$ bytes to a neuron core, we then require a total of $\left\lfloor \frac{d}{512} \right\rfloor$ packets with 64 data phits.
 If $\left( d \bmod 512 \right) > 0$, then there is an additional packet for the remaining $\left( d \bmod 512 \right)$ bytes of data.
 The remaining packet will consist of $\left\lceil \frac{d \bmod 512}{8}\right\rceil$ data phits.

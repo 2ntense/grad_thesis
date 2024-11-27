@@ -8,7 +8,7 @@ A neuron core includes a local SRAM memory for storing data such as model parame
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.25\textwidth]{assets/neuron_core.pdf}
+    \includegraphics[width=0.4\textwidth]{assets/neuron_core.pdf}
     \caption{The neuron core includes a processing element (core) and a local memory (a.k.a. unified memory)}
     \label{fig:neuron_core}
 \end{figure}
@@ -24,7 +24,7 @@ This can involve employing data parallelism, where different cores process diffe
 Pipelining can further enhance efficiency by dividing the computation into stages and allowing concurrent execution.
 Communication between cores is another crucial factor.
 The \graicore{} employs specialized interconnect networks to facilitate efficient data exchange.
-Synchronization mechanisms ensure correct execution, and collective operations are used to aggregate results from multiple cores.
+% Synchronization mechanisms ensure correct execution, and collective operations are used to aggregate results from multiple cores.
 While this mapping process can be complex, a specialized compiler has been made to automate these tasks.
 This compiler analyzes the neural network and generates optimized code that efficiently utilizes the \graicore{}'s available resources.
 
