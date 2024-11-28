@@ -78,10 +78,8 @@ The configuration energy consists of the reading, transferring and writing of da
 
 Let $C$ be the set of tuples holding the coordinates of every core:
 \begin{equation*}
-    C = \{\,\left(x,y\right) \in \mathbb{N}^2 \mid 1 \leq x \leq 12 \wedge 0 \leq y \leq 11 \,\} 
+    C = \{\,\left(x,y\right) \in \mathbb{N}^2 \mid 0 \leq x \leq 12 \wedge 0 \leq y \leq 11 \,\} 
 \end{equation*}
-
-Notice that the x-coordinate and y-coordinate starts at index $1$ and $0$ respectively.
 
 \Cref{fig:model_data_heapmap} shows for an $80\%$ pruned version of ResNet-50 the amount of data that needs to be written to each of the 144 neuron cores.
 We observe that the data is not uniformly distributed across the SRAMs.
@@ -89,14 +87,14 @@ Therefore, we require information how much data needs to be transferred to each 
 
 \begin{figure}[hbtp]
     \centering
-    \includegraphics[clip, trim=80 20 10 30, width=0.8\linewidth]{assets/resnet50_coredata_heatmap.pdf}
+    \includegraphics[clip, trim=80 20 10 30, width=0.8\linewidth]{assets/resnet50_coredata_heatmap.png}
     \caption{Amount of data to be written to each neuron core for the ResNet-50 model (80\% pruned).}
     \label{fig:model_data_heapmap}
 \end{figure}
 
-Let $D$ be a matrix of $12 \times 13$ with $D_{i,j}$ denoting the amount of bytes to be written to core $\left( i,j \right)$.
-$D$ has an additional column due to the x-coordinates not starting from index $0$.
-Its left-most column is unused (i.e., $D_{0,0}, D_{0,1}, \cdots, D_{0,11}$).
+Let $D$ be a matrix of $12 \times 12$ with $D_{i,j}$ denoting the amount of bytes to be written to core $\left( i,j \right)$.
+% $D$ has an additional column due to the x-coordinates not starting from index $0$.
+% Its left-most column is unused (i.e., $D_{0,0}, D_{0,1}, \cdots, D_{0,11}$).
 This matrix can be constructed from the artifacts outputted by the compiler.
 
 The number of phits to be transferred through the \confignoc{} influences the total energy costs.
