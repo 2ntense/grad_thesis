@@ -13,6 +13,8 @@ This approach has led to significant breakthroughs in various AI tasks, outperfo
 In the context of artificial neural networks, a layer is a collection of interconnected nodes, or neurons, that process information (see \cref{fig:ann}).
 Each connection between two neurons has an associated weight (also known as a parameter), which is a numerical value that determines the strength of the connection.
 These weights, play a crucial role in the learning process of a neural network.
+A deep learning model typically consist of multiple layers stacked on top of each other, forming a hierarchical structure.
+This structure allows the network to learn increasingly complex representations of the data as it flows through the layers.
 
 \begin{figure}[hbtp]
     \centering    
@@ -23,12 +25,6 @@ These weights, play a crucial role in the learning process of a neural network.
     \label{fig:neuron}
 \end{figure}
 
-% Each layer performs a specific computation on the data it receives from the previous layer.
-% A neuron that receives input values from its connected neurons multiplies this value by their corresponding weights before being aggregated by the receiving neuron (see \cref{fig:neuron}).
-% This aggregation is a simple summation, resulting in a weighted sum of the input values.
-% The neuron then applies a non-linear transformation to this weighted sum to produce its output.
-
-%%%
 Each layer performs a specific computation on the data it receives from the previous layer.
 A neuron that receives input values from its connected neurons multiplies each value by its corresponding weight (see \cref{fig:neuron}).
 These weighted values are then aggregated by the receiving neuron.
@@ -37,10 +33,6 @@ In addition to the weighted sum of inputs, a bias term is also added to the neur
 The bias acts as an offset, allowing the neuron to activate even when the weighted sum of inputs is zero.
 It provides flexibility for the neuron to adjust its output based on the specific task it is learning.
 Finally, the neuron applies a non-linear transformation, called an activation function, to the sum of the weighted inputs and the bias to produce its output.
-% This non-linearity is crucial for the network to learn complex patterns and relationships in the data.
-%%%
-A deep learning model typically consist of multiple layers stacked on top of each other, forming a hierarchical structure.
-This structure allows the network to learn increasingly complex representations of the data as it flows through the layers.
 
 Different types of layers serve different purposes in a deep learning model:
 \begin{description}

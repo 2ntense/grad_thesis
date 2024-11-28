@@ -1,8 +1,7 @@
 \section{Network-on-chip}
-
-Network-on-chip (NoC) has become a crucial component in modern multi-core systems-on-chip (SoCs), offering high throughput, low latency, and efficient power utilization.
+Network-on-chip (NoC) has become a crucial component for data communication in modern multi-core systems-on-chip (SoCs), offering high throughput, low latency, and efficient power utilization.
 The performance of NoCs is influenced by various factors such as topology, routing algorithms, switching mechanisms, and link/channel width.
-In the quest for optimal performance, researchers have delved into exploring different aspects of NoC design to enhance its efficiency.
+With the goal in achieving optimal performance, researchers have looked into exploring different aspects of NoC design to enhance its efficiency.
 One key element that significantly impacts NoC performance is the choice of topology.
 Studies have shown that selecting an appropriate topology is critical as it affects zero-load latency, sustainable bandwidth, and power consumption \cite{chenPhysicalVsVirtual2010}.
 For instance, the 2D mesh topology, as utilized in the \graicore{}, is commonly used in NoCs due to its scalability and fault tolerance, enabling efficient communication among cores.
@@ -19,11 +18,11 @@ The darker blue shaded nodes feature additional diagonal links.
 
 Additionally, the extended diagonal mesh (XDMesh) has been proposed as an enhancement to the 2D mesh topology \cite{furhadExtendedDiagonalMesh2015}.
 XDMesh improves the 2D mesh by incorporating diagonal links (see example in \cref{fig:xdmesh_topology}), which decrease the network diameter---the longest distance between two nodes situated at opposite diagonal corners of the 2D mesh.
-This reduction in network diameter leads to lower communication delays and fewer  hop counts.
+This reduction in network diameter leads to lower communication delays and fewer hop counts.
 Experimental results show that XDMesh achieves over $40\%$ better throughput and latency compared to the 2D mesh.
 Furthermore, it outperforms the 2D mesh in terms of energy efficiency, with minimal differences in silicon area.
 The experimental environment makes use of the uniform traffic model, where each node in the network generates and sends data packets to all other nodes with equal probability.
-In the case of the \graicore{}, the nodes (i.e., the neuron cores) do not use the \confignoc{} for intercommunication.
+When transferring data from an external source, data is only injected into \graicore{}'s NoC via a single point.
 For this reason, the employed uniform traffic model is not a representative traffic pattern for the \confignoc{}. 
 However, the relatively small topology change introduced by XDMesh can still be worthwhile to consider for improving NoC's performance.
 
@@ -63,7 +62,7 @@ By implementing efficient switching mechanisms, designers can achieve lower powe
 Link width is another essential design parameter that influences the data transfer rate and overall bandwidth of the network.
 Wider links can accommodate higher data rates, leading to improved throughput and reduced latency.
 However, the use of wider links also consume more power, so there is a trade-off between performance and power consumption that designers need to consider when designing a NoC \cite{manhokimNetworkonchipLinkAnalysis2006}.
-Widening the link widths in the \graicore{}'s current \confignoc{} is a relatively straightforward enhancement, making it an appealing solution for improving both throughput and latency.
+Widening the link widths in the \graicore{}'s NoC is a relatively straightforward enhancement, making it an appealing solution for improving both throughput and latency.
 However, it is important to note that increasing the link widths also requires more silicon area due to the need for additional physical wires and increased router complexity.
 
 % In conclusion, the current state of NoC research highlights the critical role of topology, routing algorithms, switching techniques, and link width in optimizing network performance in terms of throughput, latency, and power consumption.

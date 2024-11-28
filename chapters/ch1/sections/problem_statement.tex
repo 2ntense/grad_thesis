@@ -1,7 +1,8 @@
 \section{Problem statement}
 % The problem to be addressed by this project is this thesis is the inability to reconfigure the \graicore{} during run-time.
 The problem to be addressed in this thesis is the inability to execute large models and multiple models on the \graicore{}.
-The \graicore{} was not designed for supporting large models or switching between multiple models, as one of its main design choices---keeping its memory self-contained---limits its total memory capacity and prevents external communication to retrieve data.
+% The \graicore{} was not designed for supporting large models or switching between multiple models, as one of its main design choices---keeping its memory self-contained---limits its total on-chip memory capacity and prevents external communication to retrieve data.
+The \graicore{} was not designed for supporting large models or switching between multiple models, as one of its main design choices---keeping its memory self-contained---limits its total on-chip memory capacity and only supports slow external communication to load data.
 Due to this design, the \graicore{} is only configured (or pre-loaded) once with a model during its boot time.
 Furthermore, this design lead to an interface between the external host and the \graicore{} in which the bandwidth was not an important factor.
 % Thus, one of the challenges is its need for configuring (or pre-loading) the model data before it can be used for inference.
