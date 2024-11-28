@@ -1,7 +1,8 @@
 \section{Multiple models}
 We analyze the execution of multiple models on the \graicore{}.
-We assume that each of these models fit on the \graicore{} individually.
-Furthermore, we look at the scenario where only a single model is present on the \graicore{} at a time.
+In this scenario, we assume that each of these models fit on the \graicore{} individually.
+Furthermore, only a single model is present on the \graicore{} at a time.
+% Furthermore, we look at the scenario where only a single model is present on the \graicore{} at a time.
 
 To determine the required write bandwidth for configuring a model, we need the following parameters:
 \begin{itemize}
@@ -16,9 +17,10 @@ Suppose we want to process every new incoming frame with a new model, all with a
 Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms} to reconfigure the \graicore{} with the next model.
 
 \Cref{fig:reconfig_time_line_ex} shows two example timelines of a good and a bad scenario when performing execution of multiple models in sequence.
-$t_n$ indicates the time instance where the $n$th frame has been received by the GrAICore, ready to be processed.
-At $t_0$, the GrAICore is already configured with an initial model.
-In \cref{fig:correct_reconfig}, the GrAICore uses a different model for each consecutive frame.
+$t_n$ indicates the time instance where the $n$th frame has been received by the \graicore{}, ready to be processed.
+At $t_0$, the \graicore{} is already configured with an initial model.
+In \cref{fig:correct_reconfig}, the \graicore{} uses a different model for each consecutive frame.
+Each of these models have a similar processing latency and reconfiguration time.
 After receiving and processing (P) the very first frame at $t_0$, it starts reconfiguration (C) to a new model.
 Since the sum of the reconfiguration and processing time does not exceed the frame time ($t_{n+1} - t_{n})$, the frame processing latency (L) is equal for every incoming frame.
 The invariant latency is desired and indicates a seamless reconfiguration.
@@ -44,20 +46,19 @@ Since the latency varies, this is an example of a non-seamless reconfiguration.
 
 We calculate the required effective bandwidth for configuring model $m$ with \cref{eq:multiple_models_bandwidth}.
 \begin{equation}
-    B_m = \frac{D_m}{f^{-1} - L_m}
+    \bandwidth_m = \frac{d_m}{f^{-1} - l_m}
     \label{eq:multiple_models_bandwidth}
 \end{equation}
-% TODO change these variable names
 
 \begin{eqexpl}[15mm]
-    \item{$B_m$} required effective bandwidth for writing model $m$
-    \item{$D_m$} amount of bytes to write for model $m$
+    \item{$\bandwidth_m$} required effective bandwidth for writing model $m$
+    \item{$d_m$} amount of bytes to write for model $m$
     \item{$f$} input frame rate
-    \item{$L_m$} frame processing latency for model $m$
+    \item{$l_m$} frame processing latency for model $m$
 \end{eqexpl}
 
 In the worst-case scenario, we have to configure the \graicore{} with a model requiring to write the total capacity of the \graicore{} (\SI{36}{\mebi\byte}).
-We require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$, assuming the model's processing time is \SI{5}{ms}.
+In this particular instance, we require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$, assuming the model's processing time is \SI{5}{ms}.
 % Note that this bandwidth number does not include any overhead induced by communication protocols. Therefore, in practice, the required minimum bandwidth is higher. 
 This bandwidth calculation provides a baseline for the effective bandwidth.
 In practice, the actual bandwidth needed will be higher due to overhead introduced by various factors, including the specific communication protocol(s) used.
@@ -99,8 +100,8 @@ At a frame rate of $\SI{200}{FPS}$, the time budget is exactly zero, indicating 
     \label{fig:frame_rate_versus_time_budget}
 \end{figure}
 
-If we have a set of different models (with different sizes and processing times) we want to switch between, the system needs to be able to reach the highest required writing bandwidth:
+If we have a set of different models (with varying sizes and processing times) we want to switch between, the system needs to be able to reach the highest required writing bandwidth:
 \begin{equation}
-    B = \max\{\,m \in M \mid B_m \,\} 
+    \bandwidth = \max\{\,m \in M \mid \bandwidth_m \,\} 
 \end{equation}
 

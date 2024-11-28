@@ -1,16 +1,16 @@
 \section{Large model}
 The memory capacity of the \graicore{} is limited to \SI{36}{MiB}.
-Large models have high memory requirements, exceeding the memory capacity of the \graicore{}, even after applying model optimizations.
-This limitation has a major implication and that is the inability to deploy such large models.
+Large models have high memory requirements, exceeding its memory capacity, even after applying model optimizations.
+The inability to deploy such large models is a consequence of this limitation
 
 We employ splitting of a large model into groups of layers to allow for a large model to be partitioned in parts.
 Each part is expected to fit on the \graicore{} and whenever the large model is invoked for execution, each part configured and processed by the \graicore{} sequentially.
 
-When targeting minimal inference latency, we acknowledge that a optimal partitioning strategy for an arbitrary large model is a complex problem to solve.
+When targeting minimal inference latency, we acknowledge that an optimal partitioning strategy for an arbitrary large model is a complex problem to solve.
 Therefore, we start with presenting the problem formally.
 % In \cref{ch:8}, we present a comprehensive formal description of the problem.
 
-\subsection{Large model partitionnig}
+\subsection{Large model partitioning}
 We formulate the problem of model partitioning as a multi-objective optimization, aiming to minimize the total inference time while adhering to memory constraints.
 
 With the following given:
@@ -83,14 +83,14 @@ The primary focus is on layer-wise partitioning, where the model is divided into
 We do not explore alternative techniques such as tensor partitioning or pipeline execution (where configuration and processing are executed in parallel), which might offer advantages in certain scenarios.
 This approach is chosen for its relative simplicity and its ability to preserve the inherent structure of the original model, ensuring functional correctness and minimizing the potential of accuracy degradation.
 
-We focus on static partitioning, where the partitioning scheme is determined before runtime.
-Furthermore, we treat the compiler for the \graicore{} as a black box, focusing on exploring the effects of adjusting available compiler parameters on energy consumption and inference latency.
+Additionally, we focus on static partitioning, where the partitioning scheme is determined before runtime.
+Also, we treat the compiler for the \graicore{} as a black box, focusing on exploring the effects of adjusting available compiler parameters on inference latency.
 
 We acknowledge that our model of the \graicore{} simplifies certain aspects of the hardware.
 For instance, we represent the \graicore{}'s SRAM memory as one large memory, while in reality, it is comprised of $144$ smaller SRAMs.
 
 Lastly, our focus is on partitioning strategies where each partition is executed only once in a sequential manner.
-While we acknowledge the potential benefits like data reuse and reduced configuration overhead of executing the same partition multiple times in sequence (e.g., for models with recurrent connections), exploring such strategies is beyond the scope of this current work.
+While we acknowledge the potential benefits like data reuse and reduced configuration overhead of executing the same partition multiple times in sequence (e.g., for models with recurrent connections), exploring such strategies is beyond the scope of this work.
 
 %%%
 % In this section, we analyze the execution of such large models.
@@ -124,7 +124,6 @@ We estimate the maximum reachable input frame rate ($f$) as follows:
 For example, assume we have a large model partitioned into four parts with each part requiring \SI{20}{MiB} to be written and has \SI{5}{ms} of processing latency.
 The total latency is then only dependent on the available bandwidth, as it influences the configuration time:
 \begin{equation*}
-    % L = \left( \frac{\SI{20}{MiB}}{\textrm{BW}} + \SI{5}{ms} \right) \times 4
     f = \left[ \left( \frac{\SI{20}{MiB}}{\textrm{BW}} + \SI{5}{ms} \right) \times 4 \right]^{-1}
 \end{equation*}
 
@@ -156,10 +155,13 @@ The ResNet-101 model has around 44.5 million parameters in total.
 
 Due to the size (amount of parameters) of the ResNet-101 model, it is not possible to load the model on the \graicore{} at once.
 This is still the case when the parameters are quantized using a lower-resolution data type 8-bit integers or floats.
-Other solutions, such as model compression techniques exist to decrease the size of the model.
-However, as explained earlier, this has its disadvantages such as decreased inference accuracy.
+% Other solutions, such as model compression techniques, exist to decrease the size of the model.
+% However, as explained earlier, this has its disadvantages such as decreased inference accuracy.
+Other model compression techniques can be applied to offer a way to reduce model size.
+However, this advantage often comes with a trade-off, leading to decreased inference accuracy as previously discussed.
 
 % TODO: refer to the DEFER paper
+% layer-wise partitiong figure
 % \begin{figure}[hbtp]
 %     \centering    
 %     \includegraphics[width=3cm]{example-image-a}
@@ -171,8 +173,7 @@ A model part should be small enough to completely fit on the \graicore{}
 By sequentially loading and processing each of the model parts, the full functionality of the original (large) model can be emulated.
 The output data of each model part must be buffered outside the local memories, and will be used as input for the subsequent model part.
 The amount of data to be buffered is dependent on the output shape of the final layer of a part.
-
-% Due to ResNet's extensive use of skip connections, it is not straightforward to split/partition the model at any location. We therefore only consider locations in the network where it is easy to split. In most cases this is at locations right before or after a split connection.
+% TODO where are they stored?
 
 \begin{figure}[hbtp]
     \centering
@@ -222,7 +223,7 @@ Naturally, the main drawback of this is the reduced number of locations where pa
 \end{figure}
 
 The ResNet-101 model contains five so-called stages.
-A stage is a collection of consecutive layers.
+A stage is a collection of consecutive residual blocks.
 Only the first stage does not include any residual blocks.
 The other stages contain different amounts of residual blocks as shown in \cref{fig:resnet101_stats}.
 
@@ -260,12 +261,13 @@ Since it accepts many parameters that affects the processing latency, it is diff
 In a nutshell, the compiler first optimizes the model by converting it to a so-called \textit{GrAI Model}.
 Among other things, the optimized model slightly changes the architecture of the network and optionally performs post training quantization \autocite{krishnamoorthiQuantizingDeepConvolutional2018} for the weights.
 The amount of MACs and parameters stay roughly the same.
-Afterwards, it will map the layers of the model to the neuron cores.
 % The compiler can be instructed to optimize for inference latency.
+The compiler can be instructed to perform certain optimizations for inference latency.
+Afterwards, it will map the layers of the model to the neuron cores.
 % One of the optimization is, for example, mapping a single layer to multiple neuron cores to exploit parallelism.
 
 % One example partitioning is done as follows.
-The following example illustrates a partitioning method.
+The following example illustrates a partitioning scheme.
 The splitting points are performed right after the following residual blocks: $(4, 6)$, $(4, 12)$, $(4,21)$ and $(5,1)$.
 These splitting points were chosen such that each part contains a chunk of the total parameters with sufficient room to spare for other necessary data.
 The ResNet-101 model is therefore partitioned in five parts.
