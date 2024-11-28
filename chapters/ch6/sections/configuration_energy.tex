@@ -1,5 +1,5 @@
 \section{Configuration energy}
-Since we have access to various energy parameters for the DDR interface, we will use DDR interface as an example.
+Since we have access to various energy parameters for the DDR interface, we will use the DDR interface as a running example.
 
 \begin{figure}[hbtp]
     \centering
@@ -34,10 +34,10 @@ A typical system with DDR as external memory looks as shown in \cref{fig:ddr_gra
     This component is responsible for managing all memory operations.
     It acts as an intermediary between the \graicore{} and the memory device, translating the requests from the \graicore{}, such as read and write requests, into the specific control signals required by the memory device.
     The DDR controller also manages essential functions like memory refresh, power management and error correction.
-    \item[AXI bus:] 
+    \item[AXI Bus:] 
     The AXI bus (Advanced eXtensible Interface) is a standardized, high-performance interconnect used to connect different components within a SoC.
     It enables parallel data transfer, facilitating high bandwidth and low latency communication between the components.
-    Specifically, we explore AXI 4.0.
+    % Specifically, we explore AXI 4.0.
     \item[\graicore{}:] 
     The major components of the \graicore{} that contributes to the configuration energy is the data transfers through its \confignoc{} and the writing of data to the SRAMs.
 \end{description}
