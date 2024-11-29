@@ -21,14 +21,21 @@ However, increasing the size of the packet will not always offer a considerable 
 To obtain an approximation of the potential speed gains when transferring \SI{36}{MiB} to the \graicore{}, we use \cref{eq:latency}.
 The amount of overhead can be calculated with \cref{eq:length_field_overhead}.
 
+% \begin{equation}
+%     d_{\text{overhead}} = \frac{d_{\text{payload}}}{n} \times \frac{d_{\text{header}}}{w_{\text{phit}}}
+% \label{eq:length_field_overhead}
+% \end{equation}
+
 \begin{equation}
-    d_{\text{overhead}} = \frac{d_{\text{payload}}}{n} \times \frac{d_{\text{header}}}{w_{\text{phit}}}
+    d_{\textrm{overhead}} = \frac{d_{\textrm{payload}}}{n \times w_\textrm{phit}} \times d_\textrm{header}
 \label{eq:length_field_overhead}
 \end{equation}
 
+% TODO this formula does not include how many cores we are transferring to
+
 \begin{eqexpl}[15mm]
     \item{$n$} maximum number of data phits per packet
-    \item{$d_{\text{header}}$} size of the header
+    \item{$d_{\text{header}}$} size of a header
 \end{eqexpl}
 
 Optimal latency can be achieved by taking the largest value for $n$.
@@ -114,6 +121,7 @@ With this approach, we can calculate the latency with \cref{eq:latency}, using $
     d_{\text{overhead}} = \frac{d_{\text{payload}}}{w_{phit} - 1} + d_{\text{header}}
 \label{eq:end_bit_overhead}
 \end{equation}
+% TODO this formula does not include how many cores we are transferring to
 
 \Cref{tab:end_bit_latency} show the latency numbers for three different phit widths.
 Notice that the latency numbers are similar to the optimal latencies as in the ``length field'' approach. 

@@ -78,7 +78,7 @@ The configuration energy consists of the reading, transferring and writing of da
 
 Let $C$ be the set of tuples holding the coordinates of every core:
 \begin{equation*}
-    C = \{\,\left(x,y\right) \in \mathbb{N}^2 \mid 0 \leq x \leq 12 \wedge 0 \leq y \leq 11 \,\} 
+    C = \{\,\left(x,y\right) \in \mathbb{N}^2 \mid 0 \leq x \leq 11 \wedge 0 \leq y \leq 11 \,\} 
 \end{equation*}
 
 \Cref{fig:model_data_heapmap} shows for an $80\%$ pruned version of ResNet-50 the amount of data that needs to be written to each of the 144 neuron cores.
@@ -147,4 +147,55 @@ And:
     \item{$\ehop$} energy for performing a single hop in the \confignoc{}
     \item{$\esramwrite$} energy for writing back 64 bits to a neuron core's SRAM
 \end{eqexpl}
+
+
+% The total energy cost for configuring the \graicore{} can be estimated with the following equation:
+% \begin{equation}
+%     \econf = \eread + \ephy + \ectrl + \eaxi + \enoc + \ewrite
+% \end{equation}
+
+% With:
+% \begin{align*} 
+% \eread &= 
+%     \sum_{c \in C}^{} D_c \times E_{read\_byte} \\
+% \ephy &=
+%     \sum_{c \in C}^{} D_c \times E_{phy\_byte} \\
+% \ectrl &=
+%     \sum_{c \in C}^{} D_c \times E_{ctrl\_byte} \\
+% \eaxi &=
+%     \sum_{c \in C}^{} D_c \times E_{axi\_byte} \\
+% \enoc &=
+%     E_{hop\_64} \times \sum_{c \in C}^{}{\nhops(c) \times \ptotal(D_c)} \\
+% \ewrite &=
+%     E_{write\_64} \times \sum_{c \in C}^{}{\pdata(D_c)}
+% \end{align*}
+
+% And:
+% \begin{align*} 
+% \nhops(x,y) &=
+%     \begin{cases} 
+%         x + y & \textrm{if } 0 \leq y \leq 5 \\
+%         x + y - 6 & \text{if } 6 \leq y \leq 11
+%     \end{cases}
+% \\
+% \ptotal(d) &=
+%     \left\lfloor \frac{d}{512} \right\rfloor \times (64 + 1) + \left\lceil \frac{d \bmod 512}{8} \right\rceil + 1 =
+%     \left\lceil \frac{d}{8} \right\rceil + \left\lfloor \frac{d}{512} \right\rfloor + 1 
+% \\
+% \pdata(d) &=
+%     \left\lfloor \frac{d}{512} \right\rfloor \times 64 + \left\lceil \frac{d \bmod 512}{8} \right\rceil =
+%     \left\lceil \frac{d}{8} \right\rceil
+% \end{align*}
+
+% \begin{eqexpl}[30mm]
+%     \item{$\ptotal(D_c)$} total phits (includes headers) for transferring $D_c$ bytes
+%     \item{$\pdata(D_c)$} total data phits (excludes headers) for transferring $D_c$ bytes
+%     \item{$\nhops(c)$} the amount of hops required to reach a neuron core at coordinate $c$, starting from the router closest to the injection point. It has two sub-functions due to the new \confignoc{}'s dual injector architecture
+%     \item{$E_{read\_byte}$} energy for reading a single byte from the external memory device
+%     \item{$E_{phy\_byte}$} energy for transferring a single byte using the DDR PHY
+%     \item{$E_{ctrl\_byte}$} energy for transferring/processing a single byte by the DDR controller
+%     \item{$E_{axi\_byte}$} energy for transferring a single byte using the AXI bus
+%     \item{$E_{hop\_64}$} energy for performing a single hop of 64 bits in the \confignoc{}
+%     \item{$E_{write\_64}$} energy for writing back 64 bits to a neuron core's SRAM
+% \end{eqexpl}
 
