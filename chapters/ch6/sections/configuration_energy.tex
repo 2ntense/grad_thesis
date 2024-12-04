@@ -6,7 +6,7 @@ The configuration energy is the energy consumed when transferring a model from t
 We explore the potential of integrating the DDR interface as a future external memory solution for the \graicore{}.
 The integration of a DDR interface could bring about substantial benefits in performance.
 Its high bandwidth has the potential to rapidly transfer AI models between the off-chip and on-chip memory, leading to faster configuration times.
-Moreover, DDR memory, such as LPDDR5X, is designed with energy efficiency in mind, which contributes to low-power operations.
+Moreover, DDR memory, such as LPDDR5X \cite{JEDEC_JESD209-5C}, is designed with energy efficiency in mind, which contributes to low-power operations.
 This type of DRAM offers high density, providing the possibility for accommodating more and larger AI models on a smaller silicon area.
 This makes DDR a promising solution for model (re)configuration on the \graicore{}.
 
@@ -29,7 +29,7 @@ This makes DDR a promising solution for model (re)configuration on the \graicore
     \centering
     \includegraphics[width=\linewidth]{assets/ddr_graicore_block_diagram.pdf}
     \caption{
-        Interconnection of the DDR memory device and \graicore{}
+        Interconnection of the external memory device and \graicore{}
     }
     \label{fig:ddr_graicore_block_diagram}
 \end{figure}
@@ -49,7 +49,7 @@ A typical system with external memory and DDR interface looks as shown in \cref{
     It acts as an intermediary between the \graicore{} and the memory device, translating the requests from the \graicore{}, such as read and write requests, into the specific control signals required by the memory device.
     The DDR controller also manages essential functions like memory refresh, power management and error correction.
     \item[AXI Bus:] 
-    The AXI bus (Advanced eXtensible Interface) is a standardized, high-performance interconnect used to connect different components within a SoC.
+    The AXI bus (Advanced eXtensible Interface) is a standardized, high-performance interconnect used to connect different components within a SoC \cite{ARM_AXI_Specification}.
     It enables parallel data transfer, facilitating high bandwidth and low latency communication between the components.
     % Specifically, we explore AXI 4.0.
     \item[\graicore{}:] 
