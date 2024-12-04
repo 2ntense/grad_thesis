@@ -1,20 +1,31 @@
 \section{Processing energy}
-The processing energy is the energy consumed when the \graicore{} is processing input frames.
+%TODO explain what processing energy entails
+The processing energy is the energy consumed when the \graicore{} is processing an input frame with a specific configured model.
 Note that the \graicore{} uses the \eventnoc{} for communication between nodes when processing input frames, the \confignoc{} is not involved in this process.
 
 The processing energy can be estimated with the following equation:
 \begin{equation}
-    \eproc = \textrm{avg\_util} \times \textrm{cores\_used} \times \textrm{processing\_latency} \times \textrm{core\_power}
+    \eproc = \latproc \times \coresused \times \avgutil \times \pcore
 \end{equation}
+\eqexplSetIntro{where:}
+\eqexplSetItemWidth{6em}
+\begin{eqexpl}
+    \item{$\latproc$} processing latency of single frame.
+    \item{$\coresused$} number of neuron cores used to execute the model.
+    \item{$\avgutil$} average utilization of all used neuron cores while a frame is processed.
+    \item{$\pcore$} average processing power consumption of a single neuron core.
+\end{eqexpl}
 
 These parameters can be obtained by simulating the mapped model with the proprietary performance simulator.
-Processing latency (\textrm{processing\_latency}) is the time the model takes to fully process a single frame, from input to output.
-Cores used (\textrm{cores\_used}) is the amount of neuron cores that were used to execute the model.
-Average utilization (\textrm{avg\_util}) is the average percentage of the time the cores were active while the frame was processed. 
+The processing latency ($\latproc$) is the time the model takes to fully process a single frame, from input to output.
+Cores used ($\coresused$) is the amount of neuron cores that were used to execute the model.
+Average utilization ($\avgutil$) is the average percentage of the time the cores were active while the frame was processed. 
 % The constant \SI{21}{mW} is the approximated power usage of a single neuron core while it's being fully utilized.
-Average core power (\textrm{core\_power}) is the average power a single neuron core consumes while performing inference on a frame.
+Average core power ($\pcore$) is the average power a single neuron core consumes while performing inference on a frame.
 The average core power varies depending on what type of neural network is being processed.
 
 Since the \confignoc{} is not involved in the processing of an input frame, any change to the \confignoc{} does not influence the processing energy.
 A significant factor (other than hardware changes) that may affect the processing energy is the mapping performed by the compiler on the original model. 
 Different mappings on the same model have an effect on the average utilization and the number of neuron cores used, which in turn influences the processing latency.
+
+% TODO explain that this equation is not very accurate

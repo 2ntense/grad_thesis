@@ -6,9 +6,9 @@
 To develop a preliminary understanding of the energy contributions of the model reconfiguration from external memory, we evaluate a variety of realistic and applicable models.
 We will be looking at two different external memory technologies, LPDDR5X and PCM.
 LPDDR5X is chosen for its high bandwidth and density, while PCM is selected for its potential to reduce energy consumption due to its non-volatility.
-We assume we use the DDR protocol for transferring data to the AXI bus that is connected to the \graicore{}.
-For the DDR protocol to work, we require an DDR PHY and DDR controller.
-These components both add to the energy when transferring data to the \graicore{}.
+We use the DDR interface described in \cref{section:configuration_energy} for transferring data to the AXI bus that is connected to the \graicore{}.
+% For the DDR protocol to work, we require an DDR PHY and DDR controller.
+% These components both add to the energy when transferring data to the \graicore{}.
 
 % \begin{table}[hbtp]
 %     \centering
@@ -38,12 +38,18 @@ These components both add to the energy when transferring data to the \graicore{
 %     \label{tab:energy_parameters}
 % \end{table}
 
+The energy parameters for each of the components are derived through a combination of low-level simulations, hardware measurements, and datasheet analysis.
+Low-level simulations and on-chip measurements provided granular energy consumption data for the DDR PHY, DDR controller, \confignoc{} and SRAM.
+For the LPDDR5X memory, where such detailed analysis was not possible, the energy parameter for reading from the memory was extracted from a datasheet of a commercially available memory module.
+The read energy of PCM was obtained through analysis of a custom-designed PCM architecture.
+These parameters enable us to estimate configuration energy consumption, including data reads from external memory, transfers of the data to the SRAMs, and the writing of the data the the SRAMs.
+
 We look at the models as shown in \cref{tab:example_models_stats}.
 It also shows the processing latency, the number of cores used and the average utilization of the cores of each (mapped) model.
 These statistics are used for computing the processing energy.
 The ``to write'' column shows the total amount of bytes that is to be transferred to the \graicore{} for the corresponding model.
 Note that to get a more accurate energy number for configuration, we need the amount of bytes to be transferred to each core individually.
-This information is available, and will be used for the evaluation.
+This information is obtained from the compiler artifacts, and will be used for the evaluation.
 
 \begin{table}[hbtp]
 \centering
@@ -82,8 +88,8 @@ resnet101\_pruned\_p4   & 2.437                                                 
 % \end{equation}
 
 \Cref{fig:model_data_heapmap} shows for the mapped ResNet-50 the amount of data to be sent to each individual core.
-We use this information to construct matrix $D$ and the configuration energy $\econf$.
-Finally, we compute the values as presented in \cref{fig:resnet50_conf_energy_distribution}.
+We use this information to construct matrix $D$ and compute the configuration energy $\econf$.
+Finally, we obtain the values as presented in \cref{fig:resnet50_conf_energy_distribution}.
 % Finally, we compute the values as presented in \cref{tab:resnet50_energy}.
 % Configuration with LPDDR5X of the ResNet-50 model on the \graicore{} consumes \SI{1.71}{mJ} and with PCM \SI{0.76}{mJ}.
 
@@ -125,8 +131,19 @@ Finally, we compute the values as presented in \cref{fig:resnet50_conf_energy_di
 \end{figure}
 
 % Looking at the configuration energy, with LPDDR5X, most of the energy is consumed by reading from the external memory (see \cref{fig:resnet50_conf_energy_distribution}).
-Looking at the configuration energy, with LPDDR5X, most of the energy is consumed by reading from the external memory.
-While for PCM, most of the energy is consumed by the DDR PHY.
+% Looking at the total configuration energy, with the LPDDR5X memory, most of the energy is consumed by reading from the external memory ($\eread$).
+% Looking at the total configuration energy, with the LPDDR5X memory, the majority (65\%) of the energy is consumed by reading from the external memory ($\eread$).
+% While for PCM, most of the energy (43\%) is consumed by the DDR PHY ($\ephy$).
+
+% Looking at the total configuration energy, with the LPDDR5X memory, read operations are the primary energy consumer, accounting for 65\% of the total configuration energy.
+% This highlights the importance of optimizing read efficiency in LPDDR5X-based systems.
+% For the PCM, the DDR PHY is the most energy-intensive component, consuming around 43\% of the total configuration energy.
+
+We observe that with LPDDR5X memory, read operations dominate the energy consumption (65\%), whereas in PCM, the DDR PHY is the most energy-intensive (43\%).
+Notably, PCM exhibits a much higher proportion of energy dedicated to the DDR PHY compared to LPDDR5X.
+The AXI bus also represents a significant energy consumer in both, though more prominentlyh in PCM (25\% vs 11\%).
+Based on the relative energy distribution shown, potential avenues for improving energy efficiency may include optimizing read operations in LPDDR5X and the DDR PHY in PCM.
+However, further investigation with absolute energy measurements is needed to confirm the effectiveness of these strategies.
 
 \begin{figure}[hbtp]
     \centering
@@ -141,8 +158,18 @@ While for PCM, most of the energy is consumed by the DDR PHY.
     \label{fig:resnet50_conf_proc}
 \end{figure}
 
-Shown in \cref{fig:resnet50_conf_proc}, the configuration of the ResNet-50 model occupies around 21\% with LPDDR5X and 11\% with PCM of the total energy consumption (this includes both processing and configuration).
-Of all the models listed in \cref{tab:example_models_stats}, on average, around 23\% is used for configuration with LPDDR5X memory and 12\% with PCM as external memory (see \cref{fig:example_models_avg_conf_proc}).
+% Shown in \cref{fig:resnet50_conf_proc}, the configuration of the ResNet-50 model occupies around 21\% with LPDDR5X and 11\% with PCM of the total energy consumption (this includes both processing and configuration).
+When looking at both the configuration and processing energy, \cref{fig:resnet50_conf_proc} provides insight into the total energy consumption profile of the ResNet-50 model.
+LPDDR5X dedicates 21\% of its total energy budget to configuration, a substantial portion that suggests significant energy expenditure in setting up the model.
+In contrast, PCM exhibits a remarkably lower proportion, with only 11\% dedicated to configuration.
+% This disparity underscores a potential advantage of PCM in scenarios with large amounts of data to be transferred, where minimizing configuration energy becomes crucial.
+
+% Of all the models listed in \cref{tab:example_models_stats}, on average, around 23\% is used for configuration with LPDDR5X memory and 12\% with PCM as external memory (see \cref{fig:example_models_avg_conf_proc}).
+
+\cref{fig:example_models_avg_conf_proc} broadens our perspective by showing the average energy consumption distribution across a variety of models listed in \cref{tab:example_models_stats}.
+This provides a more generalized view of the energy characteristics of LPDDR5X and PCM.
+Interestingly, the trend observed in the ResNet-50 model persists: PCM dedicates a smaller proportion of energy to configuration (12\%) compared to LPDDR5X (23\%).
+This reinforces the idea that PCM might offer energy efficiency advantages in scenarios where minimizing configuration energy is a priority
 
 \begin{figure}[hbtp]
     \centering
@@ -188,3 +215,8 @@ In \cref{ch:7}, we explore techniques for increasing configuration efficiency.
 %     \label{tab:example_models_power_consumption}
 % \end{table}
     
+These findings provide valuable insights into the dynamic energy consumption of LPDDR5X and PCM across different models, highlighting the potential of PCM for reduced configuration energy.
+However, it is important to emphasize that this analysis focused solely on dynamic energy, which is the energy consumed during active operation.
+To gain a complete understanding of the energy efficiency of these technologies, further investigation into static energy consumption is necessary.
+Static energy refers to the energy consumed even when the system is idle, and it can contribute significantly to the overall energy budget.
+By considering both dynamic and static energy, a more comprehensive and accurate comparison of LPDDR5X and PCM can be achieved, guiding the development of an energy-efficient memory solutions.

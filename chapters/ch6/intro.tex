@@ -1,6 +1,17 @@
 To obtain an insight into the energy consumption with the introduction of the \confignoc{} changes in \cref{ch:5} and model configuration using external memory we will provide a comprehensive analysis.
 
-When configuring the \graicore{} and processing an input frame, the major components that consume energy are as follows:
+The investigation presented specifically targets dynamic energy consumption.
+This focus allows for a detailed analysis of the energy efficiency of fundamental memory operations, including read/write accesses and data transfers.
+By characterizing the dynamic energy profiles, this study aims to identify key areas for potential optimization and energy reduction.
+
+It is important to note that this study is limited to dynamic energy consumption and does not consider static energy.
+Static energy, the energy consumed when the system is in an idle state, involves a separate set of complex factors, such as leakage currents and power gating techniques \cite{haj-yahyaStaticPowerModeling2018}.
+Due to the intricacies associated with static energy analysis, it falls outside the defined scope of this study, which prioritizes a thorough examination of dynamic energy behaviors.
+However, the potential contribution of static energy to the overall energy budget is acknowledged.
+
+A comprehensive understanding of energy efficiency necessitates investigating static energy consumption, which remains an important area for future research.
+
+When configuring the \graicore{} with a model and processing an input frame with a model, the major components that consume energy are as follows:
 \begin{itemize}
     \item Configuration
     \begin{itemize}
