@@ -73,7 +73,7 @@ These AXI transactions, carrying the data payload, are then transmitted over the
 This bus acts as a primary interconnect, facilitating high-bandwidth data movement between different modules within the \graicore{}.
 The AXI transactions traverse the AXI bus until they reach the entry point of the \confignoc{}.
 
-At the \confignoc{}'s entry point, the data undergoes a transformation into a packetized format, as detailed in \cref{TODO}.
+At the \confignoc{}'s entry point, the data undergoes a transformation into a packetized format, as detailed in \cref{section:improved_packet_format}.
 This packetization process prepares the data for efficient transmission across the \confignoc{}, which employs packet-switching mechanisms for data routing and delivery.
 The \confignoc{}'s routing logic analyzes the packet headers and determines the optimal path to the designated destination within the \graicore{}.
 The packets traverse the \confignoc{}, potentially hopping between multiple routers and links, until they arrive at the target neuron core.
