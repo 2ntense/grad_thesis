@@ -1,0 +1,78 @@
+\begin{tikzpicture}[
+    neuron/.style={circle,fill=blue!20,draw=black,minimum size=17pt,inner sep=0pt},
+    input/.style={neuron, fill=green!20},
+    output/.style={neuron, fill=red!20},
+    hidden/.style={neuron, fill=blue!20},
+    weight/.style={->,>=stealth'},
+    part/.style={dashed, black, fill=gray!15}
+]
+
+\draw[part] (-0.65,0.15) rectangle (3.65,-5.15);
+\draw[part] (3.85,0.15) rectangle (6.65,-5.15);
+\draw[part] (6.85,0.15) rectangle (11.15,-5.15);
+
+\draw (1.5,0.5) node {Part 1};
+\draw (5.25,0.5) node {Part 2};
+\draw (9,0.5) node {Part 3};
+
+% Input layer
+\foreach \name / \y in {1,...,4}
+  \node[input] (I-\name) at (0,-\y) {};
+
+% Hidden layer 1
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H1-\name) at (1.5,-\y+0.5) {};
+
+% Hidden layer 2
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H2-\name) at (3,-\y+0.5) {};
+
+% Hidden layer 3
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H3-\name) at (4.5,-\y+0.5) {};
+
+% Hidden layer 4
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H4-\name) at (6,-\y+0.5) {};
+
+% Hidden layer 5
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H5-\name) at (7.5,-\y+0.5) {};
+
+% Hidden layer 6
+\foreach \name / \y in {1,...,5}
+  \node[hidden] (H6-\name) at (9,-\y+0.5) {};
+
+% Output layer
+\foreach \name / \y in {1,...,4}
+  \node[output] (O-\name) at (10.5,-\y) {};
+
+\foreach \source in {1,...,4}
+  \foreach \dest in {1,...,5}
+    \path[weight] (I-\source) edge (H1-\dest);
+
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,5}
+    \path[weight] (H1-\source) edge (H2-\dest);
+
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,5}
+    \path[weight] (H2-\source) edge (H3-\dest);
+    
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,5}
+    \path[weight] (H3-\source) edge (H4-\dest);
+
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,5}
+    \path[weight] (H4-\source) edge (H5-\dest);
+
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,5}
+    \path[weight] (H5-\source) edge (H6-\dest);
+
+\foreach \source in {1,...,5}
+  \foreach \dest in {1,...,4}
+    \path[weight] (H6-\source) edge (O-\dest);
+
+\end{tikzpicture}

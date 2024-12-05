@@ -3,8 +3,15 @@ The memory capacity of the \graicore{} is limited to \SI{36}{MiB}.
 Large models have high memory requirements, exceeding its memory capacity, even after applying model optimizations.
 The inability to deploy such large models is a consequence of this limitation
 
-We employ splitting of a large model into groups of layers to allow for a large model to be partitioned in parts.
+We employ splitting of a large model into groups of layers to allow for a large model to be partitioned in parts (see \cref{fig:ann_partitioning_example}).
 Each part is expected to fit on the \graicore{} and whenever the large model is invoked for execution, each part configured and processed by the \graicore{} sequentially.
+
+\begin{figure}[hbtp]
+    \centering    
+    \input{assets/ann_partitioning_example.tex}
+    \caption{Example of a neural network partitioned into three distinct parts}
+    \label{fig:ann_partitioning_example}
+\end{figure}
 
 When targeting minimal inference latency, we acknowledge that an optimal partitioning strategy for an arbitrary large model is a complex problem to solve.
 Therefore, we start with presenting the problem formally.
