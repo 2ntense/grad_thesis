@@ -53,7 +53,7 @@ A typical system with external memory and DDR interface looks as shown in \cref{
     It enables parallel data transfer, facilitating high bandwidth and low latency communication between the components.
     % Specifically, we explore AXI 4.0.
     \item[\graicore{}:] 
-    The major components of the \graicore{} that contributes to the configuration energy is the data transfers through its \confignoc{} and the writing of data to the SRAMs.
+    The major components of the \graicore{} that contribute to the configuration energy is the data transfers through its \confignoc{} and the writing of data to the SRAMs.
 \end{description}
 
 The model reconfiguration process is initiated by an external host, typically a microcontroller.
@@ -100,7 +100,7 @@ The configuration time is calculated by dividing the amount of data with the wri
 % The configuration time is used for computing the energy for the \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus}.
 
 The amount of data to be written and to which neuron cores depends on how the compiler has performed the mapping on the \graicore{}. % explain
-Phits that needs to be transferred to neuron cores further away from an injection point will require more hops to reach, and therefore consume more energy than neuron cores closer to an injection point.
+Phits that need to be transferred to neuron cores further away from an injection point will require more hops to reach, and therefore consume more energy than neuron cores closer to an injection point.
 Furthermore, the amount of data that needs to be written to each core differs.
 We can retrieve this information from the compiler artifacts.
 

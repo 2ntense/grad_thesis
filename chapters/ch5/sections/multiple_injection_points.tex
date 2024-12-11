@@ -11,6 +11,8 @@ To maximize the throughput, the zones should not overlap with each other.
 Otherwise, traffic originating from two different sources may cause congestion in the network. 
 As a result of this change, the total bandwidth will increase, lowering the end-to-end latency.
 
+Outside the \graicore{}, 
+
 We study the effects on performance when introducing multiple injection points.
 For three different phit widths and a variety of zones, we compute the latency for sending \SI{36}{MiB} to the \graicore{}.
 The results are shown in \cref{fig:zones_vs_latency_vs_phit_width} for the current and new packet format.

@@ -95,6 +95,8 @@ Also, we treat the compiler for the \graicore{} as a black box, focusing on expl
 
 We acknowledge that our model of the \graicore{} simplifies certain aspects of the hardware.
 For instance, we represent the \graicore{}'s SRAM memory as one large memory, while in reality, it is comprised of $144$ smaller SRAMs.
+This simplification implies that the entire capacity of the \graicore{}, $M$, could theoretically be written to a single SRAM.
+However, the \textit{mappability} constraint ensures that the data written to any individual SRAM does not exceed its capacity.
 
 Lastly, our focus is on partitioning strategies where each partition is executed only once in a sequential manner.
 While we acknowledge the potential benefits like data reuse and reduced configuration overhead of executing the same partition multiple times in sequence (e.g., for models with recurrent connections), exploring such strategies is beyond the scope of this work.
@@ -266,7 +268,7 @@ Note that the compiler is a complex piece of software.
 Since it accepts many parameters that affects the processing latency, it is difficult to find an optimal mapping. 
 % The in-house compiler for the \graicore{} is complex and we will not get into detail.
 In a nutshell, the compiler first optimizes the model by converting it to a so-called \textit{GrAI Model}.
-Among other things, the optimized model slightly changes the architecture of the network and optionally performs post training quantization \autocite{krishnamoorthiQuantizingDeepConvolutional2018} for the weights.
+Among other things, the optimized model adapts the architecture of the neural network to prepare it for mapping for the \graicore{} and optionally performs post training quantization \autocite{krishnamoorthiQuantizingDeepConvolutional2018} for the weights.
 The amount of MACs and parameters stay roughly the same.
 % The compiler can be instructed to optimize for inference latency.
 The compiler can be instructed to perform certain optimizations for inference latency.
@@ -279,7 +281,7 @@ The splitting points are performed right after the following residual blocks: $(
 These splitting points were chosen such that each part contains a chunk of the total parameters with sufficient room to spare for other necessary data.
 The ResNet-101 model is therefore partitioned in five parts.
 The compiler is able to compile each of the parts, indicating that they are configurable and executable on the \graicore{}.
-The processing latency for each of the parts are then estimated using the performance simulator.
+The processing latency for each of the parts is then estimated using the performance simulator.
 
 An attempt has been made to instruct the compiler to optimize the parts for processing latency.
 The compiler parameters have a significant influence on the end results of a model part.

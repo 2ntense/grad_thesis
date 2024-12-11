@@ -4,24 +4,32 @@ The \graicore{} utilizes the ``NeuronFlow'' technology that is inspired by the n
 The \graicore{} prioritizes energy efficiency while offering specialized hardware for execution of neural networks. 
 Its main use case is computer vision applications using models based on convolutional neural networks (CNNs).
 It features a total of 144 neuron cores, arranged in a 12 by 12 grid.
-A neuron core includes a local SRAM memory for storing data such as model parameters and a processing element for performing mathematical operations (see \cref{fig:neuron_core}).
+% A neuron core includes a local SRAM memory for storing data such as model parameters and a processing element for performing mathematical operations (see \cref{fig:neuron_core}).
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.4\textwidth]{assets/neuron_core.pdf}
-    \caption{The neuron core includes a processing element (core) and a local memory (a.k.a. unified memory)}
-    \label{fig:neuron_core}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.4\textwidth]{assets/neuron_core.pdf}
+%     \caption{The neuron core includes a processing element (core) and a local memory (a.k.a. unified memory)}
+%     \label{fig:neuron_core}
+% \end{figure}
+
+Each neuron core is connected to a distinct SRAM, which stores all the relevant information for processing incoming events.
+A neuron core uses an event processing pipeline to handle incoming events from an input sensor or other neuron cores.
+These events include the input data or activation data of the previous stage.
+For each event received, relevant information is retrieved from the SRAM (such as weights) to instruct the arithmetic logic unit (ALU) to perform the necessary logical operations.
+Each event can result in the update of multiple neuron states inside its SRAM.
+A new event is generated if a particular activation value is non-zero.
+This new event is then sent to the next neuron core for further processing.
 
 \subsection{Mapping}
 Before an AI model can be used on the \graicore{}, the model must first be mapped for the \graicore{} and configured on the \graicore{}.
-Mapping models or neural networks on the \graicore{} demands a strategic approach to distributing the computational workload and managing resources.
+Mapping models or neural networks on the \graicore{} demands a strategic approach to distributing the computational workload.
 This involves carefully segmenting the network, which can be done at the layer level, neuron level, or a combination of both, depending on the network's structure. 
-The goal is to balance the computational load across the cores while minimizing communication overhead and maximizing the use of on-chip memory.
+A key objective is to balance the computational load across the neuron cores while minimizing communication overhead and maximizing the use of on-chip memory.
 Efficient dataflow management is also critical.
-This can involve employing data parallelism, where different cores process different batches of data, or model parallelism, where different parts of the model are distributed across cores.
+This can involve employing data parallelism, where different neuron cores process different batches of data, or model parallelism, where different parts of the model are distributed across neuron cores.
 Pipelining can further enhance efficiency by dividing the computation into stages and allowing concurrent execution.
-Communication between cores is another crucial factor.
+Communication between neuron cores is another crucial factor.
 The \graicore{} employs specialized interconnect networks to facilitate efficient data exchange.
 % Synchronization mechanisms ensure correct execution, and collective operations are used to aggregate results from multiple cores.
 While this mapping process can be complex, a specialized compiler has been made to automate these tasks.
@@ -44,7 +52,8 @@ Popular computer vision models like ResNet-50 \cite{heDeepResidualLearning2015} 
 Using optimization techniques, these models can be compressed into a smaller size.
 For example, YOLOv7-tiny \cite{wangYOLOv7TrainableBagoffreebies2022} is a size optimized model of the YOLOv7 for edge devices at the cost of accuracy.
 Its size is decreased to around \SI{6}{M} parameters, making it suitable for the \graicore{}.
-In summary, the number of parameters that can be stored on the \graicore{} is limited by the size of its on-chip memory.
+Furthermore, it has been demonstrated that the ResNet-50 model can be mapped on the \graicore{} after pruning around 80\% of the parameters and quantizing the remaining parameters to 8 bits.
+% In summary, the number of parameters that can be stored on the \graicore{} is limited by the size of its on-chip memory.
 
 % TODO change to subcaption
 \begin{figure}[htbp]
