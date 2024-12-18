@@ -4,7 +4,9 @@ The performance of NoCs is influenced by various factors such as topology, routi
 With the goal in achieving optimal performance, researchers have looked into exploring different aspects of NoC design to enhance its efficiency.
 One key element that significantly impacts NoC performance is the choice of topology.
 Studies have shown that selecting an appropriate topology is critical as it affects zero-load latency, sustainable bandwidth, and power consumption \cite{chenPhysicalVsVirtual2010}.
-For instance, the 2D mesh topology (see \cref{fig:config_noc}), as utilized in the \graicore{}, is commonly used in NoCs due to its scalability and fault tolerance, enabling efficient communication among cores.
+% For instance, the 2D mesh topology (see \cref{fig:config_noc}), as utilized in the \graicore{}, is commonly used in NoCs due to its scalability and fault tolerance, enabling efficient communication among cores.
+For instance, the 2D mesh topology (see \cref{fig:config_noc}) is commonly used in NoCs due to its scalability and ability to support efficient communication among cores.
+This topology allows for straightforward routing and is well-suited for large-scale systems \cite{sanchezAnalysisOnchipInterconnection2010}. 
 
 % \begin{figure}[htbp]
 % \centering
@@ -39,14 +41,14 @@ Because of this, no parallel communication occurs during the configuration proce
 However, if we choose to explore a NoC design or configuration procedure that involves concurrent traffic through the network, potential congestion issues may arise.
 In such cases, a suitable routing algorithm must be implemented to manage and mitigate congestion effectively.
 
-Switching techniques in NoCs determines how data packets are forwarded within the network, thereby influencing bandwidth, latency and power consumption.
+Switching techniques in NoCs determine how data packets are forwarded within the network, thereby influencing bandwidth, latency and power consumption.
 Research has proposed energy-efficient reconfigurable circuit-switched NoCs as a means to optimize power utilization while maintaining high performance \cite{wolkotteEnergyEfficientReconfigurableCircuitSwitched2005}.
 Additionally, studies on switching techniques with reduced buffer requirements highlight the importance of balancing performance and power efficiency in modern NoC designs \cite{requenaEfficientSwitchingTechnique2008}.
 By implementing efficient switching mechanisms, designers can achieve lower power consumption without compromising network performance.
 
 Link width is another essential design parameter that influences the overall bandwidth of the network.
 Wider links can accommodate higher data rates, leading to improved throughput and reduced latency.
-However, the use of wider links also consume more power, so there is a trade-off between performance and power consumption that designers need to consider when designing a NoC \cite{manhokimNetworkonchipLinkAnalysis2006}.
+However, the use of wider links also consumes more power, so there is a trade-off between performance and power consumption that designers need to consider when designing a NoC \cite{manhokimNetworkonchipLinkAnalysis2006}.
 Widening the link widths in the \graicore{}'s NoC is a relatively straightforward enhancement, making it an appealing solution for improving both throughput and latency.
 However, it is important to note that increasing the link widths also requires more silicon area due to the need for additional physical wires and increased router complexity.
 

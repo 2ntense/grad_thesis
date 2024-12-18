@@ -10,7 +10,7 @@ This first change proposal provides a peak bandwidth of \SI{3}{GiB/s}.
 
 Next, by dividing the \confignoc{} into two equally sized logical zones with their own external interface, we can benefit from parallel configuration of two cores (one per zone) and therefore, another 2x increase in bandwidth.
 These two changes provide a bandwidth of around \SI{6}{GiB/s}. 
-The amount of zones and injection points can be expanded in the future at relatively small costs if necessary.
+The number of zones and injection points can be expanded in the future at relatively small costs if necessary.
 
 Lastly, the aforementioned changes require a change in the packet format.
 The new packet format benefits from less overhead per chunk of payload data.
@@ -19,7 +19,7 @@ All header information fits within a single phit of 64 bits.
 The data phits following the header are fully utilized for payload data.
 The format of the header is shown in \cref{fig:packet_format_header_new}.
 With a length field of 6 bits, we can specify up to 64 data phits for a single packet.
-This is a sufficient amount as argued in the previous section. 
+This is a sufficient number, as argued in the previous section. 
 Compared to the current packet format, an additional bandwidth increase of almost 2x can be gained with this new packet format.
 
 \begin{figure}[hbtp]
@@ -33,4 +33,4 @@ Compared to the current packet format, an additional bandwidth increase of almos
 
 Through increasing the link width, adding an additional injection point, and adopting a new packet format, it's possible to achieve a significant peak bandwidth improvement of nearly 16x.
 Specifically, this translates to upgrading from an initial effective write bandwidth of \SI{763}{MiB/s} to a substantial \SI{11.92}{GiB/s}.
-Moreover, additional increase in bandwidth can be obtained by increasing the amount of injection points.
+Moreover, additional increase in bandwidth can be obtained by increasing the number of injection points.

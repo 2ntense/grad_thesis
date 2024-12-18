@@ -3,6 +3,7 @@ One of the data sections of a compiled model is \textit{states}.
 States is a section that is reserved on the SRAMs and used as a buffer for the accumulation of the activation data of layers.
 At initialization and for every new frame, the values in the states section will be set to a static value (called bias).
 Before every new frame, the bias values are recomputed/initialized by the system.
+Due to advancements in the system, the transfer of the states data, once a necessary process, is now redundant.
 Therefore, we do not need to transfer the states from the external memory.
 % The accumulated values are computed as follows:
 % \begin{equation*}
@@ -18,7 +19,7 @@ This allows us to read less data from the external memory, reducing the energy f
 Furthermore, since less data is transferred, also the configuration latency should be improved.
 
 We perform an analysis on various models to get an idea of how much we can benefit with avoiding the read of states.
-The compiler provides us with the amount of bytes used for the states and other components of each model.
+The compiler provides us with the number of bytes used for the states and other components of each model.
 
 \begin{table}[hbtp]
 \centering

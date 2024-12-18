@@ -1,7 +1,7 @@
 \section{Pruning}
 Pruning is a model compression technique that removes weights while minimally affecting the model's accuracy.
 Depending on the specific model, more or less pruning can be performed without significant loss in accuracy.
-Pruning can significantly reduce the amount of (unique) weights to be configured.
+Pruning can significantly reduce the number of (unique) weights to be configured.
 A prune percentage of 80\% is not uncommon and this directly translates to 80\% less (unique) weights to be configured.
 
 Since pruning only affects the \textit{weights} data section of the compiled model, which is in a lot of cases the largest data section, it significantly affects the total data size of the compiled model.
@@ -14,7 +14,7 @@ If we have a model with different prune levels and a similar mapping, we can sim
 
 Let's take the \textit{mobnetv2} model as an example.
 Without any pruning applied, a mapping requires a total of \num{4166408} bytes for the weights.
-An pruning of 80\% applied to the weights gives us a total configuration data reduction of 12\% (see \cref{fig:mobnetv2_prune_vs_data}).
+A pruning of 80\% applied to the weights gives us a total configuration data reduction of 12\% (see \cref{fig:mobnetv2_prune_vs_data}).
 If the states are excluded, the reduction in the amount of configuration data read is almost doubled.
 In terms of energy, the configuration energy, with 80\% pruning and no transferring of states, is reduced with 43\%.  
 

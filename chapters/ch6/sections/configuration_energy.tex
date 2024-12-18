@@ -3,12 +3,15 @@
 The configuration energy is the energy consumed when transferring a model from the off-chip memory to the GrAICore's on-chip memories.
 % Since we have access to various energy parameters for the DDR interface, we will use the DDR interface as a running example.
 
-We explore the potential of integrating the DDR interface as a future external memory solution for the \graicore{}.
+We explore the potential of integrating the DDR (double data rate) interface as a future external memory solution for the \graicore{}.
 The integration of a DDR interface could bring about substantial benefits in performance.
 Its high bandwidth has the potential to rapidly transfer AI models between the off-chip and on-chip memory, leading to faster configuration times.
 Moreover, DDR memory, such as LPDDR5X \cite{JEDEC_JESD209-5C}, is designed with energy efficiency in mind, which contributes to low-power operations.
 This type of DRAM offers high density, providing the possibility for accommodating more and larger AI models on a smaller silicon area.
 This makes DDR a promising solution for model (re)configuration on the \graicore{}.
+
+Furthermore, we also investigate the potential of using PCM in conjunction with the DDR interface.
+PCM's non-volatility and high-speed operation, combined with the high bandwidth of DDR, could significantly improve the overall performance of the system.
 
 % The model (re)configuration process is initiated by an external host (e.g., a microcontroller).
 % The host sends a command to the DDR controller and thereby signals the start of the data transfer process.
@@ -57,16 +60,10 @@ A typical system with external memory and DDR interface looks as shown in \cref{
 \end{description}
 
 The model reconfiguration process is initiated by an external host, typically a microcontroller.
-This host transmits a command to the DDR controller serving as the explicit trigger to commence the data transfer process.
-Upon receiving this command, the DDR controller, responsible for managing the external DDR memory, initiates the necessary sequence of operations.
-It translates the received command into a set of low-level control signals and instructions specifically tailored to the DDR PHY.
-
-The DDR PHY, a specialized circuit designed for high-speed communication with DDR memory, responds to these instructions.
-It manages the transmission and reception of signals between the DDR controller and the DDR memory, ensuring data integrity and adherence to strict timing requirements.
-The DDR PHY then transmits a read command to the DDR memory.
-This command encapsulates the precise address location of the data to be retrieved.
-The DDR memory, upon receiving this command, activates the corresponding internal circuitry to access the specified memory cells and output the stored data to the DDR PHY.
-The data, now retrieved from the DDR memory, is transmitted back to the DDR controller via the DDR PHY.
+The host transmits a command to the DDR controller serving as the explicit trigger to initiate the data transfer process.
+Upon receiving this command, the DDR controller, responsible for managing the external memory, initiates the necessary sequence of operations.
+The DDR PHY then transmits the read command to the external memory.
+Once the data is retrieved, it is transmitted back to the DDR controller via the DDR PHY.
 
 The DDR controller then encapsulates this raw data into AXI transactions.
 These AXI transactions, carrying the data payload, are then transmitted over the AXI bus.
@@ -75,7 +72,7 @@ The AXI transactions traverse the AXI bus until they reach the entry point of th
 
 At the \confignoc{}'s entry point, the data undergoes a transformation into a packetized format, as detailed in \cref{section:improved_packet_format}.
 This packetization process prepares the data for efficient transmission across the \confignoc{}, which employs packet-switching mechanisms for data routing and delivery.
-The \confignoc{}'s routing logic analyzes the packet headers and determines the optimal path to the designated destination within the \graicore{}.
+The \confignoc{}'s routing logic analyzes the packet headers and determines the path to the designated destination within the \graicore{}.
 The packets traverse the \confignoc{}, potentially hopping between multiple routers and links, until they arrive at the target neuron core.
 The data is then written into specific memory locations within the neuron core's SRAM, determined by a predefined mapping scheme or address translation mechanism.
 With the data now residing in the neuron core's SRAM, it becomes readily available for processing by the neuron core.
@@ -94,7 +91,7 @@ To estimate the energy cost for configuration, we require the following informat
 
 The amount of data to transfer determines how much data will be read, transferred and written.
 We are assuming that the same amount of data read from the external memory is written to the SRAMs.
-The location (specific neuron core) of the data determines the amount of hops the data has to perform in the \confignoc{}.
+The location (specific neuron core) of the data determines the number of hops the data has to perform in the \confignoc{}.
 The amount of data to write can also be used to determine the configuration time.
 The configuration time is calculated by dividing the amount of data with the write bandwidth.
 % The configuration time is used for computing the energy for the \textit{DDR PHY}, \textit{DDR controller} and \textit{AXI bus}.
@@ -130,15 +127,15 @@ Therefore, we require information how much data needs to be transferred to each 
     \label{fig:model_data_heapmap}
 \end{figure}
 
-Let $D$ be a matrix of $12 \times 12$ with $D_{i,j}$ denoting the amount of bytes to be written to core $\left( i,j \right)$.
+Let $D$ be a matrix of $12 \times 12$ with $D_{i,j}$ denoting the number of bytes to be written to core $\left( i,j \right)$.
 % $D$ has an additional column due to the x-coordinates not starting from index $0$.
 % Its left-most column is unused (i.e., $D_{0,0}, D_{0,1}, \cdots, D_{0,11}$).
 This matrix can be constructed from the artifacts outputted by the compiler.
 
 The number of phits to be transferred through the \confignoc{} influences the total energy costs.
-In particular, the amount of phits to be transferred affects the number of hops to be taken in total and the amount of data to be written to the SRAMs.
-Therefore, we need to determine how many phits needs to be transferred to each neuron core.
-A packet can contains up to 64 data phits, that is $64 \times \SI{64}{b} = \SI{512}{B}$ of payload data.
+In particular, the number of phits to be transferred affects the number of hops to be taken in total and the amount of data to be written to the SRAMs.
+Therefore, we need to determine how many phits need to be transferred to each neuron core.
+A packet can contain up to 64 data phits, that is $64 \times \SI{64}{b} = \SI{512}{B}$ of payload data.
 Suppose we need to transfer $d$ bytes to a neuron core, we then require a total of $\left\lfloor \frac{d}{\SI{512}{B}} \right\rfloor$ packets with 64 data phits.
 If $\left( d \bmod \SI{512}{B} \right) > 0$, then there is an additional packet for the remaining $\left( d \bmod \SI{512}{B} \right)$ bytes of data.
 The remaining packet will consist of $\left\lceil \frac{d \bmod \SI{512}{B}}{\SI{8}{B}}\right\rceil$ data phits.
@@ -227,7 +224,7 @@ And:
 %     \left\lceil \frac{d}{8} \right\rceil
     \\
     \pdata(d) &=
-        \left\lfloor \frac{d}{\SI{512}{B}} \right\rfloor \times 64 + \left\lceil \frac{d \bmod \SI{512}{B}}{\SI{8}{B}} \right\rceil
+        \left\lfloor \frac{d}{\SI{512}{B}} \right\rfloor \times 64 + \left\lceil \frac{d \bmod \SI{512}{B}}{\SI{8}{B}} \right\rceil = \left\lceil \frac{d}{\SI{8}{B}} \right\rceil
     \\
     \pheader(d) &=
         \left\lfloor \frac{d}{\SI{512}{B}} \right\rfloor + 1
@@ -240,7 +237,7 @@ And:
     \item{$\pdata(D_c)$} total data phits for transferring $D_c$ bytes
     \item{$\pheader(D_c)$} total header phits for transferring $D_c$ bytes
     \item{$\ptotal(D_c)$} total phits (includes headers) for transferring $D_c$ bytes
-    \item{$\nhops(c)$} the amount of hops required to reach the neuron core at coordinate $c$, starting from the router closest to the injection point. It has two sub-functions due to the new \confignoc{}'s dual injector architecture
+    \item{$\nhops(c)$} the number of hops required to reach the neuron core at coordinate $c$, starting from the router closest to the injection point. It has two sub-functions due to the new \confignoc{}'s dual injector architecture
     \item{$\ereadbyte$} energy for reading a single byte from the external memory device
     \item{$\ephybyte$} energy for transferring a single byte using the DDR PHY
     \item{$\ectrlbyte$} energy for transferring/processing a single byte by the DDR controller

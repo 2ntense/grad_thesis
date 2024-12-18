@@ -4,9 +4,9 @@ This thesis investigates the use of off-chip memory to enable such processors---
 
 The challenge lies in the inherent limitations of the \graicore{}.
 Its design requires the \graicore{} to have an AI model loaded locally before it can be utilized for inference.
-Furthermore, the presence of limited on-chip memory and external interface limits it the ability to load large models and transfer data rapidly.
+Furthermore, the presence of limited on-chip memory and external interface limits the ability to load large models and transfer data rapidly.
 In this context, large models are models that do not fit on the \graicore{} due to their size exceeding the on-chip memory capacity.
-Executing multiple models means that two or more models are used by the \graicore{} while its online.
+Executing multiple models means that two or more models are used by the \graicore{} while it is online.
 These models are assumed to fit on the \graicore{}, but not at the same time.
 
 Execution of these models is done by high-speed reprogramming or reconfiguration of the \graicore{} by transferring the relevant model data to its on-chip memory.
@@ -19,4 +19,4 @@ Furthermore, LPDDR5X and PCM are explored as potential external memory technolog
 Findings demonstrate that on average around 23\% and 12\% is consumed by reconfiguration and the rest for the processing part for LPDDR5X and PCM respectively.
 The ratio for reconfiguration can be further reduced by avoiding the transfer of certain redundant data. % TODO what are the savings?
 
-This research contributes to the development of a more feature-rich and future-proof \graicore{}, enabling it the ability to efficiently execute large and multiple models during runtime.
+This research contributes to the development of a more feature-rich and future-proof \graicore{}, enabling it to efficiently execute large and multiple models during runtime.

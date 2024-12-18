@@ -62,7 +62,7 @@ Different types of layers serve different purposes in a deep learning model:
 
 ANNs learn by adjusting the weights of the connections between neurons.
 This process is called training and involves feeding the network with labeled data and iteratively updating the weights to minimize the difference between the network's predictions and the true labels.
-The most common algorithm for training ANNs is backpropagation \cite{rumelhartLearningRepresentationsBackpropagating1986}, which calculates the gradient of the error with respect to each weight and updates the weights accordingly.
+The most common algorithm for training ANNs is backpropagation \cite{rumelhartLearningRepresentationsBackpropagating1986}, which calculates the gradient of the error with respect to each weight and updates the weights accordingly using gradient descent.
 
 \subsection{Convolutional neural network}
 Convolutional neural networks (CNNs) are a specialized class of artificial neuron networks designed to process data with inherent spatial structure, such as images.
@@ -105,8 +105,9 @@ The use of activation functions introduces non-linearity, which enables the lear
 These activation functions are applied to the output of the convolutional and pooling layers.
 
 Finally, fully connected layers are often used in the final stages of a CNN.
-These layers connect every neuron in the previous layer to every layer in the current layer.
-This enables high-level reasoning and decision-making based on the extracted features.
+These layers connect every neuron in the previous layer to every neuron in the current layer.
+% This enables high-level reasoning and decision-making based on the extracted features.
+These layers combine the features extracted by previous layers to compute the final output of the network, such as a classification or prediction.
 
 The combining of simpler features into more complex ones across layers makes CNNs excel in computer vision tasks like image classification, object detection and image segmentation \cite{krizhevskyImageNetClassificationDeep2017}.
 

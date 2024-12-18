@@ -9,7 +9,7 @@ To bridge this gap, AI researchers and engineers have developed several model co
 One such technique is quantization, which reduces the precision of a model's numerical parameters.
 For example, instead of using 32-bit floating-point numbers, a model might use 16-bit or even 8-bit representations, which can drastically cut down the memory requirement and computational costs.
 Another technique is pruning, which removes parameters that contribute little to the model's outputs.
-This is like removing the least essential parts of a complex machine without affecting its overall functionality.
+% This is like removing the least essential parts of a complex machine without affecting its overall functionality.
 The challenge with pruning is to identify which parts of the model can be removed with the smallest impact on its performance.
 These model optimization techniques are crucial for maintaining a balance between performance and efficiency.
 They aim to minimize the impact on the model's accuracy and predictive capabilities while significantly reducing its memory footprint and computational requirements.
@@ -20,7 +20,7 @@ These specialized processors are engineered to perform the matrix operations and
 By integrating these accelerators into edge devices, it is possible to execute complex AI models more effectively within the stringent constraints of power, space, and computing resources typical of edge environments.
 
 Although optimization techniques can reduce the memory and computational demands of AI models, the on-chip memory in edge AI accelerators is inherently limited due to their compact size and design constraints aimed at conserving energy and space.
-This limitation can be a significant bottleneck, especially as AI models become more complex and require more data to function due to the increase in the amount of parameters.
+This limitation can be a significant bottleneck, especially as AI models become more complex and require more data to function due to the increase in the number of parameters.
 This becomes particularly pronounced when dealing with edge AI accelerators that necessitate pre-loading model data onto their on-chip memory before inference can begin.
 
 To overcome these limitations, there is a growing interest in exploring off-chip memory solutions that can be integrated with edge AI accelerators.

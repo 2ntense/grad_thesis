@@ -23,17 +23,16 @@ Instead of reading all the weights (including duplicates), we can read only the 
 For this to work however, we require a separate controller (close to the \graicore{}) that can copy and distribute the weights to the neuron cores that require them.
 
 Let's first look why this technique is interesting to pursue.
-To determine the amount of duplicates that are present in the compiled model, we do the following:
+To determine the number of duplicates that are present in the compiled model, we do the following:
 \begin{enumerate}
     \item
-    Count the amount of relevant parameters ($w_
-    \textrm{original}$) in the original model.
+    Count the number of relevant parameters ($w_\textrm{original}$) in the original model.
     \item
-    Retrieve the amount of bytes required for weights for the compiled model ($d_\textrm{weights}$).
+    Retrieve the number of bytes required for weights for the compiled model ($d_\textrm{weights}$).
     \item
     Compute the number of weights in the compiled model by taking quantization into account ($w_\textrm{compiled} = d_\textrm{weights} \times \frac{8}{q}$ with $q$ as the quantization value (e.g., $8$, $16$ or $32$)).
     \item  
-    The amount of duplicate weights can then be calculated by subtracting weights from the compiled model with the parameters counted from the original model. That is, $w_\textrm{dupes} = w_\textrm{compiled} - w_\textrm{original}$.
+    The number of duplicate weights can then be calculated by subtracting weights from the compiled model with the parameters counted from the original model. That is, $w_\textrm{dupes} = w_\textrm{compiled} - w_\textrm{original}$.
 \end{enumerate}
 
 \begin{table}[hbtp]
@@ -61,20 +60,20 @@ resnet101\_pruned\_p4   & 20\%                              \\ \bottomrule
 \label{tab:example_models_duplicate_weights}
 \end{table}
 
-The amount of weight duplicates is dependent on the model and how the compiler performed the mapping of the original model.
+The number of weight duplicates is dependent on the model and how the compiler performed the mapping of the original model.
 \Cref{tab:example_models_duplicate_weights} shows for various models the percentage of duplicate weights.
 We observe that up to 74\% of the weights are duplicates with an average of 41\%.
 Since weights are in most cases the largest component of the total compiled model size, these numbers show that there is potentially notable savings in configuration performance.
 
-\Cref{fig:resnet50_weight_duplicates} shows the energy distribution of the ResNet-50, including and excluding the reading of duplicate weights. 
-We observe an configuration energy decrease of 12\%.
-
 Note that this technique requires additional logic to be added to the system which acts as a component that transfers copies of relevant weights to multiple destination SRAMs.
 This, of course, also adds to the total energy consumption when performing a configuration.
 However, such a component has not been analyzed and is not included in the preliminary energy analysis. 
-We assumed that the amount of data read from the external memory is decreased by the amount of duplicate weights.
+We assumed that the amount of data read from the external memory is decreased by the number of duplicate weights.
 Also, less data has to be transferred through the PHY, controller and AXI.
 The energy consumed by the \confignoc{} and SRAMs are the same as in the scenario where we include the weights duplicates.
+
+\Cref{fig:resnet50_weight_duplicates} shows the energy distribution of the ResNet-50, including and excluding the reading of duplicate weights. 
+We observe an configuration energy decrease of 12\%.
 
 \begin{figure}[hbtp]
     \centering

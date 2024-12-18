@@ -18,7 +18,7 @@ Therefore, we start with presenting the problem formally.
 % In \cref{ch:8}, we present a comprehensive formal description of the problem.
 
 \subsection{Large model partitioning}
-We formulate the problem of model partitioning as a multi-objective optimization, aiming to minimize the total inference time while adhering to memory constraints.
+We formulate the problem of model partitioning as an optimization problem, aiming to minimize the total inference time while adhering to memory constraints.
 
 With the following given:
 \begin{itemize}
@@ -42,22 +42,28 @@ This partitioning and parameter selection must minimize the total inference late
     The data size of the partition mapped with some compiler parameters must not exceed the \graicore{}'s total memory capacity $M$.
         The data size of a mapped partition is influenced by the layers contained in the partition and the used compiler parameters ($\writeamount(p_i, \pi_i)$).
     \begin{equation}
-        \forall i \in \{i \in \mathbb{N} \mid 1 \leq i \leq K\}, \; \writeamount(p_i, \pi_i) \leq M
+        % \forall i \in \{i \in \mathbb{N} \mid 1 \leq i \leq K\}, \; \writeamount(p_i, \pi_i) \leq M
+        \forall i \in \mathbb{N}: \; 1 \leq i \leq K, \; \writeamount(p_i, \pi_i) \leq M
     \end{equation}
     \item[Mappability:]
-    The partition in combination with some compiler parameters must be mappable with the compiler.
+    The partition, along with some compiler parameters, must be mappable with the compiler, meaning it can be translated into a form that ensures the correct behavior of the partition is preserved and adheres to certain \graicore{}'s constraints.
     \begin{equation}
-        \forall i \in \{i \in \mathbb{N} \mid 1 \leq i \leq K\}, \; \mappable(p_i, \pi_i)
+        % \forall i \in \{i \in \mathbb{N} \mid 1 \leq i \leq K\}, \; \mappable(p_i, \pi_i)
+        \forall i \in \mathbb{N}: \; 1 \leq i \leq K, \; \mappable(p_i, \pi_i)
     \end{equation}
     \item[Exclusiveness:]
     To ensure that the partitioned model maintains the accuracy of the original large model, every layer must belong to exactly one partition.
     \begin{equation}
-        \bigcap_{p \in P} p = \emptyset \wedge \bigcup_{p \in P}p = L
+        % \bigcap_{p \in P} p = \emptyset \wedge \bigcup_{p \in P}p = L
+        % ∀p, q ∈ P: (p ≠ q) → (p ∩ q = ∅) ∧ (p ≠ ∅)
+        \forall p, q \in P: \; (p \neq q) \rightarrow (p \cap q = \emptyset) \wedge (p \neq \emptyset) \wedge (\bigcup_{p \in P} p = L)
     \end{equation}
     \item[Consecutiveness:]
     Each partition is a consecutive subset of layers.
     \begin{equation}
-        \forall p \in P, \; p \subseteq \{l_i \in L \mid \alpha \leq i \leq \beta\} \; \text{for} \;  \alpha, \beta, i \in \mathbb{N} \wedge 1 \leq \alpha \leq \beta
+        % \forall p \in P: \; p \subseteq \{l_i \in L \mid \alpha \leq i \leq \beta\} \; \text{for} \;  \alpha, \beta, i \in \mathbb{N} \wedge 1 \leq \alpha \leq \beta
+        \forall p \in P: \; p \subseteq \{l_i \in L \mid \alpha \leq i \leq \beta\} \; \text{for some} \;  \alpha, \beta \in \mathbb{N}
+        % \forall p \in P: p \subseteq \{l_i \in L \mid \alpha \leq i \leq \beta\} \text{ for some } \alpha, \beta \in \mathbb{N}
     \end{equation}
     % \item[Sequentiality:]
     % to ensure the execution of the partitions happens in a strict sequential manner, we define a relation $\triangleright$ on the set $P$ such that $p_i \triangleright p_j$ if and only if $p_i$ must be executed before $p_j$.
@@ -88,9 +94,11 @@ The total inference latency consists of the processing time and configuration ti
 \subsubsection{Scope and limitations}
 The primary focus is on layer-wise partitioning, where the model is divided into consecutive sets of layers.
 We do not explore alternative techniques such as tensor partitioning or pipeline execution (where configuration and processing are executed in parallel), which might offer advantages in certain scenarios.
-This approach is chosen for its relative simplicity and its ability to preserve the inherent structure of the original model, ensuring functional correctness and minimizing the potential of accuracy degradation.
+% This approach is chosen for its relative simplicity and its ability to preserve the inherent structure of the original model, ensuring functional correctness and minimizing the potential of accuracy degradation.
+This approach is chosen for its relative simplicity and its focus on clear, sequential execution. 
 
 Additionally, we focus on static partitioning, where the partitioning scheme is determined before runtime.
+This is due to system limitations, as it lacks the flexibility and resources to support dynamic partitioning.
 Also, we treat the compiler for the \graicore{} as a black box, focusing on exploring the effects of adjusting available compiler parameters on inference latency.
 
 We acknowledge that our model of the \graicore{} simplifies certain aspects of the hardware.
@@ -100,10 +108,6 @@ However, the \textit{mappability} constraint ensures that the data written to an
 
 Lastly, our focus is on partitioning strategies where each partition is executed only once in a sequential manner.
 While we acknowledge the potential benefits like data reuse and reduced configuration overhead of executing the same partition multiple times in sequence (e.g., for models with recurrent connections), exploring such strategies is beyond the scope of this work.
-
-%%%
-% In this section, we analyze the execution of such large models.
-% As a large model can be of any size that can be split with in an arbitrary amount of parts, and with each part having its own processing latency, no bandwidth requirement is suitable for all large models.
 
 \subsection{Bandwidth analysis}
 To target a specific input frame rate with a large model, we require information for the following components:
@@ -162,7 +166,7 @@ We will be using the ResNet-101 model from the \textit{Keras} library \cite{chol
 The ResNet-101 model has around 44.5 million parameters in total.
 % An important feature of the ResNet architecture is the use of skip connections \cref{TODO}.
 
-Due to the size (amount of parameters) of the ResNet-101 model, it is not possible to load the model on the \graicore{} at once.
+Due to the size (number of parameters) of the ResNet-101 model, it is not possible to load the model on the \graicore{} at once.
 This is still the case when the parameters are quantized using a lower-resolution data type 8-bit integers or floats.
 % Other solutions, such as model compression techniques, exist to decrease the size of the model.
 % However, as explained earlier, this has its disadvantages such as decreased inference accuracy.
@@ -234,12 +238,12 @@ Naturally, the main drawback of this is the reduced number of locations where pa
 The ResNet-101 model contains five so-called stages.
 A stage is a collection of consecutive residual blocks.
 Only the first stage does not include any residual blocks.
-The other stages contain different amounts of residual blocks as shown in \cref{fig:resnet101_stats}.
+The other stages contain different numbers of residual blocks as shown in \cref{fig:resnet101_stats}.
 
-If we opt to split the network based on computational complexity, we look at the amount of multiply-accumulate (MAC) operations of the layers.
+If we opt to split the network based on computational complexity, we look at the number of multiply-accumulate (MAC) operations of the layers.
 A MAC operation is essentially a multiplication operation followed by an addition operation.
 Since we only perform splits between residual blocks, we combine the MACs of each layer in the residual blocks.
-In \cref{fig:resnet101_macs}, we observe that the amount of MACs for each residual block is relatively similar.
+In \cref{fig:resnet101_macs}, we observe that the number of MACs for each residual block is relatively similar.
 We see small peaks at the start of each stage.
 This is due to an additional convolution layer in the first residual block of a stage.
 % A model or model part with more MACs generally is more heavy to run than those with less MACs (lower .
@@ -265,11 +269,11 @@ We use the compiler to find a valid mapping for the \graicore{}, with focus on l
 The compiler also outputs files necessary for simulating the networks with a proprietary performance simulator.
 This performance simulator is used to estimate the processing latency of each part.
 Note that the compiler is a complex piece of software.
-Since it accepts many parameters that affects the processing latency, it is difficult to find an optimal mapping. 
+Since it accepts many parameters that affect the processing latency, it is difficult to find an optimal mapping. 
 % The in-house compiler for the \graicore{} is complex and we will not get into detail.
 In a nutshell, the compiler first optimizes the model by converting it to a so-called \textit{GrAI Model}.
 Among other things, the optimized model adapts the architecture of the neural network to prepare it for mapping for the \graicore{} and optionally performs post training quantization \autocite{krishnamoorthiQuantizingDeepConvolutional2018} for the weights.
-The amount of MACs and parameters stay roughly the same.
+The number of MACs and parameters stay roughly the same.
 % The compiler can be instructed to optimize for inference latency.
 The compiler can be instructed to perform certain optimizations for inference latency.
 Afterwards, it will map the layers of the model to the neuron cores.
@@ -305,7 +309,7 @@ Furthermore, it is also beneficial for the processing latency to involve as many
 5              & 15.54                   & 2.04                  \\ \midrule
 \textbf{Total} & 112.51                  & 18.12                 \\ \bottomrule
 \end{tabular}
-\caption{Statistics of the example partitioning of the ResNet-101 model in 5 parts}
+\caption{Statistics of an example partitioning of the ResNet-101 model in 5 parts}
 \label{tab:resnet101_5parts}
 \end{table}
 
@@ -313,7 +317,7 @@ Furthermore, it is also beneficial for the processing latency to involve as many
 % This requires the weights to be written to all neuron cores that require them.
 % This means that the \graicore{} contains duplicate weights.
 The compiler also provides us information about how much data must be written to each of the neuron cores.
-The total data to write and the processing latency for each part is shown in \cref{tab:resnet101_5parts}.
+The total data to write and the processing latency for each part are shown in \cref{tab:resnet101_5parts}.
 
 \begin{figure}[hbtp]
     \centering

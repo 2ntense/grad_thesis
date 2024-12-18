@@ -1,6 +1,6 @@
 \section{\graicore{}}
-In this research, we focus on the \graicore{}, a many-core AI accelerator designed specifically for edge devices.
-The \graicore{} utilizes the ``NeuronFlow'' technology that is inspired by the neural structures of the brain \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
+In this research, we focus on the \graicore{}, a many-core AI accelerator designed specifically for edge devices \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
+% The \graicore{} utilizes the ``NeuronFlow'' technology that is inspired by the neural structures of the brain \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
 The \graicore{} prioritizes energy efficiency while offering specialized hardware for execution of neural networks. 
 Its main use case is computer vision applications using models based on convolutional neural networks (CNNs).
 It features a total of 144 neuron cores, arranged in a 12 by 12 grid.
@@ -44,12 +44,13 @@ However, this introduces a constraint that requires the parameters of a model to
 Thus, an AI model must first be mapped and loaded onto the \graicore{} before it can be used for inference.
 % Mapping means to assign the layers of a neural network to the neuron cores.
 % Intelligent mapping is important for balancing memory, computation and traffic between neuron cores.
-The \graicore{} features a total of \SI{36}{MB} of local memory, which is evenly distributed across its $144$ neuron cores.
+% The \graicore{} features a total of \SI{36}{MiB} of local memory, which is evenly distributed across its $144$ neuron cores.
+The \graicore{} features a total of \SI{36}{MiB} of on-chip SRAM memory, which is evenly distributed across its $144$ neuron cores, with each neuron core having \SI{256}{KiB} of memory.
 
 The size of an AI model can be quantified by the number of its parameters.
 For instance, if a parameter is stored as a 16-bit value on the \graicore{}, it can accommodate approximately $\frac{\SI{36}{MiB}}{\SI{16}{b}}$ parameters\footnote{In practice, the available space for parameters is smaller because a portion of the memory is allocated for storing other relevant data.}, which translates to around \SI{19}{M} parameters in total.
 Popular computer vision models like ResNet-50 \cite{heDeepResidualLearning2015} and YOLOv7 \cite{wangYOLOv7TrainableBagoffreebies2022}, with over \SI{25}{M} and \SI{37}{M} parameters respectively, are already too large by themselves to fit on the \graicore{}.
-Using optimization techniques, these models can be compressed into a smaller size.
+Using optimization techniques, these models can be compressed into smaller sizes.
 For example, YOLOv7-tiny \cite{wangYOLOv7TrainableBagoffreebies2022} is a size optimized model of the YOLOv7 for edge devices at the cost of accuracy.
 Its size is decreased to around \SI{6}{M} parameters, making it suitable for the \graicore{}.
 Furthermore, it has been demonstrated that the ResNet-50 model can be mapped on the \graicore{} after pruning around 80\% of the parameters and quantizing the remaining parameters to 8 bits.

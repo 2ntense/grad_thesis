@@ -3,21 +3,25 @@ We analyze the execution of multiple models on the \graicore{}.
 In this scenario, we assume that each of these models fits on the \graicore{} individually and only a single model is present on the \graicore{} at a time.
 Additionally, we assume an approach where the configuration and processing of the models occurs sequentially.
 This approach avoids the complexities associated with parallelism and scheduling, making it easier to analyze performance.
+While this choice simplifies the analysis, it is worth noting that parallelism could offer advantages, such as faster processing times and better utilization of computational resources.
 
 To determine the required write bandwidth for configuring a model, we need the following parameters:
 \begin{itemize}
     \item The input frame rate
-    \item The amount of bytes to be written
+    \item The number of bytes to be written
     \item The frame processing latency
 \end{itemize}
 
 The amount of time we have available to configure the \graicore{} is dependent on the input frame rate and frame processing latency.
 For example, for an input frame rate of \SI{60}{FPS}, we have a period of \SI{16.7}{ms} between every two frames.
-Suppose we want to process every new incoming frame with a new model, all with a frame processing latency of \SI{5}{ms}. 
-Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms} to reconfigure the \graicore{} with the next model.
+% Suppose we want to process every new incoming frame with another model, all with a frame processing latency of \SI{5}{ms}. 
+Suppose we want to process every new incoming frame with another model.
+With every model having a frame processing latency of \SI{5}{ms}. 
+Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms}\footnote{\SI{16.7}{ms} - \SI{5}{ms}} to reconfigure the \graicore{} with the next model.
 
 \Cref{fig:reconfig_time_line_ex} shows two example timelines of a good and a bad scenario when performing execution of multiple models in sequence.
 $t_n$ indicates the time instance where the $n$th frame has been received by the \graicore{}, ready to be processed.
+It is assumed that there is no jitter, meaning that the frames are received at consistent, predictable intervals without variation.
 At $t_0$, the \graicore{} is already configured with an initial model.
 In \cref{fig:correct_reconfig}, the \graicore{} uses a different model for each consecutive frame.
 Each of these models have a similar processing latency and reconfiguration time.
@@ -27,7 +31,8 @@ The invariant latency is desired and indicates a seamless reconfiguration.
 \Cref{fig:incorrect_reconfig} has an increased reconfiguration time.
 Now, the sum of the reconfiguration and processing time does exceed the frame time.
 As a consequence, the frame processing latency increases for each incoming frame.
-In the long run, this latency will grow to infinity.
+% In the long run, latency will continue to increase, eventually leading to erroneous behavior in the system.
+In the long run, latency will continue to increase, eventually causing erroneous behavior, such as dropped frames (where frames are skipped) and slower processing rates.
 Since the latency varies, this is an example of a non-seamless reconfiguration.
 
 \begin{figure}[hbtp]
@@ -52,7 +57,7 @@ We calculate the required effective bandwidth for configuring model $m$ with \cr
 
 \begin{eqexpl}[15mm]
     \item{$\bandwidth_m$} required effective bandwidth for writing model $m$
-    \item{$d_m$} amount of bytes to write for model $m$
+    \item{$d_m$} number of bytes to write for model $m$
     \item{$f$} input frame rate
     \item{$l_m$} frame processing latency for model $m$
 \end{eqexpl}
@@ -60,8 +65,8 @@ We calculate the required effective bandwidth for configuring model $m$ with \cr
 In the worst-case scenario, we have to configure the \graicore{} with a model requiring to write the total capacity of the \graicore{} (\SI{36}{\mebi\byte}).
 In this particular instance, we require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$, assuming the model's processing time is \SI{5}{ms}.
 % Note that this bandwidth number does not include any overhead induced by communication protocols. Therefore, in practice, the required minimum bandwidth is higher. 
-This bandwidth calculation provides a baseline for the effective bandwidth.
-In practice, the actual bandwidth needed will be higher due to overhead introduced by various factors, including the specific communication protocol(s) used.
+% This bandwidth calculation provides a baseline for the effective bandwidth.
+The actual bandwidth needed will be higher due to overhead introduced by various factors, including the specific communication protocol(s) used.
 For example, using the network packet format of the current \confignoc{}, 50\% of the total data transferred is overhead.
 The system then requires an actual bandwidth of double the effective bandwidth.
 

@@ -17,7 +17,7 @@ With this information, all nodes involved in the data communication know, by kee
 There are some trade-offs between using smaller or larger packets.
 A larger packet size increases the efficiency as each packet carries more payload data while header size remains fixed.
 Higher efficiency means an improvement in data throughput.
-However, increasing the size of the packet will not always offer a considerable increase in data throughput.
+However, increasing the size of the packet will not always offer a considerable increase in data throughput, as we will explore next.
 
 To obtain an approximation of the potential speed gains when transferring \SI{36}{MiB} to the \graicore{}, we use \cref{eq:latency}.
 The amount of overhead can be calculated with \cref{eq:length_field_overhead}.
@@ -57,7 +57,8 @@ This results in the overhead being $0$ (i.e., $d_{\text{overhead}} = 0$).
 \end{table}
 
 \Cref{fig:n_vs_latency} shows for three different phit sizes the latency to fill the \graicore{} for different $n$.
-We observe that the latency decreases exponentially, with the latency plateauing earlier with wider phits.
+For all three phit sizes, we observe that the latency decreases rapidly as $n$ increases but eventually plateaus, indicating diminishing returns.
+Additionally, wider phit sizes plateau earlier and results in lower overall latencies.
 
 \begin{figure}[hbtp]
     \centering
@@ -89,10 +90,10 @@ The latency for transferring \SI{36}{MiB} to the \graicore{} with a phit width o
 \end{figure}
 
 \subsection{End bit}
-Instead of reserving some bits of the header to indicate the amount of subsequent data phits, we can modify the data phits to include an ``end bit''.
+Instead of reserving some bits of the header to indicate the number of subsequent data phits, we can modify the data phits to include an ``end bit''.
 The end bit indicates whether a data phit is the final data phit of a packet.
 For this, the header does not need to be changed.
-With this approach, the system can send an arbitrary amount of data phits within one packet as it is terminated by the data phit with the end bit set.
+With this approach, the system can send an arbitrary number of data phits within one packet as it is terminated by the data phit with the end bit set.
 
 In \cref{fig:example_packet_format_end_bit}, we observe that using a phit width of 16, each data phit carries 15 bits of payload data.
 Similarly for a phit width of 32 and 64, 31 bits and 63 bits of payload data can be carried, respectively.

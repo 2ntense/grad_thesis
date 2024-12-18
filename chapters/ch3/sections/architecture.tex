@@ -21,12 +21,10 @@ This is a low-latency technique where packets are divided into smaller units cal
 A header flit establishes the path, and the remaining flits follow in a pipelined manner, minimizing delays as the packet ``burrows'' through the network.
 Whenever the header has been processed, all the payload data will follow it and cannot be interrupted.
 The flits in the \confignoc{} are of the same size as phits.
-A phit is the amount of bits that can be transferred over a single hop in one clock cycle.
+A phit is the number of bits that can be transferred over a single hop in one clock cycle.
 
 A key characteristic of the \confignoc{}'s architecture is its \SI{800}{MHz} clock frequency.
 This clock governs the rate of data transmission across the network, influencing the overall performance of the on-chip communication.
 
-% Unlike the \confignoc{}, the \eventnoc{} uses wraparound links that helps to drastically reduce the average amount of hops a packet has to take.
-% Wraparound links do not provide any noticeable benefits to the \confignoc{} since these interactions do not occur with the \confignoc{}.
 Most of the high traffic data transactions occur when data is written to the neuron cores' SRAMs.
 This process only injects the data in the \confignoc{} via a single point.

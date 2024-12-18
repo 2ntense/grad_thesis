@@ -78,7 +78,7 @@ Upon entering the \confignoc{}, the header phit is analyzed by the router to det
 Routers do not wait for the entire packet to arrive.
 Instead, as soon as the header phit reserves the output channel, the remaining phits follow in a pipelined manner.
 This allows the packet to ``snake'' through the network, with different phits occupying different links concurrently.
-This pipelining not only increases the bandwidth but it also reduces latency by allowing the transmission of subsequent phits before the entire packet has arrived at a given router.
+This pipelining not only increases the throughput but it also reduces latency by allowing the transmission of subsequent phits before the entire packet has arrived at a given router.
 The placement of the destination coordinates in the header phit is crucial, as it enables routers to quickly determine the appropriate output channel and initiate forwarding with minimal delay.
 
 % With this packet format, we observe that there is a significant overhead when writing or reading data.

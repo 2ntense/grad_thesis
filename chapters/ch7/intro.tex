@@ -6,8 +6,8 @@ These sections of data are as follows:
     \item[Weights] 
     The numerical values assigned to the connections between neurons in the neural network
     \item[Masks] 
-    A mask is a single bit that is associated to one weight.
-    Masks are necessary to identify whether a weight is pruned or not.
+    Each weight has an associated mask.
+    A mask is a single bit that indicates whether the corresponding weight has been pruned.
     Weights that are pruned (i.e., has an exact value of $0$) are not configured on the \graicore{} at all, saving memory and energy (since it isn't written to or read from the SRAM when processing)
     \item[States] 
     Acts as a buffer space for the accumulation of activation (output) data of layers, which also initially includes the bias values.

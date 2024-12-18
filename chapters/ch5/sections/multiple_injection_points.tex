@@ -11,7 +11,10 @@ To maximize the throughput, the zones should not overlap with each other.
 Otherwise, traffic originating from two different sources may cause congestion in the network. 
 As a result of this change, the total bandwidth will increase, lowering the end-to-end latency.
 
-Outside the \graicore{}, 
+The options for injecting data involve either using a single external memory or multiple memory modules.
+With a single memory, data is read and segmented to be injected at the injection points by splitting the memory's output between them, but this can cause bandwidth contention, impacting performance.
+Alternatively, with multiple memory modules, each injection point can draw data from a different module, reducing contention and improving throughput, but this approach adds complexity and cost.
+The choice depends on balancing simplicity, cost, and performance, especially when considering how to efficiently manage and split data for injection at multiple points.
 
 We study the effects on performance when introducing multiple injection points.
 For three different phit widths and a variety of zones, we compute the latency for sending \SI{36}{MiB} to the \graicore{}.
