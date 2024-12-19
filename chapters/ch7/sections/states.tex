@@ -15,7 +15,7 @@ The compiler provides us with the number of bytes used for the states and other 
 
 \begin{table}[hbtp]
 \centering
-\begin{tabular}{@{}lll@{}}
+\begin{tabular}{@{}lrr@{}}
 \toprule
 \textbf{Model}          & \textbf{States ratio} & \textbf{Prune ratio} \\ \midrule
 efficientnet            & 23\%                  & 20\%                 \\
@@ -43,7 +43,6 @@ resnet101\_pruned\_p4   & 11\%                  & 80\%                 \\ \botto
 
 Looking at \cref{tab:states_ratio}, on average, $23\%$ is used for states section.
 We observe that the states ratio can reach half of the total bytes to be written to the \graicore{}.
-In certain cases, the states section can occupy up to half of all the data sections combined.
 
 In terms of energy savings, the ResNet-50 model sees a decrease of 23\% in configuration energy when avoiding the reads of states from the external memory (see \cref{fig:resnet50_states_comparison}).
 

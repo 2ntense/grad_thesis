@@ -5,7 +5,7 @@ Performing this technique on the \graicore{}, so that a layer can be executed on
 In other words, this means that on the \graicore{}, there are duplicate weights present.
 
 A naive approach to configure a model is to read every weight, including duplicate weights, from the external memory.
-However, we have seen in \ref{} that in the configuration process, reading from the DDR memory consumes the most energy.
+However, we have seen in \cref{section:energy_evaluation} that in the configuration process, reading from the LPDDR5X memory consumes the most energy.
 
 There is an opportunity in decreasing the energy cost for reading from the external DDR memory.
 Instead of reading all the weights (including duplicates), we can read only the unique duplicates once.
@@ -26,7 +26,7 @@ To determine the number of duplicates that are present in the compiled model, we
 
 \begin{table}[hbtp]
 \centering
-\begin{tabular}{@{}ll@{}}
+\begin{tabular}{@{}lr@{}}
 \toprule
 \textbf{Model}          & \textbf{Weight duplication ratio} \\ \midrule
 efficientnet            & 22\%                              \\
