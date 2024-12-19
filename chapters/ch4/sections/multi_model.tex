@@ -79,11 +79,11 @@ At a frame rate of $\SI{200}{FPS}$, the time budget is exactly zero, indicating 
         \input{assets/tmp}
         \end{adjustbox}
         \caption{An increase in frame rate lowers the reconfiguration time budget}
-        \label{}
+        \label{fig:frame_rate_versus_time_budget}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
-        \begin{tabular}{@{}ll@{}}
+        \begin{tabular}{@{}rr@{}}
         \toprule
         Frame rate (FPS) & Reconf. budget (ms) \\ \midrule
         15               & 61.7                \\
@@ -98,7 +98,6 @@ At a frame rate of $\SI{200}{FPS}$, the time budget is exactly zero, indicating 
         \label{tab:common_fps}
     \end{subfigure}
     \caption[]{Input frame rate versus reconfiguration time budget}
-    \label{fig:frame_rate_versus_time_budget}
 \end{figure}
 
 If we have a set of different models (with varying sizes and processing times) we want to switch between, the system needs to be able to reach the highest required writing bandwidth:
