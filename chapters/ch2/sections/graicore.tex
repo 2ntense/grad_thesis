@@ -28,7 +28,7 @@ This compiler analyzes the neural network and generates optimized code that effi
 \subsection{Near-memory computing}
 The \graicore{} makes use of near-memory computing.
 Near-memory computing refers to a computer architecture where computation is performed close to the memory.
-This approach aims to mitigate the ``von Neumann bottleneck'', a limitation caused by the traditional computing architecture where the CPU (Central Processing Unit) and memory are separate entities, and data must be transferred back and forth between them \cite{indiveriMemoryInformationProcessing2015}.
+This approach aims to mitigate the ``von Neumann bottleneck'', a limitation caused by the traditional computing architecture where the CPU and memory are separate entities, and data must be transferred back and forth between them \cite{indiveriMemoryInformationProcessing2015}.
 By performing computations closer to where data is stored, data movement between the processing element and memory is minimized, reducing latency and energy consumption.
 However, this introduces a constraint that requires the parameters of a model to reside in local memory before it can be used by the processing element.
 Thus, an AI model must first be mapped and loaded onto the \graicore{} before it can be used for inference.
@@ -64,7 +64,7 @@ Events are only generated when an AI model is being executed.
 The \eventnoc{} uses the 2D torus topology.
 Secondly, the \confignoc{} is responsible for configuring the \graicore{}, monitoring and debugging.
 The \confignoc{} uses a different topology, namely a 2D mesh topology.
-Configuring the \graicore{} means that the local memories of the neuron cores are written with the parameters of an AI model.
+Configuring the \graicore{} involves writing the AI model parameters and other relevant data into the neuron cores' local memories to enable model execution.
 A host device (e.g., a microcontroller) initiates the configuration of the \graicore{}.
 The host device is connected to the \confignoc{} via a single link, which is used to transfer data to and from any neuron core.
 Since all data transfers must go through this link to reach its destination neuron core, it causes a significant bottleneck in data transfer speed to the \graicore{}.
