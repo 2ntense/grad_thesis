@@ -4,29 +4,8 @@ The performance of NoCs is influenced by various factors such as topology, routi
 With the goal in achieving optimal performance, researchers have looked into exploring different aspects of NoC design to enhance its efficiency.
 One key element that significantly impacts NoC performance is the choice of topology.
 Studies have shown that selecting an appropriate topology is critical as it affects zero-load latency, sustainable bandwidth, and power consumption \cite{chenPhysicalVsVirtual2010}.
-% For instance, the 2D mesh topology (see \cref{fig:config_noc}), as utilized in the \graicore{}, is commonly used in NoCs due to its scalability and fault tolerance, enabling efficient communication among cores.
 For instance, the 2D mesh topology (see \cref{fig:config_noc}) is commonly used in NoCs due to its scalability and ability to support efficient communication among cores.
 This topology allows for straightforward routing and is well-suited for large-scale systems \cite{sanchezAnalysisOnchipInterconnection2010}. 
-
-% \begin{figure}[htbp]
-% \centering
-% \includegraphics[width=0.45\textwidth]{assets/xdmesh_topology.pdf}
-% \caption{
-% An 6x6 XDMesh topology.
-% The darker blue shaded nodes feature additional diagonal links.
-% }
-% \label{fig:xdmesh_topology}
-% \end{figure}
-
-% Additionally, the extended diagonal mesh (XDMesh) has been proposed as an enhancement to the 2D mesh topology \cite{furhadExtendedDiagonalMesh2015}.
-% XDMesh improves the 2D mesh by incorporating diagonal links (see example in \cref{fig:xdmesh_topology}), which decrease the network diameter---the longest distance between two nodes situated at opposite diagonal corners of the 2D mesh.
-% This reduction in network diameter leads to lower communication delays and fewer hop counts.
-% Experimental results show that XDMesh achieves over $40\%$ better throughput and latency compared to the 2D mesh.
-% Furthermore, it outperforms the 2D mesh in terms of energy efficiency, with minimal differences in silicon area.
-% The experimental environment makes use of the uniform traffic model, where each node in the network generates and sends data packets to all other nodes with equal probability.
-% When transferring data from an external source, data is only injected into \graicore{}'s NoC via a single point.
-% For this reason, the employed uniform traffic model is not a representative traffic pattern for the \confignoc{}. 
-% However, the relatively small topology change introduced by XDMesh can still be worthwhile to consider for improving NoC's performance.
 
 Routing algorithms play a crucial role in determining the efficiency of data transmission in NoCs.
 Research has focused on developing novel routing algorithms to optimize performance.
@@ -51,9 +30,3 @@ Wider links can accommodate higher data rates, leading to improved throughput an
 However, the use of wider links also consumes more power, so there is a trade-off between performance and power consumption that designers need to consider when designing a NoC \cite{manhokimNetworkonchipLinkAnalysis2006}.
 Widening the link widths in the \graicore{}'s NoC is a relatively straightforward enhancement, making it an appealing solution for improving both throughput and latency.
 However, it is important to note that increasing the link widths also requires more silicon area due to the need for additional physical wires and increased router complexity.
-
-% In conclusion, NoC technology has emerged as a vital component in many-core processors, providing high throughput, low latency, and efficient power utilization.
-% The performance of NoCs is shaped by several key factors, including topology, routing algorithms, switching mechanisms, and link width.
-% Research has highlighted the importance of selecting the right topology, such as the XDMesh, which can significantly enhance performance by reducing communication delays and hop counts.
-% Efficient routing algorithms and switching techniques further optimize data transmission and power efficiency.
-% Additionally, adjusting link widths offers a means to improve throughput and latency, though it must be balanced against increased power consumption and silicon area.

@@ -106,7 +106,6 @@ These activation functions are applied to the output of the convolutional and po
 
 Finally, fully connected layers are often used in the final stages of a CNN.
 These layers connect every neuron in the previous layer to every neuron in the current layer.
-% This enables high-level reasoning and decision-making based on the extracted features.
 These layers combine the features extracted by previous layers to compute the final output of the network, such as a classification or prediction.
 
 The combining of simpler features into more complex ones across layers makes CNNs excel in computer vision tasks like image classification, object detection and image segmentation \cite{krizhevskyImageNetClassificationDeep2017}.
@@ -131,9 +130,3 @@ ResNets introduce skip connections, which allow the input of a layer to bypass o
 This seemingly simple modification has a major impact, enabling the training of much deeper networks while mitigating the vanishing gradient problem \cite{pascanuDifficultyTrainingRecurrent2012}.
 Skip connections provide an alternate path for gradients to flow during backpropagation, preventing them from diminishing excessively as they travel through many layers.
 This allows ResNets to learn more complex features and achieve higher accuracy with fewer parameters. 
-
-% \begin{figure}[hbtp]
-% \centering    
-% \includegraphics[width=3cm]{example-image-a}
-% \caption{TODO: ResNet image}
-% \end{figure}

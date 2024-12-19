@@ -1,7 +1,7 @@
 \section{Problem statement}
 The problem to be addressed in this thesis is the inability to execute large models and multiple models on the \graicore{}.
 The \graicore{} is an edge AI accelerator that was not designed for supporting large models or switching between multiple models, as one of its main design choices---keeping its memory self-contained---limits its total on-chip memory capacity and only supports slow external communication to load data.
-Due to this design, the \graicore{} is only configured (or pre-loaded) once with a model during its boot time.
+Due to this design, the \graicore{} is only configured (or preloaded) once with a model during its boot time.
 Furthermore, this design led to an interface between the external host and the \graicore{} in which the bandwidth was not an important factor.
 
 Adding the feature to the \graicore{} to allow it for rapid configuration during run-time can significantly enhance its capabilities.

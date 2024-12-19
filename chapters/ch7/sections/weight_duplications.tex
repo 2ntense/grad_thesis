@@ -1,15 +1,4 @@
 \section{Weight duplications}
-% When a model is compiled by the compiler, we obtain a summary of the memory requirements.
-% The memory requirements show how much memory space is required for the compiled model.
-% The memory requirements shows for each core specifically how much memory is reserved for:
-% \begin{itemize}
-%     \item Weights
-%     \item Masks
-%     \item States
-%     \item Headers
-%     \item Axons
-%     \item Queues
-% \end{itemize}
 One of the optimizations the compiler may perform to improve the inference latency is to use segmentation on certain layers (e.g., convolutional layers).
 This segmentation allows a layer to be segmented so that it can be executed in parallel (i.e., tensor parallelism).
 Performing this technique on the \graicore{}, so that a layer can be executed on multiple cores at the same time, certain weights must be present on the respective neuron cores.

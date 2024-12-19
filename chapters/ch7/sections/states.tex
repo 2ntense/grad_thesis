@@ -5,14 +5,6 @@ At initialization and for every new frame, the values in the states section will
 Before every new frame, the bias values are recomputed/initialized by the system.
 Due to advancements in the system, the transfer of the states data, once a necessary process, is now redundant.
 Therefore, we do not need to transfer the states from the external memory.
-% The accumulated values are computed as follows:
-% \begin{equation*}
-%     (\textrm{weight} \times \textrm{input}) + \textrm{bias}
-% \end{equation*}
-
-% For every new frame, the states section is initialized with a static set of bias values.
-% This initialization process does not retrieve the bias values from the external memory but...
-% \todo[inline]{Insert more explanation about states}
 
 Since the states do not have to be read during configuration, we can improve the energy consumption by avoiding the reading of the states.
 This allows us to read less data from the external memory, reducing the energy for configuration.
@@ -52,7 +44,6 @@ resnet101\_pruned\_p4   & 11\%                  & 80\%                 \\ \botto
 Looking at \cref{tab:states_ratio}, on average, $23\%$ is used for states section.
 We observe that the states ratio can reach half of the total bytes to be written to the \graicore{}.
 In certain cases, the states section can occupy up to half of all the data sections combined.
-% Thus, with the models in \cref{tab:states_ratio}, we can reduce the amount of data to be read from the external memory by up to a half.
 
 In terms of energy savings, the ResNet-50 model sees a decrease of 23\% in configuration energy when avoiding the reads of states from the external memory (see \cref{fig:resnet50_states_comparison}).
 

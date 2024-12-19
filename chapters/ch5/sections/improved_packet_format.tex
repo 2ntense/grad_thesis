@@ -2,7 +2,7 @@
 \label{section:improved_packet_format}
 With the current packet format, we observe that there is a significant overhead when writing and reading data.
 For every 32 bits of data we read or write, an overhead of 32 bits is also included.
-We explore new packet formats that reduces this overhead.
+We explore new packet formats that reduce this overhead.
 Instead of fixing only two phits containing the read or write data, we can extend the packet to hold more phits containing the data.
 We can do this while keeping only one header.
 There are a few constraints, however.
@@ -22,17 +22,10 @@ However, increasing the size of the packet will not always offer a considerable 
 To obtain an approximation of the potential speed gains when transferring \SI{36}{MiB} to the \graicore{}, we use \cref{eq:latency}.
 The amount of overhead can be calculated with \cref{eq:length_field_overhead}.
 
-% \begin{equation}
-%     d_{\text{overhead}} = \frac{d_{\text{payload}}}{n} \times \frac{d_{\text{header}}}{w_{\text{phit}}}
-% \label{eq:length_field_overhead}
-% \end{equation}
-
 \begin{equation}
     d_{\textrm{overhead}} = \frac{d_{\textrm{payload}}}{n \times w_\textrm{phit}} \times d_\textrm{header}
 \label{eq:length_field_overhead}
 \end{equation}
-
-% TODO this formula does not include how many cores we are transferring to
 
 \begin{eqexpl}[15mm]
     \item{$n$} maximum number of data phits per packet
@@ -140,4 +133,3 @@ Notice that the latency numbers are similar to the optimal latencies as in the `
 \caption{Best obtainable latencies when using the ``end bit'' approach}
 \label{tab:end_bit_latency}
 \end{table}
-

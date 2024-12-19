@@ -1,17 +1,8 @@
 \section{\graicore{}}
 In this research, we focus on the \graicore{}, a many-core AI accelerator designed specifically for edge devices \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
-% The \graicore{} utilizes the ``NeuronFlow'' technology that is inspired by the neural structures of the brain \cite{moreiraNeuronFlowNeuromorphicProcessor2020}.
 The \graicore{} prioritizes energy efficiency while offering specialized hardware for execution of neural networks. 
 Its main use case is computer vision applications using models based on convolutional neural networks (CNNs).
 It features a total of 144 neuron cores, arranged in a 12 by 12 grid.
-% A neuron core includes a local SRAM memory for storing data such as model parameters and a processing element for performing mathematical operations (see \cref{fig:neuron_core}).
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.4\textwidth]{assets/neuron_core.pdf}
-%     \caption{The neuron core includes a processing element (core) and a local memory (a.k.a. unified memory)}
-%     \label{fig:neuron_core}
-% \end{figure}
 
 Each neuron core is connected to a distinct SRAM, which stores all the relevant information for processing incoming events.
 A neuron core uses an event processing pipeline to handle incoming events from an input sensor or other neuron cores.
@@ -31,7 +22,6 @@ This can involve employing data parallelism, where different neuron cores proces
 Pipelining can further enhance efficiency by dividing the computation into stages and allowing concurrent execution.
 Communication between neuron cores is another crucial factor.
 The \graicore{} employs specialized interconnect networks to facilitate efficient data exchange.
-% Synchronization mechanisms ensure correct execution, and collective operations are used to aggregate results from multiple cores.
 While this mapping process can be complex, a specialized compiler has been made to automate these tasks.
 This compiler analyzes the neural network and generates optimized code that efficiently utilizes the \graicore{}'s available resources.
 
@@ -42,9 +32,6 @@ This approach aims to mitigate the ``von Neumann bottleneck'', a limitation caus
 By performing computations closer to where data is stored, data movement between the processing element and memory is minimized, reducing latency and energy consumption.
 However, this introduces a constraint that requires the parameters of a model to reside in local memory before it can be used by the processing element.
 Thus, an AI model must first be mapped and loaded onto the \graicore{} before it can be used for inference.
-% Mapping means to assign the layers of a neural network to the neuron cores.
-% Intelligent mapping is important for balancing memory, computation and traffic between neuron cores.
-% The \graicore{} features a total of \SI{36}{MiB} of local memory, which is evenly distributed across its $144$ neuron cores.
 The \graicore{} features a total of \SI{36}{MiB} of on-chip SRAM memory, which is evenly distributed across its $144$ neuron cores, with each neuron core having \SI{256}{KiB} of memory.
 
 The size of an AI model can be quantified by the number of its parameters.
@@ -54,9 +41,7 @@ Using optimization techniques, these models can be compressed into smaller sizes
 For example, YOLOv7-tiny \cite{wangYOLOv7TrainableBagoffreebies2022} is a size optimized model of the YOLOv7 for edge devices at the cost of accuracy.
 Its size is decreased to around \SI{6}{M} parameters, making it suitable for the \graicore{}.
 Furthermore, it has been demonstrated that the ResNet-50 model can be mapped on the \graicore{} after pruning around 80\% of the parameters and quantizing the remaining parameters to 8 bits.
-% In summary, the number of parameters that can be stored on the \graicore{} is limited by the size of its on-chip memory.
 
-% TODO change to subcaption
 \begin{figure}[htbp]
     \centering
     \subfloat[The \eventnoc{} features a 2D torus topology]{
@@ -85,5 +70,3 @@ The host device is connected to the \confignoc{} via a single link, which is use
 Since all data transfers must go through this link to reach its destination neuron core, it causes a significant bottleneck in data transfer speed to the \graicore{}.
 That is, the amount of data that can be transferred to the neuron cores within a certain time is poor as it was not designed with speed in mind.
 Therefore, currently, the configuration of the memories of the neuron cores is only performed once at the start.
-% This limitation restricts the \graicore{} to be (partially) reconfigured at run-time.
-

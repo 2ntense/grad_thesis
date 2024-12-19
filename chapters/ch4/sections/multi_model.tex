@@ -14,7 +14,6 @@ To determine the required write bandwidth for configuring a model, we need the f
 
 The amount of time we have available to configure the \graicore{} is dependent on the input frame rate and frame processing latency.
 For example, for an input frame rate of \SI{60}{FPS}, we have a period of \SI{16.7}{ms} between every two frames.
-% Suppose we want to process every new incoming frame with another model, all with a frame processing latency of \SI{5}{ms}. 
 Suppose we want to process every new incoming frame with another model.
 With every model having a frame processing latency of \SI{5}{ms}. 
 Due to the frame processing latency, we only have a time budget of \SI{11.7}{ms}\footnote{\SI{16.7}{ms} - \SI{5}{ms}} to reconfigure the \graicore{} with the next model.
@@ -31,7 +30,6 @@ The invariant latency is desired and indicates a seamless reconfiguration.
 \Cref{fig:incorrect_reconfig} has an increased reconfiguration time.
 Now, the sum of the reconfiguration and processing time does exceed the frame time.
 As a consequence, the frame processing latency increases for each incoming frame.
-% In the long run, latency will continue to increase, eventually leading to erroneous behavior in the system.
 In the long run, latency will continue to increase, eventually causing erroneous behavior, such as dropped frames (where frames are skipped) and slower processing rates.
 Since the latency varies, this is an example of a non-seamless reconfiguration.
 
@@ -64,8 +62,6 @@ We calculate the required effective bandwidth for configuring model $m$ with \cr
 
 In the worst-case scenario, we have to configure the \graicore{} with a model requiring to write the total capacity of the \graicore{} (\SI{36}{\mebi\byte}).
 In this particular instance, we require a minimum write bandwidth of $\SI{3086}{\mebi\byte\per\second}$\footnote{$\frac{\SI{36}{\mebi\byte}}{\frac{1}{\SI{60}{\hertz}} - \SI{5}{\milli\second}} \approx \SI{3086}{\mebi\byte\per\second}$} for $\SI{60}{FPS}$, assuming the model's processing time is \SI{5}{ms}.
-% Note that this bandwidth number does not include any overhead induced by communication protocols. Therefore, in practice, the required minimum bandwidth is higher. 
-% This bandwidth calculation provides a baseline for the effective bandwidth.
 The actual bandwidth needed will be higher due to overhead introduced by various factors, including the specific communication protocol(s) used.
 For example, using the network packet format of the current \confignoc{}, 50\% of the total data transferred is overhead.
 The system then requires an actual bandwidth of double the effective bandwidth.
@@ -109,4 +105,3 @@ If we have a set of different models (with varying sizes and processing times) w
 \begin{equation}
     \bandwidth = \max\{\,m \in M \mid \bandwidth_m \,\} 
 \end{equation}
-

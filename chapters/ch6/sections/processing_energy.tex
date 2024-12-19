@@ -1,5 +1,4 @@
 \section{Processing energy}
-%TODO explain what processing energy entails
 The processing energy is the energy consumed when the \graicore{} is processing an input frame with a specific configured model.
 Note that the \graicore{} uses the \eventnoc{} for communication between nodes when processing input frames, the \confignoc{} is not involved in this process.
 
@@ -20,12 +19,9 @@ These parameters can be obtained by simulating the mapped model with the proprie
 The processing latency ($\latproc$) is the time the model takes to fully process a single frame, from input to output.
 Cores used ($\coresused$) is the number of neuron cores that were used to execute the model.
 Average utilization ($\avgutil$) is the average percentage of the time the cores were active while the frame was processed. 
-% The constant \SI{21}{mW} is the approximated power usage of a single neuron core while it's being fully utilized.
 Average core power ($\pcore$) is the average power a single neuron core consumes while performing inference on a frame.
 The average core power varies depending on what type of neural network is being processed.
 
 Since the \confignoc{} is not involved in the processing of an input frame, any change to the \confignoc{} does not influence the processing energy.
 A significant factor (other than hardware changes) that may affect the processing energy is the mapping performed by the compiler on the original model. 
 Different mappings on the same model have an effect on the average utilization and the number of neuron cores used, which in turn influences the processing latency.
-
-% TODO explain that this equation is not very accurate
