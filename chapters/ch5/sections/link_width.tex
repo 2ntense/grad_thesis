@@ -3,7 +3,6 @@ With a link width of 16 bits, the \confignoc{} can transfer 16 bits in a single 
 Widening the links increases the amount of data that can be transferred in a single cycle.
 Physically, this means that the number of wires for each link increases.
 Furthermore, the routers need to be enlarged to support the change in link width.
-This includes an expansion in buffer size and size of the crossbar switch. % TODO add ref
 While these changes increase silicon area and power consumption, the overall impact on the system remains minimal.
 
 \Cref{tab:latency_bandwidth_phit_width_packet_format,fig:latency_bandwidth_phit_width_packet_format} show for three different phit widths the time it takes to fill the \graicore{} and the associated effective bandwidth for the current and the improved packet format.
@@ -12,7 +11,7 @@ For the new packet format, we assume that there is minimal overhead.
 \begin{table}[hbtp]
 \centering
 \begin{adjustbox}{width=\linewidth}
-\begin{tabular}{@{}lllll@{}}
+\begin{tabular}{@{}rrrrr@{}}
 \toprule
                     & \multicolumn{2}{l}{\textbf{Latency (ms)}} & \multicolumn{2}{l}{\textbf{Effective bandwidth (GiB/s)}} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5}
 \textit{Phit width} & \textit{Current packet format}    & \textit{New packet format}   & \textit{Current packet format}    & \textit{New packet format}   \\ \midrule
