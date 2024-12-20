@@ -1,6 +1,6 @@
 \section{Bandwidth}
 The \confignoc{}'s bandwidth is influenced by its unique characteristics.
-While each link has a peak bandwidth of \SI{12.8}{Gb/s}\footnote{$\SI{16}{b} \times \SI{800}{MHz}$}, the effective bandwidth available for application data is closer to \SI{6.4}{Gb/s}.
+While each link has a peak bandwidth of \SI{12.8}{Gb/s}\footnote{$\SI{16}{b} \times \SI{800}{MHz} = \SI{12.8}{Gb/s}$}, the effective bandwidth available for application data is closer to \SI{6.4}{Gb/s}.
 This reduction is solely due to the 50\% overhead imposed by the 32-bit header in each packet.
 
 Multi-hop transfers in a 2D mesh network typically suffer from increased latency as distance increases.
@@ -40,8 +40,8 @@ The effective bandwidth can be calculated with \cref{eq:bandwidth}.
     \item{$w_{\text{phit}}$} width of a phit
 \end{eqexpl}
 
-For example, to completely fill up the \graicore{}'s memory (\SI{36}{MiB}), it will take around \SI{47}{ms}\footnote{$\frac{\SI{36}{MiB} + \SI{36}{MiB}}{\SI{800}{MHz} \times \SI{16}{b}}$}.
-This translates to an effective bandwidth of \SI{6.4}{Gb/s} or \SI{763}{MiB/s}\footnote{$\frac{\SI{36}{MiB}}{\SI{47}{ms}}$}, similar to the effective bandwidth for a single link.
+For example, to completely fill up the \graicore{}'s memory (\SI{36}{MiB}), it will take around \SI{47.2}{ms}\footnote{$\frac{\SI{36}{MiB} + \SI{36}{MiB}}{\SI{800}{MHz} \times \SI{16}{b}} \approx \SI{47.2}{ms}$}.
+This translates to an effective bandwidth of \SI{6.4}{Gb/s} or \SI{763}{MiB/s}\footnote{$\frac{\SI{36}{MiB}}{\SI{47.2}{ms}} \approx \SI{763}{MiB/s}$}, similar to the effective bandwidth for a single link.
 Here we assumed that no delays are introduced by software and reading the data from external storage.
 Furthermore, delays introduced by hops through the \confignoc{} are minimal due to pipelining.
 Thus, \cref{eq:bandwidth} provides us the \confignoc{}'s peak effective bandwidth.

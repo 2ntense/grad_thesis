@@ -222,7 +222,7 @@ Even if the parameters are quantized to an 8-bit datatype, the model will still 
 Weights stored on the \graicore{} require one extra bit.
 This extra bit is used to indicate whether a weight is removed (i.e., pruned) or not.
 However, since we are using the original ResNet-101, no pruning has been applied to the weights.
-We can roughly say that the network requires \SI{47.7}{MiB}\footnote{$\frac{\num{44496488} \times 9}{8} \times \frac{1}{2^{20}}$} of memory capacity for the parameters when quantized to 8 bits.
+We can roughly say that the network requires \SI{47.7}{MiB}\footnote{$\frac{\num{44496488} \times 9}{8} \times \frac{1}{2^{20}} \approx \SI{47.7}{MiB}$} of memory capacity for the parameters when quantized to 8 bits.
 However, this does not include any mandatory header information and buffer space when mapping the network for the \graicore{}. 
 
 We use the compiler to find a valid mapping for the \graicore{}, with focus on low processing latency.
@@ -284,6 +284,6 @@ The available time for the configuration of all parts is dependent on the target
 We observe that it is not possible to target a frame rate of \SI{60}{FPS}.
 This is due to the total processing latency exceeding the frame time of \SI{16.67}{ms}. 
 For a target frame rate of \SI{30}{FPS}, we have a frame time of \SI{33.33}{ms}.
-For the configuration of the parts, we have a total time budget of \SI{15.12}{ms}\footnote{$\SI{33.33}{ms} - \SI{18.12}{ms}$}.
-To write all the \SI{112.51}{MiB} to configure each model part, we require a bandwidth of at least \SI{7441}{MiB/s}\footnote{$\frac{\SI{112.51}{MiB}}{\SI{15.12}{ms}}$}.
+For the configuration of the parts, we have a total time budget of \SI{15.21}{ms}\footnote{$\SI{33.33}{ms} - \SI{18.12}{ms} = \SI{15.21}{ms}$}.
+To write all the \SI{112.51}{MiB} to configure each model part, we require a bandwidth of at least \SI{7397}{MiB/s}\footnote{$\frac{\SI{112.51}{MiB}}{\SI{15.21}{ms}} \approx \SI{7397}{MiB/s}$}.
 \Cref{fig:large_model_bandwidth_analysis_example_resnet101} shows the reachable frame rates with different bandwidths.

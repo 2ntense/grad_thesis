@@ -2,6 +2,7 @@
 \label{section:configuration_energy}
 The configuration energy is the energy consumed when transferring a model from the off-chip memory to the GrAICore's on-chip memories.
 
+\subsection{Configuration process}
 We explore the potential of integrating the DDR (double data rate) interface as a future external memory solution for the \graicore{}.
 The integration of a DDR interface could bring about substantial benefits in performance.
 Its high bandwidth has the potential to rapidly transfer AI models between the off-chip and on-chip memory, leading to faster configuration times.
@@ -38,7 +39,6 @@ A typical system with external memory and DDR interface looks as shown in \cref{
     \item[AXI Bus:] 
     The AXI bus (Advanced eXtensible Interface) is a standardized, high-performance interconnect used to connect different components within a SoC \cite{ARM_AXI_Specification}.
     It enables parallel data transfer, facilitating high bandwidth and low latency communication between the components.
-    % Specifically, we explore AXI 4.0.
     \item[\graicore{}:] 
     The major components of the \graicore{} that contribute to the configuration energy is the data transfers through its \confignoc{} and the writing of data to the SRAMs.
 \end{description}
@@ -61,6 +61,7 @@ The packets traverse the \confignoc{}, potentially hopping between multiple rout
 The data is then written into specific memory locations within the neuron core's SRAM, determined by a predefined mapping scheme or address translation mechanism.
 With the data now residing in the neuron core's SRAM, it becomes readily available for processing by the neuron core.
 
+\subsection{Modeling}
 For the analysis, we assume that we are using the newly proposed \confignoc{} in \cref{sec:proposed_noc}. 
 With the new packet format, a packet contains at most 64 data phits of 64 bits each.
 That is, a maximum of 512 bytes\footnote{$64 \times \frac{\SI{64}{b}}{8} = \SI{512}{B}$} of payload per packet.
@@ -89,9 +90,7 @@ These are the main components for the energy consumption in the \graicore{}.
 The \confignoc{} consumes energy by transferring the phits to its destinations via one or multiple hops through the NoC.
 The SRAM consumes energy by writing the data to its banks.
 
-\subsection{Modeling}
 The configuration energy consists of the reading, transferring and writing of data from the external memory to the \graicore{}'s SRAMs. 
-
 Let $C$ be the set of tuples holding the coordinates of every core:
 \begin{equation*}
     C = \{\,\left(x,y\right) \in \mathbb{N}^2 \mid 0 \leq x \leq 11 \wedge 0 \leq y \leq 11 \,\} 
